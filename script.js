@@ -458,15 +458,16 @@
         ['assets/editorial-acg-fan.webp', 'tall', 'Airflow device / asset language']
       ]
     },
-    future: {
-      kicker: 'DESIGN THE FUTURE / HONOR THE PAST',
-      title: 'VELOCITÀ FUTURA',
-      description: 'A racing-eyewear campaign that translates Cinelli’s visual memory into a future-facing product world. Heritage becomes material, color, speed and a new object of desire.',
-      tags: ['PRODUCT STORY', 'HERITAGE', 'CAMPAIGN', 'INDUSTRIAL DESIGN', 'CULTURE'],
+    'meta-cinelli': {
+      kicker: 'MOTION, SHARED / SPECULATIVE META × CINELLI',
+      title: 'STAY IN THE MOMENT',
+      description: 'An independent creative-strategy concept that extends the iconic Cinelli Aero Visor with a flush central camera and a Meta-enabled experience system. The idea connects hands-free capture, contextual AI, Reels, Feed and Messaging without interrupting athletic flow.',
+      tags: ['CREATIVE STRATEGY', 'META ECOSYSTEM', 'PERFORMANCE', 'AI EXPERIENCE', 'CAMPAIGN SYSTEM', 'RESPONSIBLE DESIGN'],
       media: [
-        ['assets/cinelli-aero-visor-product.jpg', '', 'Aero Visor / future-facing product hero'],
-        ['assets/cinelli-aero-visor-rider.jpg', '', 'Racing memory / campaign in motion'],
-        ['assets/cinelli-aero-visor-hero.jpg', '', 'Aero Visor / frontal campaign hero']
+        ['assets/meta-cinelli-heritage-to-tech-hero-v2.png', 'wide', 'Aero heritage translated into connected vision'],
+        ['assets/meta-cinelli-product-studio-v2.png', 'wide', 'Product hero / perception built in'],
+        ['assets/meta-cinelli-athlete-hero-no-header.png', 'wide', 'Hero film / the moment stays in motion'],
+        ['assets/meta-cinelli-connected-peloton-female-cinelli.png', 'wide', 'Female peloton / Cinelli connected community']
       ]
     }
   });
@@ -596,6 +597,15 @@
   const narrativeChapters = $$('[data-journey-chapter]');
   const narrativeStart = $('#act-feel');
   const narrativeEnd = $('#contact');
+  const placesFacesStage = $('#placesFacesStage');
+  const placesFacesFrames = $$('.places-faces__frame', placesFacesStage);
+  const placesFacesCount = $('#placesFacesCount');
+  const placesFacesCaption = $('#placesFacesCaption');
+  const placesFacesProgress = $('#placesFacesProgress');
+  const placesFacesViewer = $('#placesFacesViewer');
+  const placesFacesViewerImage = $('#placesFacesViewerImage');
+  const placesFacesViewerCaption = $('#placesFacesViewerCaption');
+  const placesFacesClose = $('#placesFacesClose');
   const gramicciSection = $('#gramicci');
     const gramicciStops = $$('#gramicciRoute button');
   const gramicciStop = $('#gramicciStop');
@@ -635,6 +645,20 @@
     [.64, .66, .785, .805],
     [.82, .84, .975, .995]
   ];
+  const milanoFoodSection = $('#milano-food-icons');
+  const milanoFoodSpecimens = $$('[data-milano-specimen]', milanoFoodSection);
+  const milanoFoodMapStops = $$('[data-milano-map-stop]', milanoFoodSection);
+  const milanoFoodButtons = $$('[data-milano-target]', milanoFoodSection);
+  const milanoFoodProgress = $('#milanoFoodProgress');
+  const milanoFoodCode = $('#milanoFoodCode');
+  const milanoFoodName = $('#milanoFoodName');
+  const milanoFoodText = $('#milanoFoodText');
+  const milanoFoodReadouts = [
+    ['FIELD GUIDE / 00', 'THE BOOK IS CLOSED.', 'Scroll to open a city through the rituals that give it flavour.'],
+    ['MILANO / 01', 'FOLLOW THE TASTE.', 'The notebook unfolds into a cultural route—not a restaurant guide, but a map of collective memory.'],
+    ['DESTINATION / 02', 'EDIBLE LANDMARKS.', 'Panettone, risotto and costoletta rise from the page as three distinct expressions of Milan.'],
+    ['COLLECTION / 03', 'THREE ICONS. ONE CITY.', 'A journey through celebration, ritual and tradition becomes a compact campaign world.']
+  ];
   const acgExperience = $('#acgExperience');
   const acgFrame = $('#acgFrame');
   const acgCards = $$('#acgExperience [data-acg-layer]');
@@ -655,6 +679,51 @@
   const nav = $('#nav');
   const navHoverQuery = matchMedia('(hover: hover) and (pointer: fine)');
   const navIntroUntil = performance.now() + 5200;
+  const micro1Stage = $('#micro1Stage');
+  const micro1DimensionButtons = $$('[data-micro1-dimension]', micro1Stage);
+  const micro1Code = $('#micro1Code');
+  const micro1Label = $('#micro1Label');
+  const micro1Name = $('#micro1Name');
+  const micro1Description = $('#micro1Description');
+
+  const micro1Dimensions = {
+    if: ['01', 'IF', 'INSTRUCTION FOLLOWING', 'Checks whether the result follows every explicit and implicit request without conflicting with the user’s intent.'],
+    ic: ['02', 'IC', 'IMAGE / STYLE CONSISTENCY', 'Compares the edit with the original across subject, layout, crop and style—especially backgrounds, faces and unchanged regions.'],
+    q: ['03', 'Q', 'QUALITY', 'Judges only the edit quality: blending, edges, texture, lighting, shadows, resolution and visible artifacts.'],
+    ai: ['04', 'AI', 'NATURALNESS / AI-NESS', 'Measures how natural the edit feels, looking for warped structure, anatomy errors, plastic texture, duplicated details and other AI artifacts.'],
+    overall: ['05', 'OVERALL', 'OVERALL PREFERENCE', 'Answers the final question: if you requested this edit, how strongly would you prefer this result?']
+  };
+
+  const setMicro1Dimension = key => {
+    const content = micro1Dimensions[key];
+    if (!content || !micro1Stage) return;
+    micro1Stage.dataset.activeDimension = key;
+    micro1DimensionButtons.forEach(button => {
+      const active = button.dataset.micro1Dimension === key;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-selected', String(active));
+    });
+    micro1Code.textContent = content[0];
+    micro1Label.textContent = content[1];
+    micro1Name.textContent = content[2];
+    micro1Description.textContent = content[3];
+  };
+
+  micro1DimensionButtons.forEach(button => button.addEventListener('click', () => setMicro1Dimension(button.dataset.micro1Dimension)));
+
+  if (micro1Stage && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    micro1Stage.addEventListener('pointermove', event => {
+      const bounds = micro1Stage.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / Math.max(1, bounds.width) - .5;
+      const y = (event.clientY - bounds.top) / Math.max(1, bounds.height) - .5;
+      micro1Stage.style.setProperty('--micro1-rx', `${(-y * 8).toFixed(2)}deg`);
+      micro1Stage.style.setProperty('--micro1-ry', `${(x * 10).toFixed(2)}deg`);
+    });
+    micro1Stage.addEventListener('pointerleave', () => {
+      micro1Stage.style.setProperty('--micro1-rx', '0deg');
+      micro1Stage.style.setProperty('--micro1-ry', '0deg');
+    });
+  }
 
   // HOUSE OF MERC waits for a deliberate horizontal tear before its story unlocks.
   let mercRipped = false;
@@ -666,6 +735,113 @@
   let mercLastScrollY = scrollY;
   let mercGateCorrection = 0;
   let mercTouchY = 0;
+  let mercNavigationBypassUntil = 0;
+
+  // Full-screen visual chapters get a short, single-beat dwell when they settle
+  // into the viewport. The pause is temporal rather than a long scroll trap.
+  const heroPauseFrames = $$('[data-hero-pause]');
+  const heroPausePreference = matchMedia('(prefers-reduced-motion: reduce)');
+  const heroPausedFrames = new Set();
+  const heroPauseKeys = new Set(['ArrowDown', 'PageDown', 'End', ' ']);
+  let heroPauseMetrics = [];
+  let heroPauseElement = null;
+  let heroPauseTop = 0;
+  let heroPauseUntil = 0;
+  let heroPauseFrame = 0;
+  let heroPauseLastY = scrollY;
+  let heroNavigationBypassUntil = location.hash ? performance.now() + 1800 : 0;
+
+  const heroDocumentTop = element => {
+    let top = 0;
+    let node = element;
+    while (node) {
+      top += node.offsetTop || 0;
+      node = node.offsetParent;
+    }
+    return top;
+  };
+
+  const refreshHeroPauseMetrics = () => {
+    heroPauseMetrics = heroPauseFrames
+      .filter(element => element.offsetHeight >= innerHeight * .82)
+      .map(element => ({ element, top: heroDocumentTop(element) }))
+      .sort((a, b) => a.top - b.top);
+  };
+
+  const finishHeroPause = () => {
+    cancelAnimationFrame(heroPauseFrame);
+    heroPauseFrame = 0;
+    heroPauseElement = null;
+    document.body.classList.remove('is-hero-paused');
+    heroPauseLastY = scrollY;
+  };
+
+  const pinHeroPause = now => {
+    if (!heroPauseElement || now >= heroPauseUntil) {
+      finishHeroPause();
+      return;
+    }
+    if (Math.abs(scrollY - heroPauseTop) > .5) window.scrollTo({ top: heroPauseTop, left: scrollX, behavior: 'auto' });
+    heroPauseLastY = heroPauseTop;
+    heroPauseFrame = requestAnimationFrame(pinHeroPause);
+  };
+
+  const beginHeroPause = metric => {
+    if (heroPausePreference.matches || performance.now() < heroNavigationBypassUntil) return;
+    heroPauseElement = metric.element;
+    heroPauseTop = metric.top;
+    heroPauseUntil = performance.now() + 520;
+    heroPausedFrames.add(metric.element);
+    document.body.classList.add('is-hero-paused');
+    cancelAnimationFrame(heroPauseFrame);
+    window.scrollTo({ top: heroPauseTop, left: scrollX, behavior: 'auto' });
+    heroPauseFrame = requestAnimationFrame(pinHeroPause);
+  };
+
+  refreshHeroPauseMetrics();
+  window.addEventListener('load', refreshHeroPauseMetrics, { once: true });
+  window.addEventListener('resize', refreshHeroPauseMetrics);
+
+  window.addEventListener('wheel', event => {
+    if (!heroPauseElement) return;
+    event.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener('touchmove', event => {
+    if (!heroPauseElement) return;
+    event.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener('keydown', event => {
+    const editable = event.target instanceof HTMLElement && event.target.matches('input, textarea, select, [contenteditable="true"]');
+    if (!editable && heroPauseElement && heroPauseKeys.has(event.key)) event.preventDefault();
+  });
+
+  window.addEventListener('scroll', () => {
+    const currentY = scrollY;
+    if (heroPauseElement) {
+      heroPauseLastY = heroPauseTop;
+      return;
+    }
+
+    heroPauseMetrics.forEach(metric => {
+      if (currentY < metric.top - innerHeight * .35) heroPausedFrames.delete(metric.element);
+    });
+
+    const travel = currentY - heroPauseLastY;
+    if (travel > .5 && travel < innerHeight * 1.2 && performance.now() >= heroNavigationBypassUntil) {
+      const crossedHero = heroPauseMetrics.find(metric => (
+        !heroPausedFrames.has(metric.element)
+        && heroPauseLastY <= metric.top + 2
+        && currentY > metric.top + 2
+      ));
+      if (crossedHero) {
+        beginHeroPause(crossedHero);
+        return;
+      }
+    }
+    heroPauseLastY = currentY;
+  }, { passive: true });
 
   const mercGateProgress = .155;
   const getMercScrollBounds = () => {
@@ -687,6 +863,23 @@
     else if (!mercRipped) mercPackStatus.textContent = 'FOIL SEALED / 5 CARDS INSIDE';
   };
 
+  // Index links are explicit destinations. Give their smooth anchor travel enough time
+  // to cross the House of Merc beat without turning that manual-scroll beat off.
+  $$('.index-panel a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    const hash = link.getAttribute('href');
+    const destination = hash && document.querySelector(hash);
+    if (!destination) return;
+    event.preventDefault();
+    mercNavigationBypassUntil = performance.now() + 4500;
+    heroNavigationBypassUntil = performance.now() + 1800;
+    finishHeroPause();
+    cancelAnimationFrame(mercGateCorrection);
+    setMercGate(false);
+    mercLastScrollY = scrollY;
+    history.pushState(null, '', hash);
+    requestAnimationFrame(() => destination.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }));
+
   const holdAtMercGate = () => {
     const bounds = getMercScrollBounds();
     if (!bounds || mercRipped) return;
@@ -700,7 +893,7 @@
   };
 
   const shouldHoldMercGate = projectedY => {
-    if (!mercSection || mercRipped) return false;
+    if (!mercSection || mercRipped || performance.now() < mercNavigationBypassUntil) return false;
     const bounds = getMercScrollBounds();
     if (!bounds) return false;
     const approachingFromAbove = scrollY >= bounds.sectionTop - innerHeight * .12 && scrollY < bounds.sectionEnd;
@@ -816,6 +1009,11 @@
   window.addEventListener('scroll', () => {
     const currentY = scrollY;
     const bounds = getMercScrollBounds();
+    if (performance.now() < mercNavigationBypassUntil) {
+      if (mercGateEngaged) setMercGate(false);
+      mercLastScrollY = currentY;
+      return;
+    }
     if (!bounds || mercRipped) {
       mercLastScrollY = currentY;
       return;
@@ -915,6 +1113,22 @@
   configureAboutShuffle();
   if (aboutMotionPreference.addEventListener) aboutMotionPreference.addEventListener('change', configureAboutShuffle);
 
+  const musicEasterEgg = $('#musicEasterEgg');
+  const musicEasterEggIntro = $('#musicEasterEggIntro');
+  let musicEasterEggLaunching = false;
+  if (musicEasterEgg && musicEasterEggIntro) {
+    musicEasterEgg.addEventListener('click', () => {
+      if (musicEasterEggLaunching) return;
+      musicEasterEggLaunching = true;
+      musicEasterEggIntro.classList.add('is-playing');
+      musicEasterEggIntro.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        window.location.assign('https://kr34mi-mixtape.alexandre-bersia.chatgpt.site/');
+      }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 450 : 1850);
+    });
+  }
+
   window.addEventListener('message', event => {
     if (event.source !== acgFrame?.contentWindow || event.data?.type !== 'acg-weather') return;
     const temperature = String(event.data.temperature || '--°');
@@ -945,6 +1159,19 @@
         const range = journeyRanges[index];
         const targetProgress = (range[1] + range[2]) / 2;
         window.scrollTo({ top: sectionTop + scrollableDistance * targetProgress, behavior: 'smooth' });
+      });
+    });
+  }
+
+  if (milanoFoodSection && milanoFoodButtons.length) {
+    milanoFoodButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        heroNavigationBypassUntil = performance.now() + 1800;
+        finishHeroPause();
+        const sectionTop = scrollY + milanoFoodSection.getBoundingClientRect().top;
+        const scrollableDistance = Math.max(1, milanoFoodSection.offsetHeight - innerHeight);
+        const targets = [.02, .26, .39, .82];
+        window.scrollTo({ top: sectionTop + scrollableDistance * targets[index], behavior: 'auto' });
       });
     });
   }
@@ -989,6 +1216,69 @@
     gramicciVisual.addEventListener('pointercancel', stopGramicciDrag);
   }
 
+  const sectionProgressMemory = new WeakMap();
+  const sectionMetrics = new WeakMap();
+  const motionLayout = { formMaxX: 0, measureFrame: 0 };
+  const motionSections = [...new Set([
+    ...narrativeThresholds,
+    ...narrativeChapters,
+    formSection,
+    mercSection,
+    cupraSection,
+    movementIntro,
+    fffMovement,
+    gramicciSection,
+    journeySection,
+    metaThinking,
+    acgExperience,
+    systemsSection,
+    narrativeStart,
+    narrativeEnd
+  ].filter(Boolean))];
+
+  function measureMotionSection(section) {
+    let top = 0;
+    let node = section;
+    while (node) {
+      top += node.offsetTop || 0;
+      node = node.offsetParent;
+    }
+    const metric = { top, height: section.offsetHeight };
+    sectionMetrics.set(section, metric);
+    return metric;
+  }
+
+  function refreshMotionMetrics() {
+    motionSections.forEach(measureMotionSection);
+    const rootPadding = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-x')) || 40;
+    const trackPadding = formTrack ? (parseFloat(getComputedStyle(formTrack).paddingRight) || rootPadding * 3) : 0;
+    motionLayout.formMaxX = formTrack
+      ? Math.max(0, formTrack.scrollWidth - innerWidth + rootPadding + trackPadding * .3)
+      : 0;
+  }
+
+  function scheduleMotionMetrics() {
+    cancelAnimationFrame(motionLayout.measureFrame);
+    motionLayout.measureFrame = requestAnimationFrame(refreshMotionMetrics);
+  }
+
+  function sectionProgress(section) {
+    if (!section) return 0;
+    const metric = sectionMetrics.get(section) || measureMotionSection(section);
+    const distance = metric.height - innerHeight;
+    return distance > 0 ? clamp((scrollY - metric.top) / distance) : 0;
+  }
+
+  function sectionIsNearViewport(section, buffer = 1.75) {
+    if (!section) return false;
+    const metric = sectionMetrics.get(section) || measureMotionSection(section);
+    const margin = innerHeight * buffer;
+    return metric.top + metric.height >= scrollY - margin
+      && metric.top <= scrollY + innerHeight + margin;
+  }
+
+  refreshMotionMetrics();
+
   let lastScroll = scrollY;
   let scrollVelocity = 0;
   let smoothedScroll = scrollY;
@@ -997,29 +1287,22 @@
   let smoothedLogoMouseX = 0;
   let smoothedLogoMouseY = 0;
   let previousFrameTime = performance.now();
-  const sectionProgressMemory = new WeakMap();
   let rafId;
-
-  function sectionProgress(section) {
-    const rect = section.getBoundingClientRect();
-    const distance = section.offsetHeight - innerHeight;
-    return distance > 0 ? clamp(-rect.top / distance) : 0;
-  }
 
   function easedSectionProgress(section, deltaSeconds, speed = 7) {
     const target = sectionProgress(section);
     const current = sectionProgressMemory.has(section) ? sectionProgressMemory.get(section) : target;
-    const next = Math.abs(target - current) < .00005 ? target : damp(current, target, speed, deltaSeconds);
+    const next = Math.abs(target - current) < .00015 ? target : damp(current, target, speed * .82, deltaSeconds);
     sectionProgressMemory.set(section, next);
     return next;
   }
 
   function frame(now = performance.now()) {
-    const deltaSeconds = clamp((now - previousFrameTime) / 1000, 0, .05);
+    const deltaSeconds = clamp((now - previousFrameTime) / 1000, 0, .033);
     previousFrameTime = now;
     const sy = scrollY;
-    smoothedScroll = damp(smoothedScroll, sy, 8, deltaSeconds);
-    scrollVelocity = damp(scrollVelocity, sy - lastScroll, 8, deltaSeconds);
+    smoothedScroll = damp(smoothedScroll, sy, 6, deltaSeconds);
+    scrollVelocity = damp(scrollVelocity, sy - lastScroll, 6, deltaSeconds);
     lastScroll = sy;
 
     // The navigation behaves like a discreet reveal layer on pointer devices:
@@ -1040,6 +1323,7 @@
     // The projects remain discrete pieces of evidence, while these interstitial
     // thresholds make their relationship read as one continuous argument.
     narrativeThresholds.forEach(section => {
+      if (!sectionIsNearViewport(section, 1.25)) return;
       const p = easedSectionProgress(section, deltaSeconds, 7);
       const enter = smooth(map(p, .02, .20));
       const exit = 1 - smooth(map(p, .80, .98));
@@ -1065,43 +1349,52 @@
       let activeNarrative = 'signal';
       const activationLine = innerHeight * .52;
       narrativeChapters.forEach(section => {
-        if (section.getBoundingClientRect().top <= activationLine) activeNarrative = section.dataset.journeyChapter;
+        const metric = sectionMetrics.get(section) || measureMotionSection(section);
+        if (metric.top - sy <= activationLine) activeNarrative = section.dataset.journeyChapter;
       });
-      const startY = narrativeStart.offsetTop;
-      const endY = narrativeEnd.offsetTop + narrativeEnd.offsetHeight - innerHeight;
+      const startMetric = sectionMetrics.get(narrativeStart) || measureMotionSection(narrativeStart);
+      const endMetric = sectionMetrics.get(narrativeEnd) || measureMotionSection(narrativeEnd);
+      const startY = startMetric.top;
+      const endY = endMetric.top + endMetric.height - innerHeight;
       const journeyProgress = clamp((sy - startY) / Math.max(1, endY - startY));
       narrativeRail.style.setProperty('--rail-progress', `${journeyProgress * 100}%`);
       narrativeRail.dataset.active = activeNarrative;
       narrativeRail.classList.toggle('is-visible', activeNarrative !== 'signal' && sy > innerHeight * 1.15 && !indexIsOpen);
-      const fffRect = fffMovement?.getBoundingClientRect();
-      const fffOwnsFrame = Boolean(fffRect && fffRect.top <= activationLine && fffRect.bottom > activationLine);
+      const fffMetric = fffMovement
+        ? (sectionMetrics.get(fffMovement) || measureMotionSection(fffMovement))
+        : null;
+      const fffOwnsFrame = Boolean(
+        fffMetric
+        && fffMetric.top - sy <= activationLine
+        && fffMetric.top + fffMetric.height - sy > activationLine
+      );
       narrativeRail.classList.toggle('is-section-suppressed', fffOwnsFrame);
       narrativePoints.forEach(point => point.classList.toggle('is-active', point.dataset.narrativePoint === activeNarrative));
       if (narrativeRailProgress) narrativeRailProgress.style.height = innerWidth > 900 ? `${journeyProgress * 100}%` : '100%';
     }
 
     // Opening parallax
-    const heroP = clamp(smoothedScroll / Math.max(innerHeight, 1));
-    heroTitle.style.transform = `translateY(calc(-48% + ${heroP * 12}vh)) scale(${1 - heroP * .055})`;
-    heroTitle.style.opacity = String(1 - heroP * .72);
-    heroFragments.forEach((el, i) => {
-      const dir = i % 2 ? -1 : 1;
-      el.style.translate = `${dir * heroP * (28 + i * 11)}px ${heroP * (24 + i * 7)}px`;
-      el.style.opacity = String(.48 * (1 - heroP * .8));
-    });
+    if (sy < innerHeight * 1.5) {
+      const heroP = clamp(smoothedScroll / Math.max(innerHeight, 1));
+      heroTitle.style.transform = `translate3d(0,calc(-48% + ${heroP * 12}vh),0) scale(${1 - heroP * .055})`;
+      heroTitle.style.opacity = String(1 - heroP * .72);
+      heroFragments.forEach((el, i) => {
+        const dir = i % 2 ? -1 : 1;
+        el.style.translate = `${dir * heroP * (28 + i * 11)}px ${heroP * (24 + i * 7)}px`;
+        el.style.opacity = String(.48 * (1 - heroP * .8));
+      });
+    }
 
     // Horizontal FORM journey
-    if (innerWidth > 900) {
+    if (innerWidth > 900 && sectionIsNearViewport(formSection)) {
       const p = easedSectionProgress(formSection, deltaSeconds, 8);
-      const rootPadding = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--page-x')) || 40;
-      const trackPadding = parseFloat(getComputedStyle(formTrack).paddingRight) || rootPadding * 3;
-      const maxX = Math.max(0, formTrack.scrollWidth - innerWidth + rootPadding + trackPadding * .3);
+      const maxX = motionLayout.formMaxX;
       formTrack.style.transform = `translate3d(${-p * maxX}px,0,0)`;
       formProgress.style.width = `${p * 100}%`;
     }
 
     // HOUSE OF MERC: the pack arrives automatically; the reveal remains locked to the manual tear.
-    if (mercSection) {
+    if (mercSection && sectionIsNearViewport(mercSection)) {
       const mp = easedSectionProgress(mercSection, deltaSeconds, 6.5);
       if (mercRipped && mp < .018) resetMercExperience();
       const end = mercRipped ? smooth(map(mp, .965, .99)) : 0;
@@ -1210,16 +1503,18 @@
       else mercCounter.textContent = String(Math.max(1, revealedCards)).padStart(2, '0');
     }
 
+    smoothedLogoMouseX = damp(smoothedLogoMouseX, logoMouseX, 5, deltaSeconds);
+    smoothedLogoMouseY = damp(smoothedLogoMouseY, logoMouseY, 5, deltaSeconds);
+
     // CUPRA chapter choreography
-    const targetCupraProgress = sectionProgress(cupraSection);
-    smoothedCupraProgress = damp(smoothedCupraProgress, targetCupraProgress, 5.5, deltaSeconds);
-    if (Math.abs(targetCupraProgress - smoothedCupraProgress) < .00008) smoothedCupraProgress = targetCupraProgress;
-    smoothedLogoMouseX = damp(smoothedLogoMouseX, logoMouseX, 6, deltaSeconds);
-    smoothedLogoMouseY = damp(smoothedLogoMouseY, logoMouseY, 6, deltaSeconds);
-    const cp = smoothedCupraProgress;
-    const logoOpacity = holdFade(cp, -.01, 0, .49, .525);
-    cupraLogoScene.style.opacity = logoOpacity;
-    cupraLogoScene.style.transform = `scale(${lerp(.94, 1.03, smooth(map(cp, 0, .15)))})`;
+    if (sectionIsNearViewport(cupraSection)) {
+      const targetCupraProgress = sectionProgress(cupraSection);
+      smoothedCupraProgress = damp(smoothedCupraProgress, targetCupraProgress, 4.8, deltaSeconds);
+      if (Math.abs(targetCupraProgress - smoothedCupraProgress) < .00015) smoothedCupraProgress = targetCupraProgress;
+      const cp = smoothedCupraProgress;
+      const logoOpacity = holdFade(cp, -.01, 0, .49, .525);
+      cupraLogoScene.style.opacity = logoOpacity;
+      cupraLogoScene.style.transform = `scale(${lerp(.94, 1.03, smooth(map(cp, 0, .15)))})`;
 
     // Establish the original monumental CUPRA artifact before the crossover begins.
     const intertwine = smooth(map(cp, .15, .355));
@@ -1271,11 +1566,12 @@
     });
     cupraCounter.textContent = cp < .505 ? '00' : String(activeIndex + 1).padStart(2, '0');
     const endOpacity = smooth(map(cp, .91, .95));
-    cupraEndcopy.style.opacity = endOpacity;
-    cupraEndcopy.style.pointerEvents = endOpacity > .7 ? 'auto' : 'none';
+      cupraEndcopy.style.opacity = endOpacity;
+      cupraEndcopy.style.pointerEvents = endOpacity > .7 ? 'auto' : 'none';
+    }
 
     // Movement threshold: the story leaves the frame and becomes physical energy.
-    if (movementIntro) {
+    if (movementIntro && sectionIsNearViewport(movementIntro)) {
       const mip = easedSectionProgress(movementIntro, deltaSeconds, 7);
       const movementEase = smooth(map(mip, .04, .88));
       movementIntro.style.setProperty('--movement-p', movementEase.toFixed(4));
@@ -1287,10 +1583,10 @@
 
     // FFF × Jacquemus: a dimensional football and sculptural federation crest
     // orbit one another before resolving into three paired ultra-blue tableaux.
-    if (fffMovement) {
+    if (fffMovement && sectionIsNearViewport(fffMovement)) {
       const targetFffProgress = sectionProgress(fffMovement);
-      smoothedFffProgress = damp(smoothedFffProgress, targetFffProgress, 6.2, deltaSeconds);
-      if (Math.abs(targetFffProgress - smoothedFffProgress) < .00008) smoothedFffProgress = targetFffProgress;
+      smoothedFffProgress = damp(smoothedFffProgress, targetFffProgress, 5.2, deltaSeconds);
+      if (Math.abs(targetFffProgress - smoothedFffProgress) < .00015) smoothedFffProgress = targetFffProgress;
       const fp = smoothedFffProgress;
       const fffPointerX = smoothedLogoMouseX * .62;
       const fffPointerY = smoothedLogoMouseY * .58;
@@ -1363,7 +1659,7 @@
     }
 
     // Gramicci unfolds as a location-based world rather than a linked card.
-    if (gramicciSection) {
+    if (gramicciSection && sectionIsNearViewport(gramicciSection)) {
       const gp = easedSectionProgress(gramicciSection, deltaSeconds, 7);
       gramicciSection.style.setProperty('--gram-p', gp.toFixed(4));
       gramicciSection.style.setProperty('--gram-assets', smooth(map(gp, .08, .16)).toFixed(4));
@@ -1388,7 +1684,7 @@
     }
 
     // Designing the Journey extends Gramicci into five distinct campaign destinations.
-    if (journeySection) {
+    if (journeySection && sectionIsNearViewport(journeySection)) {
       const jp = easedSectionProgress(journeySection, deltaSeconds, 7);
       const introOpacity = holdFade(jp, 0, .02, .10, .125);
       journeyIntro.style.opacity = introOpacity;
@@ -1424,8 +1720,53 @@
       journeyCount.textContent = activeJourney < 0 ? '00' : String(activeJourney + 1).padStart(2,'0');
     }
 
+    // Milano Food Icons turns a field notebook into a route, then a collection.
+    if (milanoFoodSection && sectionIsNearViewport(milanoFoodSection)) {
+      const mip = easedSectionProgress(milanoFoodSection, deltaSeconds, 6.2);
+      const opening = smooth(map(mip, .046, .18));
+      const route = smooth(map(mip, .162, .417));
+      const collect = smooth(map(mip, .428, .475));
+      const pop = smooth(map(mip, .07, .133));
+      const pack = smooth(map(mip, .507, .536));
+      const closing = smooth(map(mip, .536, .563));
+      const farewell = smooth(map(mip, .59, .62));
+      const exit = smooth(map(mip, .958, .994));
+      const open = opening * (1 - closing);
+      milanoFoodSection.style.setProperty('--mi-open', open.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-route', route.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-collect', collect.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-pop', pop.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-pack', pack.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-farewell', farewell.toFixed(4));
+      milanoFoodSection.style.setProperty('--mi-exit', exit.toFixed(4));
+      if (milanoFoodProgress) milanoFoodProgress.style.width = `${smooth(map(mip, .02, .98)) * 100}%`;
+
+      let chapter = 0;
+      if (mip >= .127) chapter = 1;
+      if (mip >= .203) chapter = 2;
+      if (mip >= .475) chapter = 3;
+      milanoFoodSection.dataset.miPhase = chapter === 3 ? 'collect' : chapter === 2 ? 'discover' : chapter === 1 ? 'map' : 'cover';
+      milanoFoodButtons.forEach((button, index) => button.classList.toggle('is-active', index === chapter));
+      const readout = milanoFoodReadouts[chapter];
+      if (milanoFoodCode) milanoFoodCode.textContent = readout[0];
+      if (milanoFoodName) milanoFoodName.textContent = readout[1];
+      if (milanoFoodText) milanoFoodText.textContent = readout[2];
+
+      let specimenIndex = -1;
+      if (chapter === 2) {
+        if (route >= .08 && route < .35) specimenIndex = 0;
+        if (route >= .35 && route < .70) specimenIndex = 1;
+        if (route >= .70) specimenIndex = 2;
+      }
+      milanoFoodSpecimens.forEach((specimen, index) => specimen.classList.toggle('is-active', index === specimenIndex));
+      milanoFoodMapStops.forEach((stop, index) => {
+        stop.classList.toggle('is-active', index === specimenIndex || chapter === 3);
+        stop.classList.toggle('is-visited', chapter === 3 || (specimenIndex > -1 && index < specimenIndex));
+      });
+    }
+
     // Metacognitive Design reveals the invisible lens between signal and perception.
-    if (metaThinking) {
+    if (metaThinking && sectionIsNearViewport(metaThinking)) {
       const mtp = easedSectionProgress(metaThinking, deltaSeconds, 6.5);
       const manifestoPhase = holdFade(mtp, .02, .08, .25, .31);
       const diagramPhase = holdFade(mtp, .34, .40, .61, .67);
@@ -1441,7 +1782,7 @@
     }
 
     // ACG moves from live urban information to product and asset layers.
-    if (acgExperience) {
+    if (acgExperience && sectionIsNearViewport(acgExperience)) {
       const ap = easedSectionProgress(acgExperience, deltaSeconds, 7);
       acgExperience.style.setProperty('--acg-p', smooth(map(ap, 0, .5)).toFixed(4));
       acgExperience.style.setProperty('--acg-media', smooth(map(ap, .53, .60)).toFixed(4));
@@ -1467,29 +1808,114 @@
     }
 
     // Systems sequence
-    const sp = easedSectionProgress(systemsSection, deltaSeconds, 7);
-    const statementP = 1 - smooth(map(sp, .22, .30));
-    systemsStatement.style.opacity = String(statementP);
-    systemsStatement.style.transform = `translateY(${-map(sp,.0,.30,0,80)}px)`;
-    systemsAlt.style.opacity = String(holdFade(sp, .10, .15, .22, .30));
-    const engineP = holdFade(sp, .34, .42, .74, .82);
-    const engineArrival = smooth(map(sp, .34, .42));
-    systemEngine.style.opacity = engineP;
-    systemEngine.style.transform = `scale(${lerp(.82,1,engineArrival)})`;
-    const footP = smooth(map(sp, .84, .90));
-    systemsFoot.style.opacity = footP;
-    systemsFoot.style.transform = `translateY(${lerp(22,0,footP)}px)`;
+    if (sectionIsNearViewport(systemsSection)) {
+      const sp = easedSectionProgress(systemsSection, deltaSeconds, 7);
+      const statementP = 1 - smooth(map(sp, .22, .30));
+      systemsStatement.style.opacity = String(statementP);
+      systemsStatement.style.transform = `translate3d(0,${-map(sp,.0,.30,0,80)}px,0)`;
+      systemsAlt.style.opacity = String(holdFade(sp, .10, .15, .22, .30));
+      const engineP = holdFade(sp, .34, .42, .74, .82);
+      const engineArrival = smooth(map(sp, .34, .42));
+      systemEngine.style.opacity = engineP;
+      systemEngine.style.transform = `translateZ(0) scale(${lerp(.82,1,engineArrival)})`;
+      const footP = smooth(map(sp, .84, .90));
+      systemsFoot.style.opacity = footP;
+      systemsFoot.style.transform = `translate3d(0,${lerp(22,0,footP)}px,0)`;
+    }
 
     rafId = requestAnimationFrame(frame);
   }
   frame();
+
+  // PLACES AND FACES: brisk, seamless editorial reel; attention slows time.
+  if (placesFacesStage && placesFacesFrames.length) {
+    let placesFacesIndex = 0;
+    let placesFacesTimer = 0;
+    let placesFacesSlow = false;
+    const placesFacesFastDelay = 2050;
+    const placesFacesSlowDelay = 7500;
+
+    const placesFacesIntroObserver = new IntersectionObserver((entries, observer) => {
+      if (!entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .45)) return;
+      window.setTimeout(() => placesFacesStage.classList.add('is-photography-live'), 1150);
+      observer.disconnect();
+    }, { threshold: [.45] });
+    placesFacesIntroObserver.observe(placesFacesStage);
+
+    const renderPlacesFaces = (index) => {
+      placesFacesIndex = (index + placesFacesFrames.length) % placesFacesFrames.length;
+      placesFacesFrames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === placesFacesIndex));
+      const activeFrame = placesFacesFrames[placesFacesIndex];
+      const caption = activeFrame.dataset.pfCaption || `FRAME / ${String(placesFacesIndex + 1).padStart(2, '0')}`;
+      if (placesFacesCount) placesFacesCount.textContent = `${String(placesFacesIndex + 1).padStart(2, '0')} / ${String(placesFacesFrames.length).padStart(2, '0')}`;
+      if (placesFacesCaption) placesFacesCaption.textContent = caption;
+    };
+
+    const schedulePlacesFaces = () => {
+      window.clearTimeout(placesFacesTimer);
+      if (placesFacesProgress) {
+        placesFacesProgress.style.animation = 'none';
+        void placesFacesProgress.offsetWidth;
+        placesFacesProgress.style.animation = '';
+      }
+      placesFacesTimer = window.setTimeout(() => {
+        renderPlacesFaces(placesFacesIndex + 1);
+        schedulePlacesFaces();
+      }, placesFacesSlow ? placesFacesSlowDelay : placesFacesFastDelay);
+    };
+
+    const setPlacesFacesSlow = (slow) => {
+      placesFacesSlow = slow;
+      placesFacesStage.classList.toggle('is-slow', slow);
+      schedulePlacesFaces();
+    };
+
+    const openPlacesFacesFrame = () => {
+      const activeFrame = placesFacesFrames[placesFacesIndex];
+      const source = $('img', activeFrame);
+      if (!source || !placesFacesViewer || !placesFacesViewerImage) return;
+      placesFacesViewerImage.src = source.currentSrc || source.src;
+      placesFacesViewerImage.alt = source.alt;
+      if (placesFacesViewerCaption) placesFacesViewerCaption.textContent = activeFrame.dataset.pfCaption || '';
+      placesFacesViewer.showModal();
+    };
+
+    placesFacesStage.addEventListener('mouseenter', () => setPlacesFacesSlow(true));
+    placesFacesStage.addEventListener('mouseleave', () => setPlacesFacesSlow(false));
+    placesFacesStage.addEventListener('focus', () => setPlacesFacesSlow(true));
+    placesFacesStage.addEventListener('blur', () => setPlacesFacesSlow(false));
+    placesFacesStage.addEventListener('click', openPlacesFacesFrame);
+    placesFacesStage.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPlacesFacesFrame();
+      }
+    });
+    placesFacesClose?.addEventListener('click', () => placesFacesViewer.close());
+    placesFacesViewer?.addEventListener('click', event => {
+      if (event.target === placesFacesViewer) placesFacesViewer.close();
+    });
+    renderPlacesFaces(0);
+    schedulePlacesFaces();
+  }
 
   // Keep calculations accurate after image/font loading and resize
   window.addEventListener('resize', () => {
     fitHeroLines();
     if (innerWidth <= 900) formTrack.style.transform = '';
     configureAboutShuffle();
+    scheduleMotionMetrics();
   });
+
+  window.addEventListener('load', scheduleMotionMetrics, { once: true });
+  document.fonts?.ready.then(scheduleMotionMetrics);
+  document.addEventListener('load', event => {
+    if (event.target instanceof HTMLImageElement) scheduleMotionMetrics();
+  }, true);
+  if ('ResizeObserver' in window) {
+    const motionResizeObserver = new ResizeObserver(scheduleMotionMetrics);
+    motionResizeObserver.observe(document.body);
+  }
 
   // System nodes have lightweight feedback
   $$('.system-node').forEach((node, i) => {
@@ -1503,5 +1929,6 @@
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape' && indexPanel.classList.contains('is-open')) setIndex(false);
     if (e.key === 'Escape' && gameModal.open) closeGame();
+    if (e.key === 'Escape' && placesFacesViewer?.open) placesFacesViewer.close();
   });
 })();

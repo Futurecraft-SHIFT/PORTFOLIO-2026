@@ -4,13 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#05070a" />
-  <meta name="description" content="Alexandre Bersia — Creative Director, strategist, storyteller and designer of experiences." />
-  <title>Alexandre Bersia — Creative Direction</title>
+  <meta name="description" content="Alexandre Bersia — Creative Strategist, director and designer of connected experiences." />
+  <meta property="og:title" content="MOTION, SHARED. — Alexandre Bersia" />
+  <meta property="og:description" content="A speculative META × CINELLI creative-strategy case connecting movement, AI and community." />
+  <meta property="og:image" content="assets/meta-cinelli-social-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Alexandre Bersia — Creative Strategy</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%2305070a'/><text x='8' y='46' font-size='38' font-family='Arial' font-weight='900' fill='white'>AB</text></svg>" />
   <link rel="preload" as="image" href="assets/outdoor-portrait.webp" />
   <link rel="preload" as="image" href="assets/about-portrait.webp" />
-  <link rel="stylesheet" href="style.css?v=1.45" />
-  <link rel="stylesheet" href="digital-director.css?v=1.66" />
+  <link rel="stylesheet" href="style.css?v=meta-2.0" />
+  <link rel="stylesheet" href="digital-director.css?v=1.92" />
 </head>
 <body>
   <div class="loader" id="loader" aria-hidden="true">
@@ -28,7 +32,7 @@
 
   <header class="nav" id="nav">
     <a class="nav__brand" href="#hero" aria-label="Back to top"><b>AB</b><span>Alexandre Bersia</span></a>
-    <div class="nav__center micro">CREATIVE DIRECTOR · STRATEGIST · STORYTELLER</div>
+    <div class="nav__center micro">CREATIVE STRATEGIST · SYSTEMS THINKER · STORYTELLER</div>
     <button class="nav__index" id="indexButton" type="button"><span>INDEX</span><i></i></button>
   </header>
 
@@ -36,16 +40,37 @@
     <div class="index-panel__backdrop" data-close-index></div>
     <div class="index-panel__body">
       <div class="index-panel__head micro"><span>NAVIGATION / 00—06</span><button type="button" data-close-index>CLOSE ×</button></div>
-      <nav>
-        <a href="#hero" data-close-index><small>00</small><span>ENTER / THE SIGNAL</span></a>
-        <a href="#act-feel" data-close-index><small>01</small><span>FEEL / EXPERIENCES</span></a>
-        <a href="#act-believe" data-close-index><small>02</small><span>BELIEVE / STORIES</span></a>
-        <a href="#movement" data-close-index><small>02.4</small><span>MOVEMENT / FFF × JACQUEMUS</span></a>
-        <a href="#act-understand" data-close-index><small>03</small><span>UNDERSTAND / SYSTEMS</span></a>
-        <a href="#act-imagine" data-close-index><small>04</small><span>IMAGINE / THE FUTURE</span></a>
-        <a href="#act-connect" data-close-index><small>05</small><span>CONNECT / THE HUMAN</span></a>
-        <a href="#contact" data-close-index><small>06</small><span>CONTINUE / WHAT COMES NEXT</span></a>
-      </nav>
+      <div class="index-panel__grid">
+        <div class="index-panel__column">
+          <span class="index-panel__label micro">CHAPTERS</span>
+          <nav aria-label="Portfolio chapters">
+            <a href="#hero" data-close-index><small>00</small><span>OPENING</span></a>
+            <a href="#act-feel" data-close-index><small>01</small><span>EXPERIENCES</span></a>
+            <a href="#act-believe" data-close-index><small>02</small><span>STORIES</span></a>
+            <a href="#act-understand" data-close-index><small>03</small><span>SYSTEMS</span></a>
+            <a href="#act-imagine" data-close-index><small>04</small><span>HERITAGE</span></a>
+            <a href="#act-connect" data-close-index><small>05</small><span>ABOUT</span></a>
+            <a href="#contact" data-close-index><small>06</small><span>CONTACT</span></a>
+          </nav>
+        </div>
+        <div class="index-panel__column index-panel__column--projects">
+          <span class="index-panel__label micro">DIRECT TO PROJECT</span>
+          <nav aria-label="Selected projects">
+            <a href="#house-of-merc" data-close-index><small>01.5</small><span>HOUSE OF MERC</span></a>
+            <a href="#gramicci" data-close-index><small>02.2</small><span>GRAMICCI CALIFORNIA</span></a>
+            <a href="#journey" data-close-index><small>02.25</small><span>DESIGNING THE JOURNEY</span></a>
+            <a href="#milano-food-icons" data-close-index><small>02.26</small><span>MILANO FOOD ICONS</span></a>
+            <a href="#sala-onda" data-close-index><small>02.27</small><span>SALA ONDA / LISTENING BAR</span></a>
+            <a href="#cupra" data-close-index><small>02.3</small><span>CUPRA × FORTNITE</span></a>
+            <a href="#fffMovement" data-close-index><small>02.4</small><span>FFF × JACQUEMUS</span></a>
+            <a href="#meta-cinelli" data-close-index><small>02.5</small><span>META × CINELLI</span></a>
+            <a href="#metaThinking" data-close-index><small>03.1</small><span>REDESIGN THINKING</span></a>
+            <a href="#acg-system-intro" data-close-index><small>03.2</small><span>ACG BARCELONA</span></a>
+            <a href="#system-engine-section" data-close-index><small>03.3</small><span>CREATIVE SYSTEMS</span></a>
+            <a href="#micro1-ai" data-close-index><small>03.4</small><span>AI TRAINING SYSTEMS</span></a>
+          </nav>
+        </div>
+      </div>
       <div class="index-panel__foot micro">SELECTED WORK / WORLDS · CAMPAIGNS · PRODUCTS · SYSTEMS · PLAY</div>
     </div>
   </aside>
@@ -260,7 +285,7 @@
       </div>
 
       <div class="desire" id="desire">
-        <div class="desire__hero">
+        <div class="desire__hero" data-hero-pause>
           <video autoplay muted loop playsinline preload="metadata" poster="assets/outdoor-runner.webp">
             <source src="assets/outdoor-wide.mp4" type="video/mp4" />
           </video>
@@ -336,7 +361,7 @@
         </section>
 
         <section class="piaggio-marzocco" id="piaggioMarzocco" aria-label="Piaggio and La Marzocco campaign">
-          <div class="piaggio-marzocco__logo-hero">
+          <div class="piaggio-marzocco__logo-hero" data-hero-pause>
             <img src="assets/piaggio-marzocco-logos.jfif" alt="Piaggio and La Marzocco collaboration logos" loading="lazy" />
           </div>
 
@@ -448,6 +473,198 @@
       </section>
     </section>
 
+    <section class="milano-field-guide" id="milano-food-icons" data-journey-chapter="believe" aria-labelledby="milanoFoodTitle">
+      <div class="milano-field-guide__sticky">
+        <div class="milano-field-guide__paper" aria-hidden="true"></div>
+
+        <header class="milano-field-guide__intro">
+          <span class="micro">02.26 / MILANO · CULTURE MAPPED THROUGH TASTE</span>
+          <h2 id="milanoFoodTitle"><span>MILANO</span><em><span>FOOD</span><span>ICONS.</span></em></h2>
+          <p>A FIELD GUIDE TO THE DISHES THAT DEFINE A CITY.</p>
+        </header>
+
+        <p class="milano-field-guide__signoff" aria-hidden="true"><span>Ci vediamo</span><strong>dopo!</strong></p>
+
+        <div class="milano-book-scene" id="milanoBookScene" aria-label="An animated field guide opening into a cultural map of Milan">
+          <div class="milano-book" id="milanoBook">
+              <div class="milano-book__closed" aria-hidden="true">
+                <i class="milano-book__coil"></i>
+                <div class="milano-book__cover-grid"></div>
+                <div class="milano-book__cover-sticker"><span>FIELD TRIP</span><b>MILANO / 03 STOPS</b></div>
+                <div class="milano-book__cover-mark">MI</div>
+                <div class="milano-book__cover-route"><i></i><i></i><i></i></div>
+                <span class="micro">FIELD NOTE / 02.26</span>
+                <strong><span>MILANO</span><span>FOOD</span><em><span>ICONS.</span></em></strong>
+                <small>THREE DISHES<br />ONE CITY MEMORY</small>
+                <b>45.4642° N<br />9.1900° E</b>
+                <div class="milano-book__cover-skyline"><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="milano-book__cover-index">PANETTONE · RISOTTO · COSTOLETTA</div>
+              </div>
+
+            <div class="milano-book__spread">
+              <article class="milano-page milano-page--map">
+                <div class="milano-page__heading">
+                  <span class="micro">FIELD MAP / MILANO</span>
+                  <b>FOLLOW<br />THE TASTE.</b>
+                </div>
+                <svg class="milano-map" viewBox="0 0 620 500" role="img" aria-label="A graphic cultural route across Milan">
+                  <path class="milano-map__district" d="M70 130 188 63l105 42 108-54 137 87-40 105 65 80-105 105-139-31-103 59-109-94 54-101Z" />
+                  <path class="milano-map__street" d="M52 251h512M170 72l31 363M374 70l-18 354M87 365l425-210M110 145l374 260" />
+                  <path class="milano-map__route" id="milanoMapRoute" pathLength="1" d="M128 344 C180 280 181 170 274 172 S362 308 430 285 S492 189 522 132" />
+                  <g class="milano-map__stop" data-milano-map-stop="0" transform="translate(128 344)"><circle r="17"/><text x="29" y="5">PANETTONE</text></g>
+                  <g class="milano-map__stop" data-milano-map-stop="1" transform="translate(326 226)"><circle r="17"/><text x="29" y="5">RISOTTO</text></g>
+                  <g class="milano-map__stop" data-milano-map-stop="2" transform="translate(522 132)"><circle r="17"/><text x="-30" y="-29" text-anchor="end">COSTOLETTA</text></g>
+                  <text class="milano-map__district-label" x="92" y="116">PORTA VENEZIA</text>
+                  <text class="milano-map__district-label" x="252" y="110">BRERA</text>
+                  <text class="milano-map__district-label" x="398" y="414">NAVIGLI</text>
+                </svg>
+                <div class="milano-popups" aria-hidden="true">
+                  <figure class="milano-popup milano-popup--arco">
+                    <svg viewBox="0 0 180 120"><path d="M8 110h164v10H8zM20 110V35h19v75H20Zm121 0V35h19v75h-19ZM44 110V44h92v66h-22V76c0-19-10-31-24-31S66 57 66 76v34H44Zm39 0V76c0-7 3-12 7-12s7 5 7 12v34H83ZM17 35 34 15h112l17 20H17Zm32-25h82v10H49V10Z"/></svg>
+                    <figcaption>ARCO DELLA PACE</figcaption>
+                  </figure>
+                  <figure class="milano-popup milano-popup--bosco">
+                    <svg viewBox="0 0 180 150"><path d="M24 140h132v10H24zM38 140V31h43v109H38Zm61 0V13h49v127H99ZM31 42h57v9H31v-9Zm0 25h57v9H31v-9Zm0 25h57v9H31v-9Zm61-65h63v9H92v-9Zm0 27h63v9H92v-9Zm0 27h63v9H92v-9Zm0 27h63v9H92v-9Z"/><circle cx="28" cy="32" r="13"/><circle cx="84" cy="55" r="15"/><circle cx="154" cy="19" r="16"/><circle cx="92" cy="105" r="14"/><circle cx="160" cy="77" r="13"/></svg>
+                    <figcaption>BOSCO VERTICALE</figcaption>
+                  </figure>
+                  <figure class="milano-popup milano-popup--duomo">
+                    <svg viewBox="0 0 180 130"><path d="M9 119h162v9H9zM18 119V73l14-10v-19l9 10 9-10v22h13V48l12-15 10 12V16l8-15 8 15v29l10-12 12 15v18h13V44l9 10 9-10v19l14 10v46H18Zm26-31h14v31H44V88Zm39-7h18v38H83V81Zm39 7h14v31h-14V88Z"/></svg>
+                    <figcaption>DUOMO</figcaption>
+                  </figure>
+                  <figure class="milano-popup milano-popup--galleria">
+                    <svg viewBox="0 0 160 120"><path d="M10 110h140v10H10zM21 110V39h17L80 4l42 35h17v71h-25V67c0-20-14-35-34-35S46 47 46 67v43H21Zm42 0V68c0-11 7-19 17-19s17 8 17 19v42H63Z"/></svg>
+                    <figcaption>GALLERIA</figcaption>
+                  </figure>
+                  <figure class="milano-popup milano-popup--velasca">
+                    <svg viewBox="0 0 120 150"><path d="M37 147h46v3H37zM43 147V61H29l8-39h16V4h14v18h16l8 39H77v86H43Zm11-72h12v15H54V75Zm0 29h12v15H54v-15Z"/></svg>
+                    <figcaption>VELASCA</figcaption>
+                  </figure>
+                </div>
+                <span class="milano-page__note micro">A CULTURAL ROUTE / NOT A RESTAURANT GUIDE</span>
+              </article>
+
+              <article class="milano-page milano-page--collection">
+                <div class="milano-page__heading milano-page__heading--right">
+                  <span class="micro">COLLECTION / 01—03</span>
+                  <b>EDIBLE<br />LANDMARKS.</b>
+                </div>
+                <div class="milano-specimens" id="milanoSpecimens">
+                  <figure class="milano-specimen" data-milano-specimen="0">
+                    <img src="assets/milano-food-panettone.png" alt="Milano Food Icons campaign artwork featuring panettone" loading="lazy" />
+                    <figcaption><span>01 / THE CELEBRATION</span><b>IL PANETTONE</b><small>TRADITION RISES.</small></figcaption>
+                  </figure>
+                  <figure class="milano-specimen" data-milano-specimen="1">
+                    <img src="assets/milano-food-risotto.png" alt="Milano Food Icons campaign artwork featuring risotto alla Milanese" loading="lazy" />
+                    <figcaption><span>02 / THE RITUAL</span><b>IL RISOTTO</b><small>TIME TURNS GOLD.</small></figcaption>
+                  </figure>
+                  <figure class="milano-specimen" data-milano-specimen="2">
+                    <img src="assets/milano-food-costoletta.png" alt="Milano Food Icons campaign artwork featuring costoletta alla Milanese" loading="lazy" />
+                    <figcaption><span>03 / THE CLASSIC</span><b>LA COSTOLETTA</b><small>MEMORY, SERVED.</small></figcaption>
+                  </figure>
+                </div>
+                <div class="milano-page__seal" aria-hidden="true"><span>MI</span><small>COLLECTED<br />IN MILANO</small></div>
+              </article>
+              <i class="milano-book__spine" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="milano-field-guide__readout" id="milanoFoodReadout" aria-live="polite">
+          <span class="micro" id="milanoFoodCode">FIELD GUIDE / 00</span>
+          <strong id="milanoFoodName">THE BOOK IS CLOSED.</strong>
+          <p id="milanoFoodText">Scroll to open a city through the rituals that give it flavour.</p>
+        </div>
+
+        <nav class="milano-field-guide__route" aria-label="Milano Food Icons journey">
+          <i aria-hidden="true"><b id="milanoFoodProgress"></b></i>
+          <button type="button" data-milano-target="0"><span>00</span>FIELD GUIDE</button>
+          <button type="button" data-milano-target="1"><span>01</span>MAP MILANO</button>
+          <button type="button" data-milano-target="2"><span>02</span>DISCOVER</button>
+          <button type="button" data-milano-target="3"><span>03</span>COLLECT</button>
+        </nav>
+
+        <div class="milano-to-sala" aria-hidden="true">
+          <div class="sala-onda__grain"></div>
+          <div class="sala-onda__spectral"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sala-onda" id="sala-onda" data-journey-chapter="believe" aria-labelledby="salaOndaTitle">
+      <div class="sala-onda__sticky">
+        <div class="sala-onda__grain" aria-hidden="true"></div>
+        <div class="sala-onda__spectral" aria-hidden="true"></div>
+
+        <header class="sala-onda__brand">
+          <a href="#sala-onda" aria-label="SALA ONDA, Barcelona listening bar"><b>SO</b><span>SALA ONDA<br />BARCELONA</span></a>
+          <span class="micro">02.27 / CULTURAL LISTENING SYSTEM</span>
+        </header>
+
+        <article class="sala-onda__scene sala-onda__scene--invitation" data-sala-scene="0">
+          <p class="micro">THE INVITATION / COME FOR THE WHOLE RECORD</p>
+          <h2 id="salaOndaTitle"><span>LISTEN</span><em>WITH</em><span>INTENTION.</span></h2>
+          <div class="sala-onda__invitation-foot">
+            <p>A bright audiophile bar for complete records, precise sound and unhurried nights.</p>
+            <span>BARCELONA / 41.3851° N</span>
+          </div>
+        </article>
+
+        <article class="sala-onda__scene sala-onda__scene--room" data-sala-scene="1">
+          <img src="assets/sala-onda-room-photographic-v4.png" alt="Bright brutalist listening bar with tactile concrete, paired high fidelity speakers and acid-lime horns" loading="lazy" />
+          <div class="sala-onda__room-copy">
+            <span class="micro">THE ROOM / ACOUSTIC ARCHITECTURE</span>
+            <h3>THE ROOM IS<br /><em>THE INSTRUMENT.</em></h3>
+          </div>
+          <div class="sala-onda__room-note micro">CONCRETE · VINYL · HIGH FIDELITY · LOW LIGHT, NEVER DARK</div>
+        </article>
+
+        <article class="sala-onda__scene sala-onda__scene--ritual" data-sala-scene="2">
+          <div class="sala-onda__programme-head">
+            <span class="micro">WEEK 27 / CURATED LISTENING PROGRAMME</span>
+            <h3>FIVE NIGHTS.<br /><em>FIVE WAYS IN.</em></h3>
+            <p>Complete records, selected for the room and heard without interruption.</p>
+          </div>
+          <div class="sala-onda__weekly" aria-label="Weekly listening programme">
+            <article><time>WED / 19:30</time><strong>NALA SINEPHRO</strong><em>Space 1.8</em><span>Ambient jazz / deep focus</span></article>
+            <article><time>THU / 20:00</time><strong>SADE</strong><em>Love Deluxe</em><span>Soul / immaculate restraint</span></article>
+            <article><time>FRI / 21:00</time><strong>FLOATING POINTS<br />+ PHAROAH SANDERS</strong><em>Promises</em><span>Electronic / spiritual jazz</span></article>
+            <article><time>SAT / 22:00</time><strong>MOODYMANN</strong><em>Silentintroduction</em><span>Detroit / after-dark movement</span></article>
+            <article><time>SUN / 19:00</time><strong>RYUICHI SAKAMOTO</strong><em>async</em><span>Modern composition / close</span></article>
+          </div>
+          <div class="sala-onda__frequency" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </article>
+
+        <article class="sala-onda__scene sala-onda__scene--identity" data-sala-scene="3">
+          <div class="sala-onda__find"><span class="micro">WHERE TO FIND US / POBLENOU, BARCELONA</span><h3>COME FOR<br /><em>THE WHOLE SIDE.</em></h3><div class="sala-onda__location"><b>41.3984° N<br />2.1986° E</b><p>POBLENOU / BARCELONA<br />WED—SUN / 18:00—LATE<br />18 SEATS / WALK IN SLOWLY</p></div></div>
+          <div class="sala-onda__manifesto"><span class="micro">A MANIFESTO FOR GOOD LISTENING</span><ol><li><b>01</b><span>ARRIVE CURIOUS.</span><small>Leave certainty at the door.</small></li><li><b>02</b><span>HEAR THE WHOLE THING.</span><small>No skipping. No shuffle.</small></li><li><b>03</b><span>MAKE SPACE FOR DETAIL.</span><small>Good sound rewards attention.</small></li><li><b>04</b><span>SHARE THE ROOM.</span><small>Phones low. Voices considered.</small></li><li><b>05</b><span>LEAVE DIFFERENT.</span><small>The best records follow you home.</small></li></ol></div>
+          <div class="sala-onda__objects" aria-label="Campaign identity across a poster, record sleeve, social post and booking interface">
+            <figure class="sala-object sala-object--poster"><small>FRI / 22:00</small><strong>FULL<br /><em>SPECTRUM</em><br />SESSIONS</strong><i></i><figcaption>STREET POSTER / 01</figcaption></figure>
+            <figure class="sala-object sala-object--sleeve"><span>SO</span><div class="sala-wave"></div><figcaption>RESIDENTS / VOL. 01</figcaption></figure>
+            <figure class="sala-object sala-object--social"><div class="sala-social-orb"></div><strong>LISTEN<br />CLOSER.</strong><figcaption>@ SALA ONDA</figcaption></figure>
+            <figure class="sala-object sala-object--booking"><small>TONIGHT</small><strong>DEEP LISTEN</strong><p>18 SEATS / 90 MIN</p><button type="button">RESERVE A PLACE →</button><figcaption>BOOKING / MOBILE</figcaption></figure>
+          </div>
+        </article>
+
+        <div class="sala-onda__player" id="salaOndaPlayer">
+          <button type="button" id="salaOndaAudioToggle" aria-pressed="false" aria-label="Play NTS Channel 1 live">
+            <span class="sala-onda__play-icon" aria-hidden="true"></span>
+            <span><small>LIVE AUDIO / NTS 1</small><b id="salaOndaTrack">CLICK TO LISTEN</b></span>
+          </button>
+          <div class="sala-onda__meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <a href="https://www.nts.live/1" target="_blank" rel="noopener">NTS CHANNEL 1 ↗</a>
+          <audio id="salaOndaAudio" preload="none" src="https://stream-relay-geo.ntslive.net/stream?client=direct"></audio>
+        </div>
+
+        <nav class="sala-onda__route" aria-label="SALA ONDA campaign sequence">
+          <i><b id="salaOndaProgress"></b></i>
+          <button type="button" data-sala-target="0"><span>01</span>INVITATION</button>
+          <button type="button" data-sala-target="1"><span>02</span>PROGRAMME</button>
+          <button type="button" data-sala-target="2"><span>03</span>ROOM</button>
+          <button type="button" data-sala-target="3"><span>04</span>FIND US</button>
+        </nav>
+      </div>
+    </section>
+
     <section class="cupra" id="cupra" data-journey-chapter="believe">
       <div class="cupra__sticky">
         <div class="cupra__ambient" aria-hidden="true"></div>
@@ -536,6 +753,87 @@
       </div>
     </section>
 
+    <section class="meta-cinelli meta-cinelli--compact" id="meta-cinelli" data-journey-chapter="believe" aria-labelledby="metaCinelliTitle">
+      <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--lineage" data-hero-pause>
+        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-heritage-to-tech-hero-v2.png" alt="Historical Cinelli aero-helmet inspiration leading to the connected Aero Visor concept" loading="lazy" />
+        <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
+        <div class="meta-cinelli__compact-top reveal">
+          <div class="meta-cinelli__compact-lockup" aria-label="Meta by Cinelli">
+            <img src="assets/meta-loop-mark.png" alt="Meta" />
+            <span>×</span>
+            <img src="assets/cinelli-wordmark.png" alt="Cinelli" />
+          </div>
+          <span class="micro">02.5 / INDEPENDENT SPECULATIVE CREATIVE STRATEGY</span>
+        </div>
+        <div class="meta-cinelli__compact-title reveal">
+          <span class="micro">FROM AERO HERITAGE TO CONNECTED VISION</span>
+          <h2 id="metaCinelliTitle">MOTION,<br /><em>SHARED.</em></h2>
+          <p>A 1990s Cinelli aero helmet becomes the origin point for a connected performance object&mdash;preserving airflow, field of vision and unmistakable identity.</p>
+        </div>
+        <div class="meta-cinelli__compact-band meta-cinelli__compact-band--lineage reveal" aria-label="Heritage and strategic principles">
+          <article><span>01 / HERITAGE</span><b>AERO SHIELD LENS</b><small>WIDE, UNINTERRUPTED PERFORMANCE VISION</small></article>
+          <article><span>02 / PERFORMANCE</span><b>WRAPAROUND STABILITY</b><small>THE RIDER'S LINE OF SIGHT AT SPEED</small></article>
+          <article><span>03 / HUMAN TENSION</span><b>THE PHONE BREAKS THE FLOW</b><small>CAPTURE WITHOUT INTERRUPTION</small></article>
+        </div>
+      </article>
+
+      <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--product" data-hero-pause>
+        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-product-studio-v2.png" alt="Close-up studio hero of the white Cinelli Aero Visor concept with a central Meta camera" loading="lazy" />
+        <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
+        <div class="meta-cinelli__compact-product-copy reveal">
+          <span class="micro">PRODUCT FILM / CONNECTED VISION</span>
+          <p>A discreet central POV camera and hands-free Meta AI keep the athlete present while the moment becomes shareable.</p>
+          <small>ORIGINAL CINELLI SILHOUETTE &middot; CENTRAL POV CAMERA &middot; HANDS-FREE META AI</small>
+        </div>
+        <div class="meta-cinelli__compact-product-statement reveal">
+          <h3>PERCEPTION,<br />BUILT IN.</h3>
+        </div>
+      </article>
+
+      <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--athlete" data-hero-pause>
+        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-athlete-hero-no-header.png" alt="Female track athlete wearing the connected Cinelli Aero Visor while riding a Cinelli bike" loading="lazy" />
+        <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
+        <div class="meta-cinelli__compact-brand-morph" aria-label="Meta by Cinelli">
+          <span class="meta-cinelli__compact-brand-text" aria-hidden="true"><b>META</b><i>×</i><b>CINELLI</b></span>
+          <span class="meta-cinelli__compact-brand-logos" aria-hidden="true"><img src="assets/meta-loop-mark.png" alt="" /><i>×</i><img src="assets/cinelli-wordmark.png" alt="" /></span>
+        </div>
+        <div class="meta-cinelli__compact-statement reveal">
+          <span class="micro">HERO FILM / PERFORMANCE POV</span>
+          <h3>THE MOMENT<br />STAYS IN MOTION.</h3>
+          <p>One connected performance idea, designed to travel naturally across Reels, Feed and Messaging.</p>
+        </div>
+        <div class="meta-cinelli__compact-band meta-cinelli__compact-band--experience reveal" aria-label="Connected experience system">
+          <article><span>01</span><b>SEE</b><small>FIRST-PERSON CAPTURE PRESERVES THE ATHLETE'S POINT OF VIEW.</small></article>
+          <article><span>02</span><b>UNDERSTAND</b><small>META AI INTERPRETS CONTEXT THROUGH VOICE AND VISION.</small></article>
+          <article><span>03</span><b>SHARE</b><small>SELECTED MOMENTS MOVE INTO REELS, FEED OR PRIVATE MESSAGES.</small></article>
+          <article><span>04</span><b>BELONG</b><small>RESPONSE TURNS INDIVIDUAL EFFORT INTO COLLECTIVE ENERGY.</small></article>
+        </div>
+      </article>
+
+      <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--community" data-hero-pause>
+        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-connected-peloton-female-cinelli.png" alt="Three female athletes riding Cinelli track bikes through a bright futuristic velodrome" loading="lazy" />
+        <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
+        <div class="meta-cinelli__compact-statement meta-cinelli__compact-statement--community reveal">
+          <span class="micro">COMMUNITY FILM / SHARED MOVEMENT</span>
+          <h3>ONE RIDE<br />BECOMES A NETWORK.</h3>
+          <p>Action becomes story. Progress becomes identity. The inner circle rides with you.</p>
+          <div class="meta-cinelli__compact-community-lockup" aria-label="Meta by Cinelli">
+            <img src="assets/meta-loop-mark.png" alt="Meta" /><span>×</span><img src="assets/cinelli-wordmark.png" alt="Cinelli" />
+          </div>
+        </div>
+        <div class="meta-cinelli__compact-band meta-cinelli__compact-band--governance reveal" aria-label="Responsible design and measurement principles">
+          <article><span>VISIBLE</span><b>ATTENTION</b><small>CAPTURE LIGHT · RECORDING IS LEGIBLE</small></article>
+          <article><span>CONTROLLED</span><b>UTILITY</b><small>THE ATHLETE CHOOSES WHAT MOVES FORWARD</small></article>
+          <article><span>REVIEWED</span><b>CONNECTION</b><small>ACCURACY · BIAS · SAFETY · PRIVACY</small></article>
+          <article><span>MEASURABLE</span><b>LEARNING</b><small>SHARES · MESSAGES · RESPONSE · ITERATION</small></article>
+        </div>
+        <div class="meta-cinelli__compact-footer">
+          <button class="text-link project-trigger" data-project="meta-cinelli" type="button">EXPLORE THE CASE <span>↗</span></button>
+          <p>This independent portfolio concept is not affiliated with or commissioned by Meta or Cinelli. Measurement framework is illustrative; no results are claimed.</p>
+        </div>
+      </article>
+    </section>
+
     <section class="narrative-threshold narrative-threshold--understand" id="act-understand" data-narrative-threshold data-journey-chapter="understand">
       <div class="narrative-threshold__sticky">
         <div class="narrative-threshold__number" aria-hidden="true">03</div>
@@ -593,13 +891,27 @@
         </div>
       </article>
 
+      <section class="acg-system-bridge reveal" id="acg-system-intro" aria-labelledby="acgSystemBridgeTitle">
+        <div class="acg-system-bridge__copy">
+          <span class="micro">03.2 / WHY THIS IS A SYSTEM</span>
+          <h3 id="acgSystemBridgeTitle">A CAMPAIGN.<br /><em>BUILT AS A SYSTEM.</em></h3>
+          <p class="acg-system-bridge__lead">Live weather, 570 climate shelters, a spatial 3D interface, product utility and field notes connect as one useful urban experience.</p>
+          <p class="acg-system-bridge__detail">Each layer responds to the same real-world need: sense the heat, locate relief, equip people and learn from participation.</p>
+        </div>
+        <div class="acg-system-bridge__flow" aria-label="Connected campaign system">
+          <article><span>01</span><b>SENSE</b><small>LIVE CLIMATE SIGNAL</small></article>
+          <article><span>02</span><b>LOCATE</b><small>570 SHELTERS</small></article>
+          <article><span>03</span><b>EQUIP</b><small>PRODUCT UTILITY</small></article>
+          <article><span>04</span><b>LEARN</b><small>PUBLIC FIELD NOTES</small></article>
+        </div>
+      </section>
+
       <article class="acg-feature acg-immersive" id="acgExperience">
         <div class="acg-immersive__sticky">
           <h3 class="acg-campaign-header" aria-label="Barcelona x ACG — Climate Shelters">BARCELONA × ACG <span>—</span> CLIMATE SHELTERS</h3>
           <div class="acg-feature__copy">
             <span class="micro">SYSTEM DESIGN — ACG BARCELONA</span>
             <h3>BUILT FOR<br /><em>CITY HEAT.</em></h3>
-            <p>A campaign system connecting live weather, 570 climate shelters, a spatial 3D interface, product utility and field notes — designed as one useful urban experience.</p>
             <div class="acg-weather-feature" aria-label="Live Barcelona weather">
               <div class="acg-sun-visual" aria-hidden="true"><i></i><span>BCN / SUN SIGNAL</span></div>
               <div class="acg-weather-tracker">
@@ -627,6 +939,7 @@
           </div>
         </div>
       </article>
+
     </section>
 
     <section class="systems" id="system-engine-section" data-journey-chapter="understand">
@@ -648,6 +961,42 @@
       </div>
     </section>
 
+    <article class="micro1-system" id="micro1-ai" data-hero-pause data-journey-chapter="understand" aria-labelledby="micro1Title">
+      <div class="micro1-system__field" aria-hidden="true">
+        <img src="assets/micro1-signal-field.png" alt="" loading="lazy" />
+      </div>
+      <div class="micro1-system__heading reveal">
+        <span class="micro">03.4 / AI MODEL TRAINING · TASK ASSESSMENT</span>
+        <h2 id="micro1Title">TRAIN THE<br /><em>JUDGMENT.</em></h2>
+        <p>Five focused checks turn visual review into a consistent training signal—measuring intent, continuity, craft, naturalness and final preference.</p>
+        <img class="micro1-system__signature" src="assets/micro1-brand-world.png" alt="Micro1 AI training identity" loading="lazy" />
+      </div>
+
+      <div class="micro1-system__stage" id="micro1Stage" data-active-dimension="overall">
+        <div class="micro1-system__active">
+          <span class="micro">ACTIVE DIMENSION / <i id="micro1Code">05</i></span>
+          <b id="micro1Label">OVERALL</b>
+          <h3 id="micro1Name">OVERALL PREFERENCE</h3>
+          <p id="micro1Description">Answers the final question: if you requested this edit, how strongly would you prefer this result?</p>
+        </div>
+        <div class="micro1-system__dimensions" role="tablist" aria-label="Task assessment dimensions">
+          <button type="button" role="tab" data-micro1-dimension="if" aria-selected="false"><span>01</span><b>IF</b><small>INSTRUCTION FOLLOWING</small></button>
+          <button type="button" role="tab" data-micro1-dimension="ic" aria-selected="false"><span>02</span><b>IC</b><small>IMAGE / STYLE CONSISTENCY</small></button>
+          <button type="button" role="tab" data-micro1-dimension="q" aria-selected="false"><span>03</span><b>Q</b><small>QUALITY</small></button>
+          <button type="button" role="tab" data-micro1-dimension="ai" aria-selected="false"><span>04</span><b>AI</b><small>NATURALNESS / AI-NESS</small></button>
+          <button class="is-active" type="button" role="tab" data-micro1-dimension="overall" aria-selected="true"><span>05</span><b>OVERALL</b><small>OVERALL PREFERENCE</small></button>
+        </div>
+      </div>
+
+      <img class="micro1-system__map" src="assets/micro1-calibration-map.png" alt="Visual calibration map balancing tone, trust, authority and human focus" loading="lazy" />
+
+      <div class="micro1-system__footer">
+        <span class="micro">MODEL TRAINING PRACTICE</span>
+        <p>Task assessment · comparative evaluation · error diagnosis · rubric calibration · quality review</p>
+        <div class="micro">INTERPRET → ASSESS → COMPARE → CALIBRATE → TRAIN</div>
+      </div>
+    </article>
+
     <section class="narrative-threshold narrative-threshold--imagine" id="act-imagine" data-narrative-threshold data-journey-chapter="imagine">
       <div class="narrative-threshold__sticky">
         <div class="narrative-threshold__number" aria-hidden="true">04</div>
@@ -658,38 +1007,50 @@
       </div>
     </section>
 
-    <section class="scale scale--heritage" id="scale" data-journey-chapter="imagine">
-      <div class="future-heritage__intro section-pad">
-        <span class="micro reveal">04 / HERITAGE / PRODUCT / CULTURE</span>
-        <h2 class="massive reveal future-heritage__title"><span>DESIGN THE FUTURE.</span><span>HONOR THE PAST.</span></h2>
-        <p class="future-heritage__lead lead reveal">The strongest futures do not erase memory. They reinterpret its codes, rituals and emotion for what comes next.</p>
-      </div>
-      <div class="future-heritage__campaign" aria-label="Cinelli Aero Visor campaign">
-        <figure class="future-heritage__frame reveal">
-          <img src="assets/cinelli-aero-visor-product.jpg" alt="Cinelli Aero Visor product campaign" loading="lazy" />
-          <figcaption class="sr-only">Cinelli Aero Visor - product and racing heritage.</figcaption>
-        </figure>
-        <figure class="future-heritage__frame reveal">
-          <img src="assets/cinelli-aero-visor-rider.jpg" alt="Cinelli Aero Visor campaign with a racing cyclist" loading="lazy" />
-          <figcaption class="sr-only">Cinelli Aero Visor - heritage reinterpreted in motion.</figcaption>
-        </figure>
-        <figure class="future-heritage__frame reveal">
-          <img src="assets/cinelli-aero-visor-hero.jpg" alt="Cinelli Aero Visor frontal campaign hero" loading="lazy" />
-          <figcaption class="sr-only">Cinelli Aero Visor - a future-facing object built from racing culture.</figcaption>
-        </figure>
-      </div>
-      <div class="future-heritage__outro section-pad reveal"><span class="micro">VELOCIT&Agrave; FUTURA / MILANO 1948</span><p class="lead">Heritage is not a constraint. It is momentum.</p></div>
-    </section>
-
     <section class="narrative-threshold narrative-threshold--connect" id="act-connect" data-narrative-threshold data-journey-chapter="connect">
       <div class="narrative-threshold__sticky">
         <div class="narrative-threshold__number" aria-hidden="true">05</div>
         <span class="narrative-threshold__act micro">ACT V / CONNECT</span>
-        <h2><span>BEHIND EVERY SYSTEM</span><em>THERE IS A HUMAN.</em></h2>
-        <p>Tools change. Formats change. The responsibility to give an idea meaning remains human.</p>
-        <div class="narrative-threshold__next micro"><span>MEET THE PERSON BEHIND THE WORK</span><i></i></div>
+        <h2><span>EVERYTHING STARTS</span><em>WITH A HUMAN.</em></h2>
+        <p>Beyond every platform, product and system is a person&mdash;observing, feeling, choosing and connecting.</p>
+        <div class="narrative-threshold__next micro"><span>PLACES, FACES, HUMAN SENSITIVITY</span><i></i></div>
       </div>
     </section>
+
+    <section class="places-faces" id="places-and-faces" data-journey-chapter="connect" aria-label="Places and Faces photography">
+      <div class="places-faces__stage" id="placesFacesStage" tabindex="0" aria-label="Automatic photography slideshow. Hover to slow down; click to enlarge the current image.">
+        <div class="places-faces__frames" id="placesFacesFrames">
+          <figure class="places-faces__frame is-active" data-tone="lift" data-pf-caption="LIVE / SILHOUETTES"><img src="assets/places-faces-01.jpg" alt="Live performers in silhouette at SXSW" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="ENCOUNTER / BACKSTAGE"><img src="assets/places-faces-02.jpg" alt="Artist greeting people after a performance" /></figure>
+          <figure class="places-faces__frame" data-tone="lift" data-pf-caption="PORTRAIT / BETWEEN SETS"><img src="assets/places-faces-03.jpg" alt="Smiling musician backstage" /></figure>
+          <figure class="places-faces__frame" data-tone="lift" data-pf-caption="CROWD / CLOSE LISTENING"><img src="assets/places-faces-04.jpg" alt="Musicians and audience sharing a close performance moment" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="PERFORMANCE / OUTDOORS"><img src="assets/places-faces-05.jpg" alt="Band performing on an outdoor stage" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="CONVERSATION / AFTER THE SET"><img src="assets/places-faces-06.jpg" alt="Artist in conversation after a performance" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="STREET / IN TRANSIT"><img src="assets/places-faces-07.jpg" alt="Person standing at an Austin intersection" /></figure>
+          <figure class="places-faces__frame" data-tone="lift" data-pf-caption="PLACE / OLD METAL"><img src="assets/places-faces-08.jpg" alt="Weathered classic car beneath Austin trees" /></figure>
+          <figure class="places-faces__frame" data-tone="lift" data-pf-caption="PERFORMANCE / IN MOTION"><img src="assets/places-faces-09.jpg" alt="Performer caught in motion above an outdoor stage" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="AUDIENCE / WATCHING"><img src="assets/places-faces-10.jpg" alt="Spectator watching a performance" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="FACE / IN THE CROWD"><img src="assets/places-faces-11.jpg" alt="Portrait from the SXSW crowd" /></figure>
+          <figure class="places-faces__frame" data-pf-caption="PLACE / AUSTIN STREET"><img src="assets/places-faces-12.jpg" alt="Classic car on a quiet Austin residential street" /></figure>
+          <figure class="places-faces__frame" data-tone="lift" data-pf-caption="PLACE / BACK ALLEY"><img src="assets/places-faces-13.jpg" alt="Classic car parked in an Austin alley" /></figure>
+        </div>
+        <div class="places-faces__veil" aria-hidden="true"></div>
+        <header class="places-faces__head">
+          <span class="micro">LEICA Q &middot; SXSW &middot; AUSTIN, 2024</span>
+          <h2>PLACES<br />AND FACES.</h2>
+        </header>
+        <p class="places-faces__statement">A post-technological study of presence, diversity and the details that make us human.</p>
+        <div class="places-faces__meta micro"><span id="placesFacesCount">01 / 13</span><span id="placesFacesCaption">LIVE / SILHOUETTES</span><span>HOVER TO TAKE TIME &middot; CLICK TO OPEN</span></div>
+        <aside class="places-faces__disclaimer micro">THESE ARE PHOTOGRAPHS OF REAL PEOPLE.<br />SXSW 2024</aside>
+        <div class="places-faces__progress" aria-hidden="true"><i id="placesFacesProgress"></i></div>
+      </div>
+    </section>
+
+    <dialog class="places-faces-viewer" id="placesFacesViewer">
+      <button type="button" id="placesFacesClose" aria-label="Close photograph">CLOSE &times;</button>
+      <img id="placesFacesViewerImage" alt="Selected Places and Faces photograph" />
+      <span class="micro" id="placesFacesViewerCaption"></span>
+    </dialog>
 
     <section class="about" id="about" data-journey-chapter="connect">
       <div class="about__stage">
@@ -706,12 +1067,37 @@
       <div class="about__bio section-pad">
         <p class="lead reveal">I connect the rigor of industrial design with creative strategy, digital culture, visual storytelling and emerging technology.</p>
         <p class="reveal">My path runs from hands-on design and 3D craft through creative management, campaign worlds, playable experiments and AI-driven innovation. I lead with enough technical depth to protect the idea — and enough curiosity to keep transforming it.</p>
+        <button class="about__music-egg" id="musicEasterEgg" type="button" aria-label="Open a hidden music project">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"></circle><path d="M27 21.5 44 32 27 42.5Z"></path></svg>
+        </button>
         <div class="about__facts reveal"><div><b>21+</b><span>YEARS IN DESIGN</span></div><div><b>360°</b><span>CREATIVE PERSPECTIVE</span></div><div><b>BCN</b><span>BASED IN BARCELONA</span></div><div><b>∞</b><span>TOOLS, ONE VISION</span></div></div>
+      </div>
+      <div class="music-easter-egg" id="musicEasterEggIntro" aria-hidden="true">
+        <div class="music-easter-egg__pulse" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p><span>AFTER HOURS,</span><strong>I PRODUCE MUSIC.</strong><small>ENTERING THE MIXTAPE ↗</small></p>
       </div>
     </section>
 
     <footer class="footer" id="contact" data-journey-chapter="connect">
       <div class="footer__signal" aria-hidden="true"></div>
+      <nav class="footer__socials" aria-label="Social profiles">
+        <a class="footer__social footer__social--linkedin" href="https://www.linkedin.com/in/alexandre-bersia-18494228" target="_blank" rel="noopener noreferrer" aria-label="Alexandre Bersia on LinkedIn — opens in a new tab">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <rect x="8" y="8" width="84" height="84" rx="11"></rect>
+            <circle cx="30" cy="34" r="3.5"></circle>
+            <path d="M30 47v27M45 74V47m0 12c0-7 4.5-12 11.5-12S68 52 68 60v14"></path>
+          </svg>
+          <span>LINKEDIN ↗</span>
+        </a>
+        <a class="footer__social footer__social--instagram" href="https://www.instagram.com/creamynall/" target="_blank" rel="noopener noreferrer" aria-label="Alexandre Bersia on Instagram — opens in a new tab">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <rect x="8" y="8" width="84" height="84" rx="24"></rect>
+            <circle cx="50" cy="50" r="20"></circle>
+            <circle cx="74" cy="27" r="4"></circle>
+          </svg>
+          <span>INSTAGRAM ↗</span>
+        </a>
+      </nav>
       <span class="micro">AVAILABLE FOR CREATIVE DIRECTION · DIGITAL PRODUCTS · BRAND WORLDS · INNOVATION</span>
       <h2>LET’S DESIGN<br /><em>WHAT COMES NEXT.</em></h2>
       <div class="footer__bottom micro"><span>ALEXANDRE BERSIA © 2026</span><a href="mailto:alexandre.bersia@icloud.com">ALEXANDRE.BERSIA@ICLOUD.COM</a><a href="#hero">BACK TO SIGNAL ↑</a></div>
@@ -729,6 +1115,367 @@
     <iframe id="gameFrame" title="Ricard Pétanque Career game" loading="lazy" allow="fullscreen; autoplay"></iframe>
   </dialog>
 
-  <script src="script.js?v=1.54"></script>
+  <script src="script.js?v=meta-2.7"></script>
+  <script src="sala-onda.js?v=1.0"></script>
+<script>
+/* Places + Faces — complete 57-frame photographic loop */
+(() => {
+  const sources = Array.from({ length: 57 }, (_, index) =>
+    `assets/places-faces-${String(index + 1).padStart(2, '0')}.jpg`
+  );
+
+  const start = () => {
+    const section =
+      document.getElementById('places-faces') ||
+      [...document.querySelectorAll('section, [data-section], .project, .case-study')]
+        .find((element) => /places\s*(?:\+|and|&)\s*faces/i.test(element.textContent || ''));
+
+    if (!section || section.dataset.placesFacesComplete === 'true') return;
+    section.dataset.placesFacesComplete = 'true';
+    section.style.position = 'relative';
+    section.style.overflow = 'hidden';
+
+    const style = document.createElement('style');
+    style.textContent = `
+      .places-faces-loop { position:absolute; inset:0; z-index:8; background:#050505; color:#eaff78; cursor:zoom-in; isolation:isolate; }
+      .places-faces-loop__image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(1.08) brightness(.96); opacity:0; transition:opacity 720ms cubic-bezier(.22,.61,.36,1), transform 3.2s ease-out; transform:scale(1.025); }
+      .places-faces-loop__image.is-active { opacity:1; transform:scale(1); }
+      .places-faces-loop__veil { position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg,rgba(0,0,0,.13),transparent 28%,transparent 72%,rgba(0,0,0,.42)); }
+      .places-faces-loop__title { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; gap:.08em; padding:8vw; color:#eaff78; font-family:Arial Black,Arial,sans-serif; font-size:clamp(3.5rem,13vw,16rem); line-height:.77; letter-spacing:-.095em; text-transform:uppercase; pointer-events:none; transition:opacity .8s ease, transform .8s ease; text-shadow:0 1px 0 #050505; }
+      .places-faces-loop__title i { font-family:Georgia,serif; font-weight:400; font-size:.75em; letter-spacing:-.12em; text-transform:none; }
+      .places-faces-loop__title b { font-family:Georgia,serif; font-weight:400; font-size:.48em; letter-spacing:-.06em; transform:translateY(-.1em); }
+      .places-faces-loop.is-revealed .places-faces-loop__title { opacity:0; transform:scale(.98); }
+      .places-faces-loop__note { position:absolute; z-index:3; right:clamp(1rem,3vw,3rem); bottom:clamp(1rem,3vw,3rem); max-width:18rem; opacity:0; color:#eaff78; font:600 10px/1.35 Arial,sans-serif; letter-spacing:.1em; text-transform:uppercase; transition:opacity .28s ease; text-align:right; }
+      .places-faces-loop:hover .places-faces-loop__note { opacity:1; }
+      @media (prefers-reduced-motion:reduce) { .places-faces-loop__image { transition:none; } }
+    `;
+    document.head.appendChild(style);
+
+    const loop = document.createElement('div');
+    loop.className = 'places-faces-loop';
+    loop.setAttribute('aria-label', 'Places and Faces photography, SXSW 2024');
+    loop.innerHTML = `
+      <img class="places-faces-loop__image is-active" alt="" />
+      <img class="places-faces-loop__image" alt="" />
+      <div class="places-faces-loop__veil"></div>
+      <div class="places-faces-loop__title">Places <b>+</b> <i>Faces</i></div>
+      <div class="places-faces-loop__note">These are photographs of real people. SXSW 2024</div>
+    `;
+    section.appendChild(loop);
+
+    const frames = [...loop.querySelectorAll('img')];
+    let current = 0;
+    let visible = 0;
+    let timer;
+    frames[0].src = sources[0];
+    frames[1].src = sources[1];
+
+    const preload = (index) => {
+      const image = new Image();
+      image.src = sources[index % sources.length];
+    };
+    sources.slice(0, 4).forEach((_, index) => preload(index));
+
+    const next = () => {
+      const nextIndex = (current + 1) % sources.length;
+      const incoming = frames[1 - visible];
+      incoming.src = sources[nextIndex];
+      incoming.classList.add('is-active');
+      frames[visible].classList.remove('is-active');
+      visible = 1 - visible;
+      current = nextIndex;
+      preload(current + 2);
+    };
+
+    const schedule = (delay = 3000) => {
+      window.clearInterval(timer);
+      timer = window.setInterval(next, delay);
+    };
+    schedule();
+    window.setTimeout(() => loop.classList.add('is-revealed'), 1650);
+    loop.addEventListener('mouseenter', () => schedule(6800));
+    loop.addEventListener('mouseleave', () => schedule(3000));
+    loop.addEventListener('click', () => window.open(sources[current], '_blank', 'noopener'));
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+  <script>
+    (() => {
+      const initPersonalBridge = () => {
+        if (document.querySelector('.places-faces-bridge')) return;
+
+        const places = document.querySelector('#places-faces') ||
+          [...document.querySelectorAll('section')].find((section) =>
+            /places\s*\+\s*faces/i.test(section.textContent || '')
+          );
+
+        if (!places) return;
+
+        const bridge = document.createElement('section');
+        bridge.className = 'places-faces-bridge';
+        bridge.setAttribute('aria-label', 'Transition to Alexandre Bersia');
+        bridge.innerHTML = `
+          <div class="places-faces-bridge__grain" aria-hidden="true"></div>
+          <div class="places-faces-bridge__inner">
+            <p class="places-faces-bridge__eyebrow">THE PERSON BEHIND THE WORK <span>→</span></p>
+            <h2><span>AND THEN,</span><em>IT BECOMES PERSONAL.</em></h2>
+            <p class="places-faces-bridge__signature">ALEXANDRE BERSIA / CREATIVE STRATEGIST</p>
+          </div>
+        `;
+
+        places.insertAdjacentElement('afterend', bridge);
+
+        const profile = bridge.nextElementSibling;
+        if (profile && profile.tagName === 'SECTION') {
+          profile.classList.add('places-profile-reveal');
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `
+          .places-faces-bridge {
+            --exit: 0;
+            min-height: 100svh;
+            height: 100svh;
+            display: grid;
+            place-items: center;
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            background: radial-gradient(circle at 77% 26%, rgba(223,255,89,.14), transparent 19%), radial-gradient(circle at 23% 78%, rgba(255,91,48,.08), transparent 24%), #060606;
+            color: #f6f4ef;
+            opacity: calc(1 - var(--exit));
+            transform: scale(calc(1 - var(--exit) * .025));
+            transition: opacity .08s linear, transform .08s linear;
+          }
+          .places-faces-bridge::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(128deg, transparent 0 44%, rgba(223,255,89,.11) 44.1% 44.3%, transparent 44.4%);
+            opacity: .8;
+            pointer-events: none;
+          }
+          .places-faces-bridge__grain {
+            position: absolute;
+            inset: 0;
+            opacity: .18;
+            mix-blend-mode: screen;
+            background-image: repeating-linear-gradient(0deg, rgba(255,255,255,.11) 0 1px, transparent 1px 4px), repeating-linear-gradient(90deg, rgba(255,255,255,.08) 0 1px, transparent 1px 5px);
+            pointer-events: none;
+          }
+          .places-faces-bridge__inner {
+            position: relative;
+            z-index: 1;
+            width: min(88vw, 1200px);
+            opacity: 0;
+            transform: translateY(2.2rem) scale(.985);
+            transition: opacity .95s cubic-bezier(.22,1,.36,1), transform .95s cubic-bezier(.22,1,.36,1);
+          }
+          .places-faces-bridge.is-visible .places-faces-bridge__inner { opacity: 1; transform: none; }
+          .places-faces-bridge__eyebrow, .places-faces-bridge__signature {
+            font-family: inherit;
+            font-size: clamp(.62rem, .78vw, .82rem);
+            letter-spacing: .15em;
+            font-weight: 700;
+          }
+          .places-faces-bridge__eyebrow { margin: 0 0 1.35rem; color: #dfff59; }
+          .places-faces-bridge__eyebrow span { color: #ff6649; margin-left: .4rem; }
+          .places-faces-bridge h2 { margin: 0; line-height: .8; letter-spacing: -.07em; text-wrap: balance; }
+          .places-faces-bridge h2 span {
+            display: block;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: clamp(3.7rem, 10.7vw, 11rem);
+            font-weight: 900;
+          }
+          .places-faces-bridge h2 em {
+            display: block;
+            margin: .16em 0 0 .07em;
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: 400;
+            font-size: clamp(2.4rem, 7.4vw, 7.7rem);
+            letter-spacing: -.065em;
+            color: #dfff59;
+          }
+          .places-faces-bridge__signature { margin: 2.5rem 0 0; color: rgba(246,244,239,.58); }
+          @media (max-width: 700px) {
+            .places-faces-bridge__inner { width: calc(100vw - 2.5rem); }
+            .places-faces-bridge h2 span { font-size: clamp(3.35rem, 16vw, 5.6rem); }
+            .places-faces-bridge h2 em { margin-left: 0; font-size: clamp(2.05rem, 12vw, 4.2rem); line-height: .9; }
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .places-faces-bridge, .places-faces-bridge__inner { transition: none; transform: none; }
+          }
+          @supports (animation-timeline: view()) {
+            .places-profile-reveal {
+              animation: places-profile-reveal .75s ease-out both;
+              animation-timeline: view();
+              animation-range: entry 0% entry 45%;
+            }
+            @keyframes places-profile-reveal {
+              from { filter: grayscale(1) contrast(.94); opacity: .35; transform: scale(1.012); }
+              to { filter: grayscale(0) contrast(1); opacity: 1; transform: none; }
+            }
+          }
+        `;
+        document.head.appendChild(style);
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) bridge.classList.add('is-visible');
+          });
+        }, { threshold: .42 });
+        observer.observe(bridge);
+
+        let ticking = false;
+        const update = () => {
+          ticking = false;
+          const rect = bridge.getBoundingClientRect();
+          const exit = Math.min(1, Math.max(0, -rect.top / (window.innerHeight * .72)));
+          bridge.style.setProperty('--exit', exit.toFixed(3));
+        };
+        const schedule = () => {
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(update);
+          }
+        };
+        addEventListener('scroll', schedule, { passive: true });
+        addEventListener('resize', schedule);
+        update();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => setTimeout(initPersonalBridge, 80), { once: true });
+      } else {
+        setTimeout(initPersonalBridge, 80);
+      }
+    })();
+  </script>
+  <script>
+    (() => {
+      const initPortraitBridge = () => {
+        if (document.querySelector('.places-faces-bridge')) return true;
+
+        const places = document.querySelector('#places-faces') ||
+          [...document.querySelectorAll('section')].find((section) =>
+            /places\s*(?:\+|and)\s*faces/i.test(section.textContent || '')
+          );
+        if (!places) return false;
+
+        const profile = places.nextElementSibling;
+        const bridge = document.createElement('section');
+        bridge.className = 'places-faces-bridge';
+        bridge.setAttribute('aria-label', 'Transition to Alexandre Bersia');
+        bridge.innerHTML = `
+          <div class="pfb-grain" aria-hidden="true"></div>
+          <p class="pfb-kicker">THE PERSON BEHIND THE WORK →</p>
+          <h2><span>AND THEN,</span><strong>IT BECOMES PERSONAL.</strong></h2>
+          <p class="pfb-name">ALEXANDRE BERSIA / CREATIVE STRATEGIST</p>`;
+        places.insertAdjacentElement('afterend', bridge);
+        if (profile) profile.classList.add('pfb-profile');
+
+        const style = document.createElement('style');
+        style.textContent = `
+          .places-faces-bridge{position:relative;min-height:100svh;display:grid;align-content:center;gap:clamp(1rem,2vw,2rem);padding:clamp(2rem,6vw,7rem);overflow:hidden;color:#edff6c;background:#050505;isolation:isolate}
+          .places-faces-bridge:before,.places-faces-bridge:after{content:"";position:absolute;z-index:-1;border-radius:999px;filter:blur(35px);opacity:.78;transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+          .places-faces-bridge:before{width:min(52vw,760px);aspect-ratio:1;right:-17vw;top:-23vw;background:#c5ff2e}
+          .places-faces-bridge:after{width:min(37vw,560px);aspect-ratio:1;left:10vw;bottom:-25vw;background:#95ff1f}
+          .pfb-grain{position:absolute;inset:0;pointer-events:none;opacity:.19;background-image:radial-gradient(rgba(255,255,255,.5) .55px,transparent .75px);background-size:4px 4px;mix-blend-mode:screen}
+          .pfb-kicker,.pfb-name{margin:0;font:700 clamp(.62rem,.8vw,.84rem)/1.2 "IBM Plex Mono","Courier New",monospace;letter-spacing:.13em}
+          .pfb-kicker{color:rgba(237,255,108,.72)}
+          .pfb-name{color:rgba(255,255,255,.72);margin-top:clamp(1rem,3vw,3rem)}
+          .places-faces-bridge h2{max-width:1320px;margin:0;text-transform:uppercase;line-height:.83;letter-spacing:-.075em}
+          .places-faces-bridge h2 span,.places-faces-bridge h2 strong{display:block;transition:opacity .7s ease,transform .85s cubic-bezier(.2,.7,.1,1)}
+          .places-faces-bridge h2 span{font-size:clamp(2.55rem,8.6vw,10.5rem);font-weight:800;color:#fff}
+          .places-faces-bridge h2 strong{font-size:clamp(3.15rem,10.9vw,13rem);font-weight:900;color:#edff6c}
+          .places-faces-bridge.is-leaving h2 span,.places-faces-bridge.is-leaving h2 strong{opacity:0;transform:translateY(-14%) scale(.96)}
+          .places-faces-bridge.is-leaving:before,.places-faces-bridge.is-leaving:after{opacity:.08;transform:scale(1.24)}
+          .pfb-profile{transition:filter .8s ease,opacity .8s ease}
+          .pfb-profile.pfb-near{filter:grayscale(.35) contrast(1.06)}
+          @media (prefers-reduced-motion:reduce){.places-faces-bridge *,.pfb-profile{transition:none!important}}
+        `;
+        document.head.appendChild(style);
+
+        const observer = new IntersectionObserver(([entry]) => {
+          bridge.classList.toggle('is-leaving', entry.intersectionRatio < .30);
+          if (profile) profile.classList.toggle('pfb-near', entry.intersectionRatio < .58);
+        }, { threshold: [0, .3, .58, 1] });
+        observer.observe(bridge);
+        return true;
+      };
+
+      const start = () => {
+        if (initPortraitBridge()) return;
+        const observer = new MutationObserver(() => {
+          if (initPortraitBridge()) observer.disconnect();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        window.setTimeout(() => observer.disconnect(), 5000);
+      };
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
+      else start();
+    })();
+  </script>
+  <script>
+    (() => {
+      const initPortraitBridge = () => {
+        if (document.querySelector('.places-faces-bridge')) return true;
+        const places = document.querySelector('#places-faces') ||
+          [...document.querySelectorAll('section')].find((section) =>
+            /places\s*(?:\+|and)\s*faces/i.test(section.textContent || '')
+          );
+        if (!places) return false;
+
+        const profile = places.nextElementSibling;
+        const bridge = document.createElement('section');
+        bridge.className = 'places-faces-bridge';
+        bridge.setAttribute('aria-label', 'Transition to Alexandre Bersia');
+        bridge.innerHTML = `
+          <div class="pfb-grain" aria-hidden="true"></div>
+          <p class="pfb-kicker">THE PERSON BEHIND THE WORK →</p>
+          <h2><span>AND THEN,</span><strong>IT BECOMES PERSONAL.</strong></h2>
+          <p class="pfb-name">ALEXANDRE BERSIA / CREATIVE STRATEGIST</p>`;
+        places.insertAdjacentElement('afterend', bridge);
+        if (profile) profile.classList.add('pfb-profile');
+
+        const style = document.createElement('style');
+        style.textContent = `
+          .places-faces-bridge{position:relative;min-height:100svh;display:grid;align-content:center;gap:clamp(1rem,2vw,2rem);padding:clamp(2rem,6vw,7rem);overflow:hidden;color:#edff6c;background:#050505;isolation:isolate}
+          .places-faces-bridge:before,.places-faces-bridge:after{content:"";position:absolute;z-index:-1;border-radius:999px;filter:blur(35px);opacity:.78;transition:opacity .7s ease,transform .9s cubic-bezier(.2,.7,.1,1)}
+          .places-faces-bridge:before{width:min(52vw,760px);aspect-ratio:1;right:-17vw;top:-23vw;background:#c5ff2e}
+          .places-faces-bridge:after{width:min(37vw,560px);aspect-ratio:1;left:10vw;bottom:-25vw;background:#95ff1f}
+          .pfb-grain{position:absolute;inset:0;pointer-events:none;opacity:.19;background-image:radial-gradient(rgba(255,255,255,.5) .55px,transparent .75px);background-size:4px 4px;mix-blend-mode:screen}
+          .pfb-kicker,.pfb-name{margin:0;font:700 clamp(.62rem,.8vw,.84rem)/1.2 "IBM Plex Mono","Courier New",monospace;letter-spacing:.13em}
+          .pfb-kicker{color:rgba(237,255,108,.72)}.pfb-name{color:rgba(255,255,255,.72);margin-top:clamp(1rem,3vw,3rem)}
+          .places-faces-bridge h2{max-width:1320px;margin:0;text-transform:uppercase;line-height:.83;letter-spacing:-.075em}
+          .places-faces-bridge h2 span,.places-faces-bridge h2 strong{display:block;transition:opacity .7s ease,transform .85s cubic-bezier(.2,.7,.1,1)}
+          .places-faces-bridge h2 span{font-size:clamp(2.55rem,8.6vw,10.5rem);font-weight:800;color:#fff}
+          .places-faces-bridge h2 strong{font-size:clamp(3.15rem,10.9vw,13rem);font-weight:900;color:#edff6c}
+          .places-faces-bridge.is-leaving h2 span,.places-faces-bridge.is-leaving h2 strong{opacity:0;transform:translateY(-14%) scale(.96)}
+          .places-faces-bridge.is-leaving:before,.places-faces-bridge.is-leaving:after{opacity:.08;transform:scale(1.24)}
+          .pfb-profile{transition:filter .8s ease,opacity .8s ease}.pfb-profile.pfb-near{filter:grayscale(.35) contrast(1.06)}
+          @media (prefers-reduced-motion:reduce){.places-faces-bridge *,.pfb-profile{transition:none!important}}
+        `;
+        document.head.appendChild(style);
+        const observer = new IntersectionObserver(([entry]) => {
+          bridge.classList.toggle('is-leaving', entry.intersectionRatio < .30);
+          if (profile) profile.classList.toggle('pfb-near', entry.intersectionRatio < .58);
+        }, {threshold:[0,.3,.58,1]});
+        observer.observe(bridge);
+        return true;
+      };
+      const start = () => {
+        if (initPortraitBridge()) return;
+        const observer = new MutationObserver(() => { if (initPortraitBridge()) observer.disconnect(); });
+        observer.observe(document.body, {childList:true,subtree:true});
+        window.setTimeout(() => observer.disconnect(), 5000);
+      };
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
+      else start();
+    })();
+  </script>
 </body>
 </html>
