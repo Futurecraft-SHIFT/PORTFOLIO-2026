@@ -1,0 +1,1207 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ricard Pétanque</title><style>html,body{margin:0;min-height:100%;background:#061c42}body{padding:0}#ricard-petanque{width:100vw!important}.rp-game{width:100vw!important;height:100vh!important;border-radius:0!important}</style></head><body><div id="ricard-petanque" class="rp-shell">
+  <div class="rp-game" aria-label="3D petanque court">
+    <div id="rp-stage" class="rp-stage"></div>
+
+    <header class="rp-topbar">
+      <div class="rp-brand" aria-label="Ricard Petanque">
+        <span class="rp-sun">✦</span>
+        <span class="rp-wordmark">RICARD</span>
+        <span class="rp-petanque-label">PÉTANQUE</span>
+      </div>
+      <div class="rp-score" aria-live="polite">
+        <div><span id="rp-player-name">VOUS</span><strong id="rp-player-score">0</strong><small id="rp-player-boules">●●●</small></div>
+        <span class="rp-score-dash">—</span>
+        <div><span id="rp-ai-name">MARCEL</span><strong id="rp-ai-score">0</strong><small id="rp-ai-boules">●●●</small></div>
+      </div>
+      <button id="rp-menu-button" class="rp-icon-button" type="button" aria-label="Open menu">☰</button>
+      <button id="rp-fullscreen" class="rp-icon-button rp-fullscreen-button" type="button" aria-label="Plein écran">⛶</button>
+    </header>
+
+    <div class="rp-wind"><span id="rp-wind-arrow">➜</span><b id="rp-wind-value">0.4 m/s</b></div>
+    <div id="rp-turn" class="rp-turn">LANCER DU COCHONNET</div>
+    <div id="rp-message" class="rp-message" aria-live="assertive"></div>
+
+    <div id="rp-reticle" class="rp-reticle" aria-hidden="true"><i></i><b></b></div>
+    <div id="rp-charge" class="rp-charge" aria-hidden="true"><span></span></div>
+
+    <aside class="rp-distance" aria-live="polite">
+      <span>DISTANCE AU BUT</span>
+      <strong id="rp-distance-value">—</strong>
+    </aside>
+
+    <div class="rp-throw-tools">
+      <button type="button" data-throw="point" class="rp-tool is-active"><b>1</b><span>Pointer</span></button>
+      <button type="button" data-throw="lob" class="rp-tool"><b>2</b><span>Portée</span></button>
+      <button type="button" data-throw="strike" class="rp-tool"><b>3</b><span>Tirer</span></button>
+    </div>
+
+    <div id="rp-help" class="rp-help">
+      <span class="rp-mouse-icon">◉</span>
+      <span><b>Visez avec la souris</b><small>Maintenez pour doser · relâchez pour lancer</small></span>
+    </div>
+
+    <section id="rp-start" class="rp-overlay rp-start-overlay">
+      <div class="rp-logo-lockup">
+        <span class="rp-logo-sun">✦</span>
+        <h1>RICARD</h1>
+        <p>LE TERRAIN DES AMIS</p>
+      </div>
+      <div class="rp-menu-card">
+        <h2>Choisissez votre partie</h2>
+        <div class="rp-modes">
+          <button type="button" data-mode="single" class="rp-mode is-selected"><span>1 × 1</span><b>Tête-à-tête</b><small>3 boules · 13 points</small></button>
+          <button type="button" data-mode="double"><span>2 × 2</span><b>Doublette</b><small>6 boules · 13 points</small></button>
+          <button type="button" data-mode="triple"><span>3 × 3</span><b>Triplette</b><small>6 boules · 13 points</small></button>
+          <button type="button" data-mode="striker"><span>★</span><b>Meilleur tireur</b><small>5 ateliers de tir</small></button>
+          <button type="button" data-mode="league"><span>♜</span><b>Ligue Ricard</b><small>3 adversaires</small></button>
+          <button id="rp-career-entry" type="button" class="rp-mode"><span>◆</span><b>Carrière</b><small>Du club aux grands tournois</small></button>
+        </div>
+        <div class="rp-setup-row">
+          <label>Terrain
+            <select id="rp-surface">
+              <option value="gravel">Gravier provençal</option>
+              <option value="sand">Sable compact</option>
+              <option value="hard">Stabilisé dur</option>
+            </select>
+          </label>
+          <label>Niveau
+            <select id="rp-difficulty">
+              <option value="friendly">Aperitif</option>
+              <option value="club" selected>Club</option>
+              <option value="champion">Champion</option>
+            </select>
+          </label>
+        </div>
+        <div id="rp-role-setup" class="rp-role-setup is-hidden">
+          <div><b>Composition de votre équipe</b><small>Personnalisez les joueurs avant la partie</small></div>
+          <div class="rp-control-options">
+            <label>Contrôle de l’équipe
+              <select id="rp-team-control">
+                <option value="all">Toute l’équipe</option>
+                <option value="solo">Mon joueur uniquement</option>
+              </select>
+            </label>
+            <label>Votre rôle
+              <select id="rp-user-role"></select>
+            </label>
+          </div>
+          <div id="rp-role-fields" class="rp-role-fields"></div>
+        </div>
+        <button id="rp-play" type="button" class="rp-play-button">ENTRER SUR LE TERRAIN <span>→</span></button>
+        <p class="rp-disclaimer">Une partie virtuelle signée RICARD. À savourer avec l’esprit du Sud.</p>
+      </div>
+    </section>
+
+    <section id="rp-career" class="rp-overlay rp-career-overlay is-hidden">
+      <div class="rp-dialog rp-career-dialog">
+        <button id="rp-career-close" class="rp-close" type="button" aria-label="Fermer">×</button>
+        <div class="rp-mini-brand">✦ RICARD</div>
+        <div id="rp-avatar-creator">
+          <div class="rp-kicker">CRÉEZ VOTRE JOUEUR</div>
+          <h2>Le premier lancer d’une grande histoire</h2>
+          <div id="rp-avatar-preview" class="rp-avatar-preview" role="img" aria-label="Aperçu de votre avatar"></div>
+          <div class="rp-career-form">
+            <label>Nom<input id="rp-career-name" maxlength="16" value="Alex" /></label><label>Âge<input id="rp-career-age" type="number" min="16" max="75" value="22" /></label><label>Genre<select id="rp-career-gender"><option>Femme</option><option selected>Homme</option><option>Non-binaire</option></select></label><label>Taille<select id="rp-career-height"><option>160 cm</option><option>170 cm</option><option selected>180 cm</option><option>190 cm</option><option>200 cm</option></select></label><label>Poids<select id="rp-career-weight"><option>55 kg</option><option>65 kg</option><option selected>75 kg</option><option>85 kg</option><option>95 kg</option></select></label><label>Coiffure<select id="rp-career-hair"><option>Courte</option><option>Bouclée</option><option>Longue</option><option>Rasée</option></select></label><label>Barbe<select id="rp-career-facial"><option>Aucune</option><option>Barbe courte</option><option>Moustache</option><option>Bouc</option></select></label>
+          </div>
+          <p class="rp-career-note">Vous débutez avec un short blanc, un polo blanc et trois boules légères d’entraînement.</p>
+          <button id="rp-create-career" type="button" class="rp-play-button">COMMENCER AU CLUB <span>→</span></button>
+        </div>
+        <div id="rp-career-hub" class="is-hidden">
+          <div class="rp-career-head"><div id="rp-career-avatar-thumb" class="rp-avatar-thumb" role="img" aria-label="Votre avatar"></div><div><div class="rp-kicker">CARRIÈRE</div><h2 id="rp-career-player">Alex</h2><p id="rp-career-club">Joueur libre · Club des Cigales</p></div><div class="rp-career-credits"><span>CRÉDITS</span><b id="rp-career-credits">80</b></div></div>
+          <div id="rp-career-grid" class="rp-career-grid">
+            <div class="rp-career-card"><span>PROCHAINE ÉTAPE</span><b id="rp-career-event">Partie d’amis au Club des Cigales</b><small id="rp-career-event-copy">Faites-vous remarquer sur votre terrain local.</small><button id="rp-career-play" type="button" class="rp-play-button">JOUER <span>→</span></button></div>
+            <div class="rp-career-card"><span>COMPÉTENCES</span><div id="rp-career-stats" class="rp-career-stats"></div><small>Les victoires et bons choix améliorent votre jeu.</small></div>
+            <div class="rp-career-card"><span>ÉQUIPEMENT</span><b id="rp-career-kit">Polo blanc · Boules d’entraînement</b><small id="rp-career-kit-copy">Léger, abordable, mais peu précis.</small><button id="rp-career-shop" type="button" class="rp-secondary-button">BOUTIQUE</button><button id="rp-career-avatar" type="button" class="rp-secondary-button">MODIFIER L’AVATAR</button></div>
+            <div class="rp-career-card"><span>OPPORTUNITÉS</span><b id="rp-career-offer">Le club vous observe</b><small id="rp-career-offer-copy">Les contrats et sponsors arrivent avec la réputation.</small><button id="rp-career-contract" type="button" class="rp-secondary-button">VOIR LES OFFRES</button></div>
+          </div>
+          <div id="rp-career-panel" class="rp-career-panel is-hidden"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rp-pause" class="rp-overlay rp-pause-overlay is-hidden">
+      <div class="rp-dialog">
+        <div class="rp-mini-brand">✦ RICARD</div>
+        <h2>Partie en pause</h2>
+        <button id="rp-resume" type="button" class="rp-play-button">REPRENDRE</button>
+        <button id="rp-restart" type="button" class="rp-secondary-button">RECOMMENCER</button>
+        <button id="rp-home" type="button" class="rp-secondary-button">CHOISIR UNE AUTRE PARTIE</button>
+      </div>
+    </section>
+
+    <section id="rp-end" class="rp-overlay rp-end-overlay is-hidden">
+      <div class="rp-dialog">
+        <div class="rp-mini-brand">✦ RICARD</div>
+        <div id="rp-end-kicker" class="rp-kicker">FIN DE PARTIE</div>
+        <h2 id="rp-end-title">Victoire !</h2>
+        <p id="rp-end-copy"></p>
+        <div id="rp-end-score" class="rp-final-score">13 — 8</div>
+        <button id="rp-next" type="button" class="rp-play-button">REJOUER</button>
+        <button id="rp-end-home" type="button" class="rp-secondary-button">RETOUR AUX MODES</button>
+      </div>
+    </section>
+
+    <section id="rp-rules" class="rp-overlay rp-rules-overlay is-hidden">
+      <div class="rp-dialog rp-rules-dialog">
+        <button id="rp-close-rules" class="rp-close" type="button" aria-label="Close">×</button>
+        <h2>Comment jouer</h2>
+        <ol>
+          <li><b>Visez</b> en déplaçant le curseur : gauche/droite pour la direction, haut/bas pour la hauteur.</li>
+          <li><b>Maintenez</b> le bouton principal pour doser la force, puis relâchez pour lancer.</li>
+          <li><b>Pointez</b> près du cochonnet ou <b>tirez</b> les boules adverses. La plus proche mène.</li>
+          <li>En équipe, <b>choisissez le joueur avant chaque boule</b>. Les couleurs et rainures correspondent aux rôles affichés.</li>
+          <li>À chaque mène, l’équipe gagnante marque une boule mieux placée que la meilleure adverse. Première à 13.</li>
+        </ol>
+        <p><b>Touches :</b> 1 Pointer · 2 Portée · 3 Tirer · Échap Pause</p>
+        <button id="rp-got-it" type="button" class="rp-play-button">J’AI COMPRIS</button>
+      </div>
+    </section>
+
+    <section id="rp-player-pick" class="rp-overlay rp-player-pick is-hidden">
+      <div class="rp-dialog rp-pick-dialog">
+        <div class="rp-mini-brand">✦ RICARD</div>
+        <div class="rp-kicker">VOTRE ÉQUIPE</div>
+        <h2>Qui joue cette boule ?</h2>
+        <p id="rp-pick-guidance">Choisissez le joueur selon la situation.</p>
+        <div id="rp-player-choices" class="rp-player-choices"></div>
+      </div>
+    </section>
+
+    <section id="rp-bot-call" class="rp-overlay rp-player-pick is-hidden">
+      <div class="rp-dialog rp-pick-dialog">
+        <div class="rp-mini-brand">✦ RICARD</div>
+        <div class="rp-kicker">DÉCISION D’ÉQUIPE</div>
+        <h2 id="rp-bot-call-title">Quelle stratégie pour cette boule ?</h2>
+        <p id="rp-bot-call-guidance">Décidez si l’équipe construit le point ou cherche le tir.</p>
+        <div class="rp-call-choices">
+          <button id="rp-bot-point" type="button" class="rp-player-choice"><b>POINTER</b><span>Construire le point</span><small>Une boule est jouée près du but</small></button>
+          <button id="rp-bot-strike" type="button" class="rp-player-choice"><b>TIRER</b><span>Prendre le point</span><small>Une boule adverse est visée</small></button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  #ricard-petanque {
+    --rp-blue: #062b68;
+    --rp-blue-2: #0b4c9c;
+    --rp-yellow: #ffd400;
+    --rp-red: #e1261c;
+    --rp-cream: #fff4cf;
+    --rp-ink: #071e3f;
+    width: 100%;
+    color: var(--rp-cream);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  #ricard-petanque * { box-sizing: border-box; }
+  #ricard-petanque .is-hidden { display:none !important; }
+  #ricard-petanque button, #ricard-petanque select { font: inherit; }
+  .rp-game {
+    position: relative;
+    height: min(860px, calc(100vh - 24px));
+    min-height: 0;
+    overflow: hidden;
+    background: #86b8df;
+    border-radius: 18px;
+    isolation: isolate;
+    box-shadow: 0 24px 70px rgba(1, 18, 48, .28);
+    user-select: none;
+  }
+  .rp-stage, .rp-stage canvas { width: 100%; height: 100%; display: block; }
+  .rp-stage { position: absolute; inset: 0; cursor: crosshair; }
+  .rp-topbar {
+    position: absolute; inset: 0 0 auto; z-index: 8;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    padding: 18px 22px 36px;
+    background: linear-gradient(180deg, rgba(3, 25, 61, .84), rgba(3, 25, 61, 0));
+    pointer-events: none;
+  }
+  .rp-brand { display: flex; align-items: center; gap: 8px; font-style: italic; font-weight: 900; letter-spacing: .08em; }
+  .rp-sun { display: grid; place-items: center; width: 25px; height: 25px; border-radius: 50%; color: var(--rp-blue); background: var(--rp-yellow); font-size: 17px; }
+  .rp-wordmark { font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif; font-size: 24px; color: var(--rp-yellow); letter-spacing: .04em; transform: skew(-7deg); }
+  .rp-petanque-label { padding-left: 8px; border-left: 1px solid rgba(255,255,255,.35); font-size: 11px; color: white; }
+  .rp-score { display: flex; align-items: center; gap: 15px; padding: 8px 18px; border: 1px solid rgba(255,255,255,.25); background: rgba(3, 28, 69, .76); backdrop-filter: blur(10px); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.16); }
+  .rp-score > div { display: grid; grid-template-columns: auto auto; gap: 0 10px; align-items: center; min-width: 86px; }
+  .rp-score > div:last-child { text-align: right; }
+  .rp-score span { font-size: 10px; letter-spacing: .12em; font-weight: 800; }
+  .rp-score strong { grid-row: span 2; font-family: Impact, sans-serif; font-size: 30px; color: var(--rp-yellow); font-weight: 500; }
+  .rp-score small { font-size: 9px; letter-spacing: 2px; color: white; }
+  .rp-score-dash { color: rgba(255,255,255,.45) !important; }
+  .rp-icon-button { pointer-events: auto; justify-self: end; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; background: rgba(3,28,69,.65); color: white; cursor: pointer; }
+  .rp-fullscreen-button { position:absolute; right:72px; top:18px; }
+  .rp-wind { position: absolute; z-index: 6; top: 105px; left: 22px; display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 8px; background: rgba(3,28,69,.7); color: white; font-size: 11px; letter-spacing: .08em; backdrop-filter: blur(6px); }
+  .rp-wind span { color: var(--rp-yellow); font-size: 17px; transform-origin: center; }
+  .rp-turn { position: absolute; z-index: 6; top: 112px; left: 50%; transform: translateX(-50%); padding: 7px 13px; border-radius: 100px; background: var(--rp-yellow); color: var(--rp-blue); font-size: 11px; font-weight: 900; letter-spacing: .11em; box-shadow: 0 5px 18px rgba(0,0,0,.18); white-space: nowrap; }
+  .rp-message { position: absolute; z-index: 12; top: 158px; left: 50%; transform: translate(-50%, -8px); padding: 10px 17px; border-radius: 9px; background: rgba(3,28,69,.88); color: white; font-weight: 800; letter-spacing: .05em; font-size: 13px; opacity: 0; transition: .25s ease; pointer-events: none; text-align: center; }
+  .rp-message.is-visible { opacity: 1; transform: translate(-50%, 0); }
+  .rp-reticle { position: absolute; z-index: 5; width: 42px; height: 42px; transform: translate(-50%,-50%); pointer-events: none; filter: drop-shadow(0 1px 2px rgba(0,0,0,.6)); }
+  .rp-reticle:before { content: ""; position: absolute; inset: 8px; border: 2px solid rgba(255,255,255,.9); border-radius: 50%; }
+  .rp-reticle i:before, .rp-reticle i:after { content:""; position:absolute; background:var(--rp-yellow); }
+  .rp-reticle i:before { width: 12px; height: 2px; left: 0; top: 20px; box-shadow: 30px 0 var(--rp-yellow); }
+  .rp-reticle i:after { width: 2px; height: 12px; left: 20px; top: 0; box-shadow: 0 30px var(--rp-yellow); }
+  .rp-reticle b { position:absolute; width:4px; height:4px; left:19px; top:19px; border-radius:50%; background:white; }
+  .rp-charge { position:absolute; z-index:7; right:24px; top:50%; transform:translateY(-50%); display:flex; align-items:flex-end; width:13px; height:min(290px,40%); border:1px solid rgba(255,255,255,.82); border-radius:100px; background:rgba(3,28,69,.62); padding:2px; opacity:.88; pointer-events:none; box-shadow:0 3px 14px rgba(0,0,0,.2); }
+  .rp-charge:before { content:"FORCE"; position:absolute; left:50%; bottom:-33px; transform:translateX(-50%); color:white; font-size:8px; font-weight:900; letter-spacing:.1em; text-shadow:0 2px 3px rgba(0,0,0,.55); }
+  .rp-charge:after { content:""; position:absolute; inset:3px -5px; z-index:2; background:repeating-linear-gradient(to top,transparent 0,transparent calc(20% - 1px),rgba(255,255,255,.58) calc(20% - 1px),rgba(255,255,255,.58) 20%); }
+  .rp-charge span { display:block; width:100%; height:0; border-radius:100px; background:linear-gradient(0deg,var(--rp-yellow),#ff7a00,var(--rp-red)); transition:height .03s linear; }
+  .rp-distance { position:absolute; z-index:6; left:22px; bottom:24px; display:flex; flex-direction:column; padding-left:12px; border-left:3px solid var(--rp-yellow); text-shadow:0 2px 4px rgba(0,0,0,.5); }
+  .rp-distance span { font-size:9px; letter-spacing:.12em; font-weight:800; }
+  .rp-distance strong { font-size:23px; font-family:Impact,sans-serif; font-weight:500; }
+  .rp-throw-tools { position:absolute; z-index:7; left:50%; bottom:20px; transform:translateX(-50%); display:flex; gap:7px; }
+  .rp-tool { display:flex; align-items:center; gap:7px; min-width:93px; padding:8px 11px; border:1px solid rgba(255,255,255,.32); border-radius:9px; background:rgba(3,28,69,.75); color:white; cursor:pointer; backdrop-filter:blur(6px); }
+  .rp-tool b { display:grid; place-items:center; width:20px; height:20px; border-radius:5px; background:rgba(255,255,255,.14); color:var(--rp-yellow); font-size:10px; }
+  .rp-tool span { font-size:11px; font-weight:800; }
+  .rp-tool.is-active { background:var(--rp-yellow); color:var(--rp-blue); border-color:var(--rp-yellow); }
+  .rp-tool.is-active b { background:var(--rp-blue); color:var(--rp-yellow); }
+  .rp-help { position:absolute; z-index:6; right:22px; bottom:22px; display:flex; align-items:center; gap:9px; text-align:right; text-shadow:0 2px 4px rgba(0,0,0,.55); }
+  .rp-help > span { display:flex; flex-direction:column; }
+  .rp-help b { font-size:11px; }
+  .rp-help small { font-size:9px; color:rgba(255,255,255,.82); }
+  .rp-mouse-icon { display:grid !important; place-items:center; width:32px; height:40px; border:2px solid white; border-radius:15px; color:var(--rp-yellow); }
+  .rp-overlay { position:absolute; inset:0; z-index:20; display:flex; align-items:center; justify-content:center; padding:34px; background:linear-gradient(125deg,rgba(3,24,60,.93),rgba(4,50,110,.66)); backdrop-filter:blur(7px); }
+  .rp-overlay.is-hidden { display:none; }
+  .rp-start-overlay { justify-content:space-around; gap:42px; }
+  .rp-logo-lockup { position:relative; text-align:center; transform:rotate(-3deg); }
+  .rp-logo-lockup h1 { margin:0; color:var(--rp-yellow); font-family:Impact,Haettenschweiler,sans-serif; font-size:72px; line-height:.9; letter-spacing:.04em; font-style:italic; text-shadow:5px 5px 0 var(--rp-blue); }
+  .rp-logo-lockup p { margin:12px 0 0; padding:7px 12px; background:var(--rp-yellow); color:var(--rp-blue); font-size:11px; letter-spacing:.18em; font-weight:900; }
+  .rp-logo-sun { position:absolute; font-size:90px; color:rgba(255,212,0,.16); left:50%; top:50%; transform:translate(-50%,-54%); }
+  .rp-menu-card, .rp-dialog { width:min(470px,100%); padding:25px; border:1px solid rgba(255,255,255,.25); border-radius:18px; background:rgba(5,37,85,.9); box-shadow:0 28px 70px rgba(0,0,0,.32); }
+  .rp-menu-card h2, .rp-dialog h2 { margin:0 0 17px; color:white; font-size:21px; font-weight:800; }
+  .rp-modes { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .rp-modes button { display:grid; grid-template-columns:42px 1fr; grid-template-rows:auto auto; text-align:left; padding:10px; border:1px solid rgba(255,255,255,.16); border-radius:10px; background:rgba(255,255,255,.06); color:white; cursor:pointer; }
+  .rp-modes button:first-child { grid-column:auto; }
+  .rp-modes button span { grid-row:span 2; align-self:center; color:var(--rp-yellow); font-family:Impact,sans-serif; font-size:21px; }
+  .rp-modes button b { font-size:12px; }
+  .rp-modes button small { margin-top:2px; color:rgba(255,255,255,.7); font-size:9px; }
+  .rp-modes button:hover, .rp-modes button.is-selected { border-color:var(--rp-yellow); background:rgba(255,212,0,.12); }
+  .rp-setup-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:13px; }
+  .rp-setup-row label { display:flex; flex-direction:column; gap:5px; font-size:9px; font-weight:800; letter-spacing:.1em; color:rgba(255,255,255,.7); }
+  .rp-setup-row select { width:100%; padding:9px; border:1px solid rgba(255,255,255,.2); border-radius:8px; background:#062b68; color:white; font-size:11px; }
+  .rp-role-setup { margin-top:12px; padding-top:11px; border-top:1px solid rgba(255,255,255,.16); }
+  .rp-role-setup.is-hidden, .rp-player-pick.is-hidden { display:none; }
+  .rp-role-setup > div:first-child { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .rp-role-setup > div:first-child b { color:white; font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
+  .rp-role-setup > div:first-child small { color:rgba(255,255,255,.58); font-size:9px; }
+  .rp-control-options { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-top:9px; }
+  .rp-control-options label { display:flex; flex-direction:column; gap:4px; color:rgba(255,255,255,.66); font-size:8px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+  .rp-control-options select { width:100%; padding:7px 8px; border:1px solid rgba(255,255,255,.2); border-radius:7px; background:#062b68; color:white; font-size:10px; }
+  .rp-role-fields { display:grid; gap:6px; margin-top:8px; }
+  .rp-role-field { display:grid; grid-template-columns:25px 82px 1fr auto; gap:8px; align-items:center; }
+  .rp-role-field label { color:var(--rp-yellow); font-size:10px; font-weight:900; letter-spacing:.06em; }
+  .rp-role-field input { min-width:0; width:100%; padding:7px 9px; border:1px solid rgba(255,255,255,.2); border-radius:7px; background:rgba(255,255,255,.08); color:white; font-size:11px; }
+  .rp-role-field small { color:rgba(255,255,255,.6); font-size:9px; white-space:nowrap; }
+  .rp-pattern { position:relative; display:inline-block; width:22px; height:22px; border-radius:50%; background:linear-gradient(145deg,#e9edf0,#8f9da6); box-shadow:inset -3px -4px 6px rgba(3,28,69,.32); }
+  .rp-pattern:after { content:""; position:absolute; inset:3px; border-radius:50%; border-top:2px solid var(--rp-blue); transform:rotate(22deg); }
+  .rp-pattern[data-pattern="2"]:before { content:""; position:absolute; inset:6px 2px; border-radius:50%; border-top:2px solid var(--rp-blue); transform:rotate(22deg); }
+  .rp-pattern[data-pattern="3"] { background:linear-gradient(145deg,#f2d488,#9b773e); }
+  .rp-pattern[data-pattern="3"]:before { content:""; position:absolute; inset:2px 5px; border-radius:50%; border-left:2px solid var(--rp-blue); border-right:2px solid var(--rp-blue); transform:rotate(22deg); }
+  .rp-pick-dialog { width:min(540px,100%); }
+  .rp-player-choices { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; margin-top:16px; }
+  .rp-call-choices { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:16px; }
+  .rp-call-choices .rp-player-choice { min-height:115px; }
+  .rp-player-choice { position:relative; display:grid; justify-items:center; gap:5px; padding:15px 9px; border:1px solid rgba(255,255,255,.22); border-radius:11px; background:rgba(255,255,255,.06); color:white; cursor:pointer; }
+  .rp-player-choice:hover { border-color:var(--rp-yellow); background:rgba(255,212,0,.1); }
+  .rp-player-choice.is-recommended:before { content:"CONSEILLÉ"; position:absolute; top:-7px; padding:2px 7px; border-radius:100px; background:var(--rp-yellow); color:var(--rp-blue); font-size:7px; font-weight:900; letter-spacing:.08em; }
+  .rp-player-choice b { font-size:13px; }
+  .rp-player-choice span { color:var(--rp-yellow); font-size:10px; font-weight:900; text-transform:uppercase; }
+  .rp-player-choice small { color:rgba(255,255,255,.65); font-size:9px; }
+  .rp-player-choice:disabled { opacity:.38; cursor:not-allowed; }
+  .rp-tool:disabled { opacity:.34; cursor:not-allowed; filter:grayscale(1); }
+  .rp-play-button, .rp-secondary-button { width:100%; padding:13px 15px; border-radius:9px; font-weight:900; letter-spacing:.09em; cursor:pointer; }
+  .rp-play-button { display:flex; align-items:center; justify-content:space-between; margin-top:14px; border:0; background:var(--rp-yellow); color:var(--rp-blue); box-shadow:0 7px 0 #c39d00; }
+  .rp-play-button:active { transform:translateY(3px); box-shadow:0 4px 0 #c39d00; }
+  .rp-secondary-button { margin-top:9px; border:1px solid rgba(255,255,255,.23); background:transparent; color:white; }
+  .rp-disclaimer { margin:13px 0 0; text-align:center; color:rgba(255,255,255,.56); font-size:9px; }
+  .rp-dialog { position:relative; text-align:center; }
+  .rp-dialog p { color:rgba(255,255,255,.8); font-size:13px; }
+  .rp-mini-brand { margin-bottom:18px; color:var(--rp-yellow); font-family:Impact,sans-serif; font-size:20px; letter-spacing:.08em; }
+  .rp-kicker { color:var(--rp-yellow); font-size:10px; font-weight:900; letter-spacing:.14em; }
+  .rp-final-score { margin:20px 0; font-family:Impact,sans-serif; font-size:56px; color:var(--rp-yellow); }
+  .rp-close { position:absolute; right:14px; top:12px; border:0; background:transparent; color:white; font-size:25px; cursor:pointer; }
+  .rp-rules-dialog { text-align:left; }
+  .rp-rules-dialog ol { padding-left:22px; color:rgba(255,255,255,.82); font-size:13px; line-height:1.55; }
+  .rp-rules-dialog li { margin-bottom:9px; }
+  .rp-career-dialog { width:min(900px,100%); text-align:left; }
+  #rp-avatar-creator { display:grid; grid-template-columns:440px 1fr; gap:16px 28px; }
+  #rp-avatar-creator > .rp-kicker, #rp-avatar-creator > h2, #rp-avatar-creator > .rp-career-note, #rp-avatar-creator > .rp-play-button { grid-column:1 / -1; }
+  .rp-avatar-preview, .rp-avatar-thumb { display:grid; place-items:center; overflow:hidden; background:radial-gradient(circle at 50% 20%,#fff7dc,#e2bd76 115%); border:3px solid rgba(255,212,0,.8); border-radius:18px; box-shadow:inset 0 -20px 35px rgba(6,43,104,.16); }
+  .rp-avatar-preview { min-height:570px; }
+  .rp-avatar-preview svg { width:410px; height:550px; }
+  .rp-avatar-thumb { width:290px; height:310px; flex:0 0 auto; }
+  .rp-avatar-thumb svg { width:275px; height:295px; }
+  .rp-career-form { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+  .rp-career-form label { display:flex; flex-direction:column; gap:5px; color:rgba(255,255,255,.72); font-size:9px; font-weight:900; letter-spacing:.08em; }
+  .rp-career-form input, .rp-career-form select { width:100%; box-sizing:border-box; padding:9px; border:1px solid rgba(255,255,255,.23); border-radius:8px; background:rgba(255,255,255,.08); color:white; font-size:11px; }
+  .rp-career-form select option { color:#071e3f; }
+  .rp-career-note { margin:14px 0 0; color:rgba(255,255,255,.72); font-size:11px; }
+  .rp-career-head { display:grid; grid-template-columns:290px 1fr auto; gap:22px; align-items:center; }
+  .rp-career-head > div:nth-child(2) { min-width:0; }
+  .rp-career-head h2 { margin:5px 0; }
+  .rp-career-head p { margin:0; }
+  .rp-career-credits { display:grid; justify-items:end; color:var(--rp-yellow); }
+  .rp-career-credits span, .rp-career-card > span { color:rgba(255,255,255,.62); font-size:8px; font-weight:900; letter-spacing:.1em; }
+  .rp-career-credits b { font-family:Impact,sans-serif; font-size:35px; font-weight:500; }
+  .rp-career-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:15px; }
+  .rp-career-card { display:grid; gap:7px; padding:13px; border:1px solid rgba(255,255,255,.17); border-radius:10px; background:rgba(255,255,255,.055); }
+  .rp-career-card b { color:white; font-size:13px; }
+  .rp-career-card small { color:rgba(255,255,255,.68); font-size:10px; line-height:1.35; }
+  .rp-career-card .rp-play-button { margin-top:3px; padding:9px 11px; font-size:10px; }
+  .rp-career-card .rp-secondary-button { margin-top:3px; padding:8px 10px; font-size:9px; }
+  .rp-career-stats { display:grid; gap:5px; }
+  .rp-career-stat { display:grid; grid-template-columns:68px 1fr 25px; gap:6px; align-items:center; color:white; font-size:9px; }
+  .rp-career-stat i { height:6px; border-radius:9px; background:rgba(255,255,255,.16); overflow:hidden; }
+  .rp-career-stat i:after { content:""; display:block; width:var(--rp-stat); height:100%; background:var(--rp-yellow); }
+  .rp-career-panel { margin-top:12px; padding:12px; border-top:1px solid rgba(255,255,255,.2); }
+  .rp-career-panel.is-hidden { display:none; }
+  .rp-shop-list, .rp-offer-list { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+  .rp-shop-item, .rp-offer-item { display:grid; grid-template-columns:1fr auto; gap:3px 10px; align-items:center; padding:9px; border:1px solid rgba(255,255,255,.16); border-radius:8px; color:white; }
+  .rp-shop-item small, .rp-offer-item small { grid-column:1; color:rgba(255,255,255,.64); font-size:9px; }
+  .rp-shop-item button, .rp-offer-item button { grid-column:2; grid-row:1 / span 2; padding:7px; border:1px solid var(--rp-yellow); border-radius:6px; background:transparent; color:var(--rp-yellow); font-size:9px; font-weight:900; cursor:pointer; }
+  @media (max-height: 740px) and (min-width: 761px) {
+    .rp-game { height:calc(100vh - 16px); }
+    .rp-overlay { padding:16px; }
+    .rp-menu-card, .rp-dialog { transform:scale(.9); transform-origin:center; }
+    .rp-logo-lockup { transform:rotate(-3deg) scale(.9); }
+    .rp-topbar { padding-top:12px; }
+    .rp-wind { top:88px; }
+    .rp-turn { top:94px; }
+  }
+  @media (max-width: 760px) {
+    .rp-game { height:calc(100vh - 12px); min-height:560px; border-radius:12px; }
+    .rp-start-overlay { flex-direction:column; justify-content:center; gap:20px; padding:18px; }
+    .rp-logo-lockup h1 { font-size:45px; }
+    .rp-logo-lockup p { margin-top:7px; }
+    .rp-logo-sun { font-size:60px; }
+    .rp-menu-card { padding:17px; }
+    .rp-petanque-label, .rp-help { display:none; }
+    .rp-topbar { padding:12px 12px 28px; }
+    .rp-brand { position:absolute; left:12px; top:13px; }
+    .rp-wordmark { font-size:18px; }
+    .rp-score { padding:7px 10px; gap:8px; }
+    .rp-score > div { min-width:65px; gap:5px; }
+    .rp-score strong { font-size:24px; }
+    .rp-icon-button { width:34px; height:34px; }
+    .rp-fullscreen-button { right:55px; top:12px; }
+    .rp-wind { left:12px; top:90px; }
+    .rp-turn { top:92px; }
+    .rp-throw-tools { bottom:18px; width:calc(100% - 120px); justify-content:center; }
+    .rp-tool { min-width:0; padding:8px; }
+    .rp-tool span { display:none; }
+    .rp-distance { left:12px; bottom:18px; }
+    .rp-charge { right:10px; top:48%; height:34%; }
+    .rp-player-choices { grid-template-columns:1fr; }
+    .rp-call-choices { grid-template-columns:1fr; }
+    #rp-avatar-creator, .rp-career-form, .rp-career-grid, .rp-shop-list, .rp-offer-list { grid-template-columns:1fr; }
+    .rp-career-head { grid-template-columns:100px 1fr auto; gap:10px; }
+    .rp-avatar-preview { min-height:280px; }
+    .rp-avatar-preview svg { width:210px; height:270px; }
+    .rp-avatar-thumb { width:94px; height:110px; }
+    .rp-avatar-thumb svg { width:90px; height:104px; }
+    .rp-player-choice { grid-template-columns:auto 1fr auto auto; justify-items:start; padding:10px 13px; }
+    .rp-role-field { grid-template-columns:23px 74px 1fr; }
+    .rp-role-field small { display:none; }
+  }
+  @media (max-width: 480px) {
+    .rp-game { height:calc(100vh - 8px); min-height:540px; }
+    .rp-modes { grid-template-columns:1fr 1fr; }
+    .rp-modes button { grid-template-columns:32px 1fr; padding:8px; }
+    .rp-modes button span { font-size:17px; }
+    .rp-score > div { min-width:50px; }
+    .rp-score span { font-size:8px; }
+    .rp-score small { display:none; }
+    .rp-brand { display:none; }
+  }
+</style>
+
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js';
+
+  const root = document.getElementById('ricard-petanque');
+  const stage = root.querySelector('#rp-stage');
+  const ui = Object.fromEntries([...root.querySelectorAll('[id]')].map(el => [el.id.replace('rp-','').replaceAll('-','_'), el]));
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x8ec5e8);
+  scene.fog = new THREE.Fog(0x8ec5e8, 18, 43);
+
+  const camera = new THREE.PerspectiveCamera(57, 1, 0.02, 70);
+  camera.position.set(0, 1.56, 6.35);
+  camera.lookAt(0, 0.15, -2.3);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 1.7));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  stage.appendChild(renderer.domElement);
+
+  const hemi = new THREE.HemisphereLight(0xd9f0ff, 0x8a5f2f, 2.5);
+  scene.add(hemi);
+  const sun = new THREE.DirectionalLight(0xfff1ca, 3.1);
+  sun.position.set(-7, 13, 8);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.left = -9; sun.shadow.camera.right = 9; sun.shadow.camera.top = 11; sun.shadow.camera.bottom = -11;
+  scene.add(sun);
+
+  const world = new THREE.Group();
+  scene.add(world);
+  const court = new THREE.Group();
+  world.add(court);
+
+  let surfaceType = 'gravel';
+  const surfaceProfiles = {
+    gravel: { color: 0xb99765, roughness: 0.76, bounce: 0.32, drag: 1.38, roll: 0.95, scatter: 0.035 },
+    sand: { color: 0xc9aa73, roughness: 0.93, bounce: 0.22, drag: 1.85, roll: 1.30, scatter: 0.055 },
+    hard: { color: 0xa68960, roughness: 0.60, bounce: 0.43, drag: 0.94, roll: 0.65, scatter: 0.018 }
+  };
+  const groundMat = new THREE.MeshStandardMaterial({ color: surfaceProfiles.gravel.color, roughness: 1, metalness: 0 });
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(4.2, 15.5, 32, 96), groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  court.add(ground);
+
+  const outsideMat = new THREE.MeshStandardMaterial({ color: 0x6f9250, roughness: 1 });
+  const outside = new THREE.Mesh(new THREE.PlaneGeometry(44, 48), outsideMat);
+  outside.rotation.x = -Math.PI / 2; outside.position.y = -0.035; outside.receiveShadow = true;
+  world.add(outside);
+
+  function seeded(seed) { const x = Math.sin(seed * 127.1) * 43758.5453; return x - Math.floor(x); }
+  const pebbleGeo = new THREE.IcosahedronGeometry(0.022, 0);
+  const pebbleMat = new THREE.MeshStandardMaterial({ color: 0xd3b783, roughness: 1 });
+  const pebbles = new THREE.InstancedMesh(pebbleGeo, pebbleMat, 280);
+  const dummy = new THREE.Object3D();
+  for (let i = 0; i < 280; i++) {
+    dummy.position.set((seeded(i+2)-.5)*4.05, .012, (seeded(i+33)-.5)*15.2);
+    const s=.45+seeded(i+71)*1.2; dummy.scale.set(s,.45+s*.25,s); dummy.rotation.y=seeded(i+9)*Math.PI; dummy.updateMatrix(); pebbles.setMatrixAt(i,dummy.matrix);
+  }
+  pebbles.receiveShadow=true; court.add(pebbles);
+
+  function makeRail(x,z,w,d) {
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(w,.12,d),new THREE.MeshStandardMaterial({color:0x80613f,roughness:.9}));
+    rail.position.set(x,.045,z); rail.castShadow=true; rail.receiveShadow=true; court.add(rail);
+  }
+  makeRail(-2.18,0,.16,15.8); makeRail(2.18,0,.16,15.8); makeRail(0,-7.82,4.5,.16); makeRail(0,7.82,4.5,.16);
+
+  const circle = new THREE.Mesh(new THREE.TorusGeometry(.25,.012,8,48),new THREE.MeshStandardMaterial({color:0xe7e3d5,roughness:.75}));
+  circle.rotation.x=-Math.PI/2; circle.position.set(0,.022,5.7); circle.receiveShadow=true; court.add(circle);
+
+  function addEnvironment() {
+    const trunkMat=new THREE.MeshStandardMaterial({color:0x5f422d,roughness:1});
+    const leafMat=new THREE.MeshStandardMaterial({color:0x537d3b,roughness:1});
+    for(let i=0;i<10;i++){
+      const side=i%2?1:-1, z=-8+i*1.9+seeded(i)*1.2;
+      const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.08,.13,1.8,7),trunkMat); trunk.position.set(side*(3.5+seeded(i+11)*2.5),.9,z); trunk.castShadow=true; world.add(trunk);
+      const crown=new THREE.Mesh(new THREE.IcosahedronGeometry(.75+seeded(i+20)*.35,1),leafMat); crown.scale.set(1.2,.85,1.1); crown.position.set(trunk.position.x,2.0,z); crown.castShadow=true; world.add(crown);
+    }
+    const wallMat=new THREE.MeshStandardMaterial({color:0xe7d6b6,roughness:1});
+    const club=new THREE.Mesh(new THREE.BoxGeometry(10,3,2.5),wallMat); club.position.set(0,1.45,-11); club.castShadow=true; world.add(club);
+    const roof=new THREE.Mesh(new THREE.ConeGeometry(7.2,2,4),new THREE.MeshStandardMaterial({color:0xb75a31,roughness:1})); roof.rotation.y=Math.PI/4; roof.scale.z=.45; roof.position.set(0,3.45,-11); roof.castShadow=true; world.add(roof);
+    const awning=new THREE.Mesh(new THREE.BoxGeometry(4,.12,1.2),new THREE.MeshStandardMaterial({color:0x164f99,roughness:.8})); awning.position.set(0,2,-9.6); awning.rotation.x=-.1; world.add(awning);
+    for(let i=0;i<5;i++){ const stripe=new THREE.Mesh(new THREE.BoxGeometry(.38,.125,1.22),new THREE.MeshStandardMaterial({color:i%2?0xffd400:0xf5edcf,roughness:.8})); stripe.position.set(-1.5+i*.75,2.01,-9.59); stripe.rotation.x=-.1; world.add(stripe); }
+    const signCanvas=document.createElement('canvas'); signCanvas.width=512; signCanvas.height=128; const ctx=signCanvas.getContext('2d'); ctx.fillStyle='#062b68';ctx.fillRect(0,0,512,128);ctx.fillStyle='#ffd400';ctx.font='italic 800 76px Arial';ctx.textAlign='center';ctx.fillText('RICARD',256,91);
+    const sign=new THREE.Mesh(new THREE.PlaneGeometry(3.6,.9),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(signCanvas)})); sign.position.set(0,2.55,-9.73); world.add(sign);
+    const mountainsMat=new THREE.MeshStandardMaterial({color:0x788b80,roughness:1,flatShading:true});
+    for(let i=0;i<7;i++){ const m=new THREE.Mesh(new THREE.ConeGeometry(5+seeded(i)*4,5+seeded(i+4)*4,4),mountainsMat);m.position.set(-22+i*7,2,-27-seeded(i+9)*4);m.rotation.y=.25+i*.7;world.add(m); }
+  }
+  addEnvironment();
+
+  const clock = new THREE.Clock();
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2(0, -.04);
+  const aimPlane = new THREE.Plane(new THREE.Vector3(0,0,1),1.5);
+  const aimPoint = new THREE.Vector3();
+  const aimGuideGeometry = new THREE.BufferGeometry();
+  aimGuideGeometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array([0,.035,5.35,0,.035,-1.5]),3));
+  const aimGuide = new THREE.Line(aimGuideGeometry,new THREE.LineDashedMaterial({color:0xffd400,transparent:true,opacity:.62,dashSize:.16,gapSize:.12,depthWrite:false}));
+  aimGuide.computeLineDistances();aimGuide.visible=false;court.add(aimGuide);
+  const aimMarker = new THREE.Mesh(new THREE.TorusGeometry(.11,.012,7,32),new THREE.MeshBasicMaterial({color:0xffd400,transparent:true,opacity:.82,depthWrite:false}));
+  aimMarker.rotation.x=-Math.PI/2;aimMarker.visible=false;court.add(aimMarker);
+  let charging = false, chargeStarted = 0, chargePower = 0;
+  let state = 'menu', phase = 'jack', activeTeam = 'player', throwType = 'point';
+  let mode = 'single', difficulty = 'club', endNumber = 1, playerScore = 0, aiScore = 0;
+  let playerLeft = 3, aiLeft = 3, boulesPerTeam = 3, jack = null, pendingTimer = null;
+  let bodies = [], lastThrowTeam = null, validBeforeLastThrow = 0, wind = new THREE.Vector3(), boundaryNoticeUntil = 0;
+  let strikerShot = 0, strikerScore = 0, leagueRound = 0, leagueWins = 0;
+  const opponents = ['MARCEL','FANNY','LUCIEN'];
+  const roleLabels={pointeur:'Pointeur',milieu:'Milieu',tireur:'Tireur',solo:'Solo'};
+  const defaultRosterNames={pointeur:'Vous',milieu:'Sacha',tireur:'Camille',solo:'Vous'};
+  const botRosterNames={pointeur:'Julien',milieu:'Sacha',tireur:'Camille'};
+  let rosterNames={...defaultRosterNames};
+  let playerRoleBalls={solo:3},aiRoleBalls={solo:3},currentPlayerRole='solo',stateBeforePause='aiming';
+  let teamControl='all',userRole='pointeur',pendingTeamBotRole=null,pendingTeamBotInstruction=null,teamShotPlan=null;
+  let audioCtx = null;
+  const careerKey='ricard-petanque-career-v1';
+  const careerStages=[
+    ['Partie d’amis au Club des Cigales','Faites-vous remarquer sur votre terrain local.',80],
+    ['Tournoi local Ricard','Les habitués du quartier vous attendent.',140],
+    ['Ligue régionale','La régularité compte autant que le talent.',260],
+    ['Licence fédérale','Votre premier tableau fédéral ouvre ses portes.',400],
+    ['Open international','Affrontez des joueurs venus de toute l’Europe.',650],
+    ['Mondial à Marseille','Le grand rendez-vous. Écrivez votre histoire.',1200]
+  ];
+  const careerShop=[
+    {id:'match115',name:'Obut Match 115',brand:'Obut · inox tendre',price:180,precision:3,power:1},
+    {id:'atx',name:'Obut ATX',brand:'Obut · inox compétition',price:420,precision:6,power:3},
+    {id:'rcc',name:'Obut RCC',brand:'Obut · carbone compétition',price:520,precision:5,power:5},
+    {id:'prestige',name:'La Boule Bleue Prestige Inox',brand:'La Boule Bleue · inox',price:460,precision:6,power:2},
+    {id:'ms2110',name:'MS Pétanque 2110',brand:'MS Pétanque · inox',price:520,precision:5,power:4},
+    {id:'ktk',name:'KTK Upsilon',brand:'KTK · inox compétition',price:590,precision:7,power:3},
+    {id:'navy',name:'Polo bleu nuit',brand:'Tenue club',price:75,clothes:true},
+    {id:'vest',name:'Veste de concours',brand:'Tenue compétition',price:160,clothes:true}
+  ];
+  const blankCareer=()=>({created:false,credits:80,stage:0,reputation:0,wins:0,club:'Club des Cigales',sponsor:null,contract:null,items:['starter'],equipped:'starter',clothes:'Polo blanc · Short blanc',stats:{precision:24,power:22,tactics:20},avatar:{name:'Alex',age:22,gender:'Homme',height:'180 cm',weight:'75 kg',hair:'Courte',facial:'Aucune'}});
+  let career=blankCareer(),careerActive=false,careerReturnPending=false;
+  try{const saved=localStorage.getItem(careerKey);if(saved)career={...blankCareer(),...JSON.parse(saved),stats:{...blankCareer().stats,...JSON.parse(saved).stats},avatar:{...blankCareer().avatar,...JSON.parse(saved).avatar}};}catch(e){}
+  function saveCareer(){try{localStorage.setItem(careerKey,JSON.stringify(career));}catch(e){}}
+  function careerItem(){return careerShop.find(item=>item.id===career.equipped)||{name:'Boules d’entraînement',brand:'Légères · peu précises',precision:0,power:0};}
+  function avatarDraft(){const draft={...career.avatar};for(const key of Object.keys(draft)){const input=ui[`career_${key}`];if(input)draft[key]=input.value;}return draft;}
+  function renderAvatar(avatar,target){
+    if(!target)return;const age=Number(avatar.age)||22,height=parseInt(avatar.height)||180,weight=parseInt(avatar.weight)||75;
+    const heightScale=Math.max(.84,Math.min(1.18,height/180)),bodyWidth=Math.max(43,Math.min(68,51+(weight-75)*.42)),shortWidth=bodyWidth-4;
+    const polo=career.clothes.includes('bleu')?'#103c7b':'#f7f4e9',trim=career.clothes.includes('bleu')?'#ffd400':'#062b68',hairColor=age>55?'#b9b4a7':'#49342a';
+    const hair={Courte:`<path d="M58 66q12-23 35-23t35 23v11H58z" fill="${hairColor}"/>`,Bouclée:`<path d="M56 70q0-25 15-25q7-12 17 0q10-12 18 0q15 0 15 25v10H56z" fill="${hairColor}"/>`,Longue:`<path d="M57 69q5-26 35-26t35 26v55h-14V73H71v51H57z" fill="${hairColor}"/>`,Rasée:`<path d="M64 62q9-16 28-16t28 16" fill="none" stroke="#9b6d55" stroke-width="3"/>`}[avatar.hair]||'';
+    const facial={"Barbe courte":`<path d="M72 106q20 15 40 0v12q-20 18-40 0z" fill="${hairColor}"/>`,Moustache:`<path d="M77 105q8-6 15 0q7-6 15 0q-6 8-15 4q-9 4-15-4z" fill="${hairColor}"/>`,Bouc:`<path d="M84 113q8 9 16 0l-2 13H86z" fill="${hairColor}"/>`}[avatar.facial]||'';
+    const wrinkles=age>=45?`<path d="M70 88h12m20 0h12M79 121q13 5 26 0" stroke="#9b6d55" stroke-width="1.4" opacity=".62" fill="none"/>`:'';
+    target.innerHTML=`<svg viewBox="0 0 184 300" aria-hidden="true"><ellipse cx="92" cy="281" rx="64" ry="9" fill="rgba(3,30,70,.2)"/><g transform="translate(0 ${18-(heightScale-1)*28}) scale(1 ${heightScale})"><path d="M58 175v84M126 175v84" stroke="#c89475" stroke-width="18" stroke-linecap="round"/><path d="M49 257h30v14H44q-4-8 5-14m51 0h30q9 6 5 14h-35z" fill="#f5f4ee" stroke="#062b68" stroke-width="2"/><path d="M${92-shortWidth/2} 166h${shortWidth}v55H${92-shortWidth/2}z" fill="#f7f4e9" stroke="#062b68" stroke-width="2"/><path d="M${92-bodyWidth/2} 125q${bodyWidth/2}-9 ${bodyWidth} 0v51H${92-bodyWidth/2}z" fill="${polo}" stroke="#062b68" stroke-width="2"/><path d="M84 125l8 12 8-12" fill="${trim}"/><path d="M${92-bodyWidth/2} 134l-19 35m${bodyWidth} -35l19 35" stroke="${polo}" stroke-width="14" stroke-linecap="round"/><circle cx="92" cy="87" r="32" fill="#d7a17e" stroke="#062b68" stroke-width="2"/>${hair}<circle cx="80" cy="91" r="2.5" fill="#062b68"/><circle cx="104" cy="91" r="2.5" fill="#062b68"/><path d="M86 103q6 4 12 0" stroke="#8b4c45" stroke-width="2" fill="none"/>${facial}${wrinkles}<path d="M76 120q16 11 32 0v12q-16 10-32 0z" fill="#d7a17e"/></g><circle cx="148" cy="245" r="16" fill="#aeb6bc" stroke="#062b68" stroke-width="2"/><path d="M139 245h18" stroke="#062b68" stroke-width="2"/></svg>`;
+  }
+  function renderPolishedAvatar(avatar,target){
+    if(!target)return;const age=Number(avatar.age)||22,height=parseInt(avatar.height)||180,weight=parseInt(avatar.weight)||75;
+    const scale=Math.max(.86,Math.min(1.16,height/180)),half=Math.max(31,Math.min(43,36+(weight-75)*.22)),shirt=career.clothes.includes('bleu')?'#174a92':'#f9f7ed',trim=career.clothes.includes('bleu')?'#ffd400':'#0b3c78',hairColor=age>=55?'#b6b3ab':'#49352e',skin='#d69a79';
+    const hair={Courte:`<path d="M66 70q8-29 34-29t34 29v10H66z" fill="${hairColor}"/>`,Bouclée:`<path d="M62 73q0-17 14-20q5-14 17-4q10-11 19 1q16 0 16 23v10H62z" fill="${hairColor}"/>`,Longue:`<path d="M65 72q6-30 35-30t35 30v72h-16V75H81v69H65z" fill="${hairColor}"/>`,Rasée:`<path d="M72 61q11-15 28-15t28 15" fill="none" stroke="#a76f5a" stroke-width="3"/>`}[avatar.hair]||'';
+    const facial={"Barbe courte":`<path d="M77 105q23 16 46 0v15q-23 20-46 0z" fill="${hairColor}"/>`,Moustache:`<path d="M83 105q8-5 17 1q9-6 17-1q-6 8-17 4q-11 4-17-4z" fill="${hairColor}"/>`,Bouc:`<path d="M92 113h16l-3 17h-10z" fill="${hairColor}"/>`}[avatar.facial]||'';
+    const wrinkles=age>=45?`<path d="M76 88h13m22 0h13M84 123q16 5 32 0" fill="none" stroke="#9a624d" stroke-width="1.5" opacity=".6"/>`:'';
+    target.innerHTML=`<svg viewBox="0 0 200 330" aria-hidden="true"><ellipse cx="100" cy="305" rx="69" ry="10" fill="rgba(3,30,70,.24)"/><g transform="translate(0 ${18-(scale-1)*46}) scale(1 ${scale})"><path d="M82 220v59m36-59v59" stroke="${skin}" stroke-width="18" stroke-linecap="round"/><path d="M67 278h31v15H62q-4-8 5-15m36 0h31q9 7 5 15h-36z" fill="#f7f5ef" stroke="#0b3c78" stroke-width="2.5"/><path d="M${100-half} 197h${half*2}v35H${100-half}z" fill="#eef0ed" stroke="#0b3c78" stroke-width="2.5"/><path d="M${100-half+3} 143L48 201" fill="none" stroke="${shirt}" stroke-width="18" stroke-linecap="round"/><circle cx="45" cy="205" r="10" fill="${skin}"/><path d="M${100+half-3} 143l48 53" fill="none" stroke="${shirt}" stroke-width="18" stroke-linecap="round"/><circle cx="153" cy="201" r="10" fill="${skin}"/><circle cx="166" cy="205" r="13" fill="#aeb6bc" stroke="#0b3c78" stroke-width="2.5"/><path d="M155 205h22" stroke="#e8eef0" stroke-width="2" opacity=".75"/><path d="M${100-half} 132q${half}-11 ${half*2} 0v67H${100-half}z" fill="${shirt}" stroke="#0b3c78" stroke-width="2.5"/><path d="M88 133l12 15 12-15" fill="${trim}"/><path d="M100 148v13" stroke="${trim}" stroke-width="2.5"/><path d="M88 128q12 8 24 0v12H88z" fill="${skin}"/><circle cx="100" cy="87" r="37" fill="${skin}" stroke="#0b3c78" stroke-width="2.5"/>${hair}<path d="M82 91q5-3 10 0m16 0q5-3 10 0" fill="none" stroke="#0b3c78" stroke-width="2.5" stroke-linecap="round"/><circle cx="88" cy="92" r="2.4" fill="#0b3c78"/><circle cx="112" cy="92" r="2.4" fill="#0b3c78"/><path d="M94 108q6 5 12 0" fill="none" stroke="#9a574a" stroke-width="2.4" stroke-linecap="round"/>${facial}${wrinkles}</g></svg>`;
+  }
+  function renderCaricatureAvatar(avatar,target){
+    if(!target)return;const age=Number(avatar.age)||22,height=parseInt(avatar.height)||180,weight=parseInt(avatar.weight)||75,scale=Math.max(.86,Math.min(1.15,height/180));
+    const skin='#c77952',shadow='#9d4e38',ink='#351125',hair=age>55?'#8e827b':'#3b1027',shirt=career.clothes.includes('bleu')?'#173d82':'#f8f2df',accent=career.clothes.includes('bleu')?'#f4c432':'#e7a833',shoulder=Math.max(63,Math.min(86,72+(weight-75)*.38));
+    const hairShape={Courte:`<path d="M64 77q3-40 45-40q45 0 47 40l-13 6V61q-35-16-69 0v23z"/>`,Bouclée:`<path d="M57 83q-18-5-14-14q12-3 17-15q5-18 22-12q12-17 26 0q20-6 24 14q16 6 20 19q-8 10-22 6v11H57z"/>`,Longue:`<path d="M58 84q1-45 51-45t52 45v65h-22V68q-30-17-60 0v82H58z"/>`,Rasée:`<path d="M72 57q16-18 37-18t37 18" fill="none" stroke="${hair}" stroke-width="8" stroke-linecap="round"/>`}[avatar.hair]||'';
+    const facial={"Barbe courte":`<path d="M80 133q29 21 57 0l-5 26q-23 19-47 0z" fill="${hair}"/>`,Moustache:`<path d="M82 132q13-12 27 0q14-12 28 0q-9 16-28 8q-19 8-27-8z" fill="${hair}"/>`,Bouc:`<path d="M98 143h23l-4 25h-15z" fill="${hair}"/>`}[avatar.facial]||'';
+    const ageLines=age>=45?`<path d="M78 105l17 2m26 0l17-2M84 157q25 8 49 0" stroke="${shadow}" stroke-width="2" opacity=".7" fill="none"/>`:'';
+    target.innerHTML=`<svg viewBox="0 0 220 340" aria-hidden="true"><ellipse cx="110" cy="317" rx="83" ry="11" fill="rgba(53,17,37,.18)"/><g transform="translate(0 ${18-(scale-1)*52}) scale(1 ${scale})"><path d="M86 242v55m49-55v55" stroke="${skin}" stroke-width="20" stroke-linecap="round"/><path d="M67 294h39v15H61q-4-11 6-15m48 0h39q10 5 6 15h-45z" fill="#d4e2dd" stroke="${ink}" stroke-width="3"/><path d="M${110-shoulder*.6} 221h${shoulder*1.2}v32H${110-shoulder*.6}z" fill="#d7e0da" stroke="${ink}" stroke-width="3"/><path d="M${110-shoulder} 165Q110 142 ${110+shoulder} 165l15 65H${110-shoulder-15}z" fill="${shirt}" stroke="${ink}" stroke-width="3"/><path d="M${110-shoulder+4} 178L38 225m${shoulder*2-8} -47l72 47" fill="none" stroke="${shirt}" stroke-width="25" stroke-linecap="round"/><path d="M${110-shoulder+4} 178L38 225m${shoulder*2-8} -47l72 47" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/><circle cx="35" cy="227" r="12" fill="${skin}"/><circle cx="185" cy="227" r="12" fill="${skin}"/><circle cx="196" cy="230" r="16" fill="#aeb6bc" stroke="${ink}" stroke-width="3"/><path d="M184 230h23" stroke="#f3f1e8" stroke-width="2"/><path d="M88 164l22 24 22-24" fill="none" stroke="${accent}" stroke-width="7" stroke-linejoin="round"/><path d="M101 164v34m18-34v34" stroke="${ink}" stroke-width="2"/><path d="M85 147q25 15 50 0v20H85z" fill="${skin}"/><path d="M64 88q0-43 46-43t46 43v43q0 37-46 37t-46-37z" fill="${skin}" stroke="${ink}" stroke-width="3"/>${hairShape}<path d="M78 111q12-8 23-2m18-2q12-7 23 2" fill="none" stroke="${ink}" stroke-width="4" stroke-linecap="round"/><ellipse cx="91" cy="119" rx="9" ry="12" fill="#fff7df" stroke="${ink}" stroke-width="2"/><ellipse cx="129" cy="119" rx="9" ry="12" fill="#fff7df" stroke="${ink}" stroke-width="2"/><circle cx="92" cy="121" r="3" fill="${ink}"/><circle cx="128" cy="121" r="3" fill="${ink}"/><path d="M110 120l-7 21 10 2" fill="none" stroke="${shadow}" stroke-width="3" stroke-linecap="round"/><path d="M99 153q11-6 23 0" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${facial}${ageLines}</g></svg>`;
+  }
+  function renderHeroAvatar(avatar,target){
+    if(!target)return;const age=+avatar.age||22,height=parseInt(avatar.height)||180,weight=parseInt(avatar.weight)||75,scale=Math.max(.86,Math.min(1.15,height/180)),ink='#351125',skin='#c87954',shade='#9b4d39',hair=age>55?'#968b83':'#3a1028',shirt=career.clothes.includes('bleu')?'#19458e':'#fbf4df',trim=career.clothes.includes('bleu')?'#f5c83b':'#d89a28',w=Math.max(70,Math.min(96,80+(weight-75)*.4));
+    const hairPath={Courte:`<path d="M54 93q5-54 56-54t56 54l-19 5V70q-36-19-74 0v28z"/>`,Bouclée:`<path d="M42 98q-20-8-10-20q15-5 18-21q7-24 28-14q13-18 31 0q25-9 31 16q18 7 25 24q-11 16-28 10v18H42z"/>`,Longue:`<path d="M48 98q5-59 62-59t62 59v87h-24V70q-38-21-76 0v115H48z"/>`,Rasée:`<path d="M69 62q18-22 41-22t41 22" fill="none" stroke="${hair}" stroke-width="11" stroke-linecap="round"/>`}[avatar.hair]||'';
+    const facial={"Barbe courte":`<path d="M78 153q32 22 64 0l-7 31q-25 21-50 0z" fill="${hair}"/>`,Moustache:`<path d="M78 151q15-15 32 0q17-15 32 0q-10 20-32 9q-22 11-32-9z" fill="${hair}"/>`,Bouc:`<path d="M98 165h25l-5 27h-15z" fill="${hair}"/>`}[avatar.facial]||'';
+    const lines=age>=45?`<path d="M76 121l20 3m28 0l20-3M84 177q27 8 53 0" stroke="${shade}" stroke-width="2.5" opacity=".65" fill="none"/>`:'';
+    target.innerHTML=`<svg viewBox="0 0 220 340" aria-hidden="true"><ellipse cx="110" cy="318" rx="91" ry="11" fill="rgba(53,17,37,.18)"/><g transform="translate(0 ${12-(scale-1)*45}) scale(1 ${scale})"><path d="M85 240v58m50-58v58" stroke="${skin}" stroke-width="22" stroke-linecap="round"/><path d="M64 297h43v15H59q-5-11 5-15m50 0h43q10 4 5 15h-48z" fill="#d8e2db" stroke="${ink}" stroke-width="3"/><path d="M${110-w*.58} 214h${w*1.16}v34H${110-w*.58}z" fill="#d7e0d9" stroke="${ink}" stroke-width="3"/><path d="M${110-w} 172Q110 148 ${110+w} 172l14 55H${110-w-14}z" fill="${shirt}" stroke="${ink}" stroke-width="3"/><path d="M${110-w+7} 180L45 225" fill="none" stroke="${shirt}" stroke-width="27" stroke-linecap="round"/><path d="M${110-w+7} 180L45 225" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/><path d="M${110+w-7} 180L175 225" fill="none" stroke="${shirt}" stroke-width="27" stroke-linecap="round"/><path d="M${110+w-7} 180L175 225" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/><circle cx="42" cy="228" r="12" fill="${skin}"/><circle cx="178" cy="228" r="12" fill="${skin}"/><circle cx="194" cy="232" r="17" fill="#aeb6bc" stroke="${ink}" stroke-width="3"/><path d="M181 232h26" stroke="#f6f2e8" stroke-width="2"/><path d="M87 171l23 25 23-25" fill="none" stroke="${trim}" stroke-width="8" stroke-linejoin="round"/><path d="M86 154q24 15 48 0v21H86z" fill="${skin}"/><path d="M58 94q0-48 52-48t52 48v43q0 42-52 42t-52-42z" fill="${skin}" stroke="${ink}" stroke-width="3"/>${hairPath}<path d="M76 113q13-8 26-2m16-2q13-7 26 2" fill="none" stroke="${ink}" stroke-width="5" stroke-linecap="round"/><ellipse cx="91" cy="122" rx="10" ry="6" fill="#fff5da" stroke="${ink}" stroke-width="2"/><ellipse cx="129" cy="122" rx="10" ry="6" fill="#fff5da" stroke="${ink}" stroke-width="2"/><circle cx="92" cy="123" r="3" fill="${ink}"/><circle cx="128" cy="123" r="3" fill="${ink}"/><path d="M110 120l-8 24 11 2" fill="none" stroke="${shade}" stroke-width="3"/><path d="M97 163q13-7 26 0" fill="none" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>${facial}${lines}</g></svg>`;
+  }
+  function refreshAvatarDraft(){renderHeroAvatar(avatarDraft(),ui.avatar_preview);}
+  function careerStat(label,value){return `<div class="rp-career-stat"><span>${label}</span><i style="--rp-stat:${Math.min(100,value)}%"></i><b>${value}</b></div>`;}
+  function renderCareer(){
+    ui.career_grid.classList.remove('is-hidden');ui.career_panel.classList.add('is-hidden');
+    const stage=careerStages[Math.min(career.stage,careerStages.length-1)],item=careerItem();
+    ui.career_player.textContent=career.avatar.name;ui.career_club.textContent=`${career.contract||'Joueur libre'} · ${career.club}${career.sponsor?' · '+career.sponsor:''}`;ui.career_credits.textContent=career.credits;
+    renderHeroAvatar(career.avatar,ui.career_avatar_thumb);
+    ui.career_event.textContent=stage[0];ui.career_event_copy.textContent=stage[1];ui.career_stats.innerHTML=careerStat('Précision',career.stats.precision)+careerStat('Puissance',career.stats.power)+careerStat('Tactique',career.stats.tactics);
+    ui.career_kit.textContent=`${career.clothes} · ${item.name}`;ui.career_kit_copy.textContent=item.brand;
+    const offer=career.stage>=3&&!career.sponsor?'RICARD souhaite vous rencontrer':career.stage>=2&&!career.contract?'AS Provençale vous suit':'Le club vous observe';
+    ui.career_offer.textContent=offer;ui.career_offer_copy.textContent=career.sponsor?'Partenaire actif : bonus de contrat et tenue.':career.contract?'Contrat actif : de nouvelles compétitions sont ouvertes.':'Gagnez pour recevoir contrats et sponsors.';
+  }
+  function openCareer(){
+    ui.start.classList.add('is-hidden');ui.career.classList.remove('is-hidden');ui.career_panel.classList.add('is-hidden');
+    ui.avatar_creator.classList.toggle('is-hidden',career.created);ui.career_hub.classList.toggle('is-hidden',!career.created);
+    if(career.created)renderCareer();else{for(const [key,value] of Object.entries(career.avatar)){const input=ui[`career_${key}`];if(input)input.value=value;}refreshAvatarDraft();}
+  }
+  function createCareer(){
+    for(const key of Object.keys(career.avatar)){const input=ui[`career_${key}`];if(input)career.avatar[key]=input.value;}
+    career.created=true;saveCareer();openCareer();
+  }
+  function renderShop(){
+    ui.career_grid.classList.add('is-hidden');
+    ui.career_panel.classList.remove('is-hidden');ui.career_panel.innerHTML=`<div class="rp-kicker">BOUTIQUE · ${career.credits} CRÉDITS</div><div class="rp-shop-list">${careerShop.map(item=>{const owned=career.items.includes(item.id);return `<div class="rp-shop-item"><b>${item.name}</b><small>${item.brand}${item.clothes?'':' · +'+item.precision+' précision · +'+item.power+' puissance'}</small><button data-buy="${item.id}">${owned?'ÉQUIPER':item.price+' CR'}</button></div>`;}).join('')}</div>`;
+    ui.career_panel.querySelectorAll('[data-buy]').forEach(button=>button.addEventListener('click',()=>buyCareerItem(button.dataset.buy)));ui.career_panel.insertAdjacentHTML('beforeend','<button type="button" class="rp-secondary-button" data-career-back>RETOUR À LA CARRIÈRE</button>');ui.career_panel.querySelector('[data-career-back]').addEventListener('click',renderCareer);
+  }
+  function buyCareerItem(id){const item=careerShop.find(x=>x.id===id);if(!item)return;if(career.items.includes(id)){if(!item.clothes)career.equipped=id;else career.clothes=item.name;}else if(career.credits>=item.price){career.credits-=item.price;career.items.push(id);if(item.clothes)career.clothes=item.name;else career.equipped=id;}else{showMessage('Crédits insuffisants',1200);return;}saveCareer();renderCareer();renderShop();}
+  function renderOffers(){
+    ui.career_grid.classList.add('is-hidden');
+    const offers=[];if(career.stage>=2&&!career.contract)offers.push(['AS Provençale','Contrat club · +120 crédits','club']);if(career.stage>=3&&!career.sponsor)offers.push(['RICARD','Sponsor · +180 crédits · polo bleu nuit','sponsor']);
+    ui.career_panel.classList.remove('is-hidden');ui.career_panel.innerHTML=`<div class="rp-kicker">CONTRATS & SPONSORS</div><div class="rp-offer-list">${offers.length?offers.map(([name,copy,id])=>`<div class="rp-offer-item"><b>${name}</b><small>${copy}</small><button data-offer="${id}">ACCEPTER</button></div>`).join(''):'<div class="rp-offer-item"><b>Aucune offre</b><small>Continuez à gagner pour attirer clubs et sponsors.</small></div>'}</div>`;
+    ui.career_panel.querySelectorAll('[data-offer]').forEach(button=>button.addEventListener('click',()=>acceptOffer(button.dataset.offer)));ui.career_panel.insertAdjacentHTML('beforeend','<button type="button" class="rp-secondary-button" data-career-back>RETOUR À LA CARRIÈRE</button>');ui.career_panel.querySelector('[data-career-back]').addEventListener('click',renderCareer);
+  }
+  function acceptOffer(type){if(type==='club'){career.contract='AS Provençale';career.club='AS Provençale';career.credits+=120;}else{career.sponsor='RICARD';career.credits+=180;career.clothes='Polo bleu nuit';}saveCareer();renderCareer();renderOffers();}
+  function playCareerStage(){
+    careerActive=true;careerReturnPending=false;mode='single';teamControl='all';difficulty=career.stage<2?'friendly':career.stage<4?'club':'champion';ui.career.classList.add('is-hidden');startGame(true);state='rules';ui.rules.classList.remove('is-hidden');
+  }
+  function completeCareerStage(won){
+    const stage=careerStages[Math.min(career.stage,careerStages.length-1)];let reward=won?stage[2]:25;
+    if(career.sponsor)reward+=20;if(won){career.wins++;career.reputation+=8;career.stats.precision=Math.min(95,career.stats.precision+2);career.stats.power=Math.min(95,career.stats.power+1);career.stats.tactics=Math.min(95,career.stats.tactics+1);career.stage=Math.min(careerStages.length-1,career.stage+1);}else career.reputation+=1;
+    career.credits+=reward;saveCareer();careerActive=false;careerReturnPending=true;return {reward,stage};
+  }
+
+  function materialFor(team,role='solo') {
+    const playerColors={pointeur:0xc9d0d4,milieu:0xaebfc9,tireur:0xd1b36a,solo:0xc9d0d4};
+    const aiColors={pointeur:0x3d667e,milieu:0x315468,tireur:0x675271,solo:0x3d667e};
+    if (team === 'player') return new THREE.MeshStandardMaterial({ color:playerColors[role]||playerColors.solo, metalness:.9, roughness:.24 });
+    if (team === 'ai') return new THREE.MeshStandardMaterial({ color:aiColors[role]||aiColors.solo, metalness:.82, roughness:.3 });
+    return new THREE.MeshStandardMaterial({ color:0xef6a2b, roughness:.55 });
+  }
+  function createBall(team, pos, isJack=false, role='solo') {
+    const radius = isJack ? .038 : .062;
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(radius,20,14), materialFor(isJack?'jack':team,role));
+    mesh.castShadow=true; mesh.receiveShadow=true; mesh.position.copy(pos); court.add(mesh);
+    if(!isJack){
+      const ringMat=new THREE.MeshBasicMaterial({color:team==='player'?0x25313b:0xc2e2f0,transparent:true,opacity:.55});
+      const grooves=role==='pointeur'?[0]:role==='milieu'?[-.34,.34]:role==='tireur'?[-.52,0,.52]:[-.28,.28];
+      for(const angle of grooves){const ring=new THREE.Mesh(new THREE.TorusGeometry(radius*1.005,.0025,4,24),ringMat);ring.rotation.x=Math.PI/2;ring.rotation.y=angle;mesh.add(ring);}
+    }
+    const body={mesh,team,role,radius,vel:new THREE.Vector3(),spin:new THREE.Vector3(),moving:false,grounded:false,isJack,dead:false,settle:0,kind:throwType};
+    bodies.push(body); if(isJack) jack=body; return body;
+  }
+  function clearBalls() { bodies.forEach(b=>court.remove(b.mesh)); bodies=[]; jack=null; }
+
+  function groundHeight(x,z){ return .0025*Math.sin(x*6.2+z*2.1)+.0018*Math.sin(z*10.3-x*3.7); }
+  function playSound(kind, strength=1){
+    try{
+      audioCtx ||= new (window.AudioContext||window.webkitAudioContext)();
+      const now=audioCtx.currentTime,metal=kind==='clack',wall=kind==='wall';
+      const duration=metal?.075:wall?.11:.065;
+      const buffer=audioCtx.createBuffer(1,Math.ceil(audioCtx.sampleRate*duration),audioCtx.sampleRate),samples=buffer.getChannelData(0);
+      for(let i=0;i<samples.length;i++)samples[i]=(Math.random()*2-1)*(1-i/samples.length);
+      const source=audioCtx.createBufferSource(),filter=audioCtx.createBiquadFilter(),gain=audioCtx.createGain();
+      source.buffer=buffer;filter.type=metal?'bandpass':'lowpass';filter.frequency.value=metal?1500:wall?620:330;filter.Q.value=metal?1.1:.55;
+      const level=Math.min(metal?.035:wall?.026:.016,.012+strength*(metal?.014:wall?.011:.007));
+      gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(level,now+.002);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
+      source.connect(filter);filter.connect(gain);gain.connect(audioCtx.destination);source.start(now);source.stop(now+duration);
+      if(metal){
+        for(const frequency of [820,1370,2130]){
+          const tone=audioCtx.createOscillator(),toneGain=audioCtx.createGain();
+          tone.type='sine';tone.frequency.setValueAtTime(frequency*(.94+Math.random()*.12),now);
+          toneGain.gain.setValueAtTime(level*.19,now);toneGain.gain.exponentialRampToValueAtTime(.0001,now+.055+Math.random()*.035);
+          tone.connect(toneGain);toneGain.connect(audioCtx.destination);tone.start(now);tone.stop(now+.1);
+        }
+      }
+    }catch(e){}
+  }
+  function removeDeadBody(body){
+    body.dead=true;body.moving=false;body.vel.set(0,0,0);court.remove(body.mesh);
+    if(body===jack)jack=null;
+  }
+  function resolveDeadJack(body){
+    removeDeadBody(body);state='resolving';bodies.forEach(b=>{b.moving=false;b.vel.set(0,0,0);});
+    const playerHas=playerLeft>0,aiHas=aiLeft>0;
+    if(playerHas!==aiHas){
+      const team=playerHas?'player':'ai',points=playerHas?playerLeft:aiLeft;
+      if(team==='player')playerScore=Math.min(13,playerScore+points);else aiScore=Math.min(13,aiScore+points);
+      lastEndWinner=team;updateHUD();
+      showMessage(`But nul · ${team==='player'?'vous marquez':'Marcel marque'} ${points} point${points>1?'s':''} pour les boules en main`,2600);
+      if(playerScore>=13||aiScore>=13)pendingTimer=setTimeout(()=>finishMatch(playerScore>aiScore),2800);
+      else pendingTimer=setTimeout(beginNextEnd,2800);
+    }else{
+      updateHUD();showMessage('But nul · mène annulée, aucun point',2300);pendingTimer=setTimeout(beginNextEnd,2400);
+    }
+  }
+  function handleWallHit(body){
+    playSound('wall',.7);
+    if(body.isJack){
+      if(phase==='jack'){
+        const thrower=lastThrowTeam||activeTeam;removeDeadBody(body);state='resolving';showMessage('Cochonnet hors jeu · relancez',1300);
+        pendingTimer=setTimeout(()=>{activeTeam=thrower;if(thrower==='player')activatePlayerJackTurn(true);else{state='ai';setTurn('MARCEL RELANCE');pendingTimer=setTimeout(aiThrowJack,550);}},1350);
+      }else resolveDeadJack(body);
+      return;
+    }
+    removeDeadBody(body);boundaryNoticeUntil=performance.now()+1050;
+    showMessage(`${body.team==='player'?'Votre boule':'La boule de Marcel'} est nulle · la mène continue`,1050);
+  }
+  function updatePhysics(dt){
+    const profile=surfaceProfiles[surfaceType]; let any=false;
+    for(const b of bodies){
+      if(state!=='rolling')break;
+      if(!b.moving) continue; any=true;
+      const p=b.mesh.position, v=b.vel;
+      if(!b.grounded){ v.y-=9.81*dt; v.x+=wind.x*dt*.018; v.z+=wind.z*dt*.018; }
+      p.addScaledVector(v,dt);
+      const gy=groundHeight(p.x,p.z)+b.radius;
+      if(p.y<=gy){
+        p.y=gy;
+        if(Math.abs(v.y)>.55){v.y=-v.y*profile.bounce;v.x*=.88;v.z*=.88;playSound('ground',Math.abs(v.y));}
+        else{v.y=0;b.grounded=true;}
+      }
+      if(b.grounded){
+        const speed=Math.hypot(v.x,v.z);
+        if(speed>0){
+          const jackGrip=b.isJack?1.35:1;
+          const decel=(profile.roll+(b.kind==='lob'?.16:0))*jackGrip*9.81*dt;
+          const next=Math.max(0,speed-decel);
+          const jitter=profile.scatter*Math.min(1,speed)*dt;
+          const nx=v.x/speed,nz=v.z/speed;
+          v.x=nx*next+Math.sin((p.z+p.x)*31.7)*jitter;
+          v.z=nz*next+Math.cos((p.z-p.x)*27.1)*jitter;
+          b.mesh.rotation.x+=v.z*dt/b.radius;b.mesh.rotation.z-=v.x*dt/b.radius;
+        }
+      }
+      if(Math.abs(p.x)>=2.04||p.z<=-7.66||p.z>=7.66){handleWallHit(b);continue;}
+      if(v.lengthSq()<.0018&&b.grounded){b.settle+=dt;if(b.settle>.2){b.vel.set(0,0,0);b.moving=false;}}
+      else b.settle=0;
+    }
+    bodies=bodies.filter(b=>!b.dead);
+    if(state!=='rolling')return;
+    for(let i=0;i<bodies.length;i++)for(let j=i+1;j<bodies.length;j++){
+      const a=bodies[i],b=bodies[j]; if(!a.moving&&!b.moving) continue;
+      const delta=new THREE.Vector3().subVectors(b.mesh.position,a.mesh.position);const min=a.radius+b.radius;const dist=delta.length();
+      if(dist>0&&dist<min){
+        const dy=delta.y;let hx=delta.x,hz=delta.z;let hDist=Math.hypot(hx,hz);
+        if(hDist<.0001){
+          hx=a.vel.x-b.vel.x;hz=a.vel.z-b.vel.z;hDist=Math.hypot(hx,hz);
+          if(hDist<.0001){hx=1;hz=0;hDist=1;}
+        }
+        const nx=hx/hDist,nz=hz/hDist;
+        const contactDistance=Math.sqrt(Math.max(0,min*min-dy*dy));
+        const overlap=Math.max(0,contactDistance-hDist);
+        const massA=a.isJack?.28:1,massB=b.isJack?.28:1,totalMass=massA+massB;
+        a.mesh.position.x-=nx*overlap*(massB/totalMass);a.mesh.position.z-=nz*overlap*(massB/totalMass);
+        b.mesh.position.x+=nx*overlap*(massA/totalMass);b.mesh.position.z+=nz*overlap*(massA/totalMass);
+        const rel=(b.vel.x-a.vel.x)*nx+(b.vel.z-a.vel.z)*nz;
+        if(rel<0){
+          const e=(a.isJack||b.isJack)?.18:.52;
+          const imp=-(1+e)*rel/(1/massA+1/massB);
+          a.vel.x-=nx*imp/massA;a.vel.z-=nz*imp/massA;
+          b.vel.x+=nx*imp/massB;b.vel.z+=nz*imp/massB;
+          for(const body of [a,b])if(body.isJack){
+            const jackSpeed=Math.hypot(body.vel.x,body.vel.z),maxJackSpeed=4.2;
+            if(jackSpeed>maxJackSpeed){body.vel.x*=maxJackSpeed/jackSpeed;body.vel.z*=maxJackSpeed/jackSpeed;}
+          }
+          const aGround=a.grounded||a.mesh.position.y<=groundHeight(a.mesh.position.x,a.mesh.position.z)+a.radius+.025;
+          const bGround=b.grounded||b.mesh.position.y<=groundHeight(b.mesh.position.x,b.mesh.position.z)+b.radius+.025;
+          if(aGround){a.grounded=true;a.vel.y=0;a.mesh.position.y=groundHeight(a.mesh.position.x,a.mesh.position.z)+a.radius;}
+          if(bGround){b.grounded=true;b.vel.y=0;b.mesh.position.y=groundHeight(b.mesh.position.x,b.mesh.position.z)+b.radius;}
+          a.moving=b.moving=true;a.settle=b.settle=0;playSound('clack',Math.min(3,Math.abs(rel)));
+        }
+      }
+    }
+    if(!any&&state==='rolling'&&performance.now()>=boundaryNoticeUntil) onAllStopped();
+  }
+
+  function nearest(team){
+    if(!jack)return Infinity; let d=Infinity;
+    for(const b of bodies)if(b.team===team&&!b.isJack)d=Math.min(d,b.mesh.position.distanceTo(jack.mesh.position));
+    return d;
+  }
+  function scoreEnd(){
+    if(!jack)return {team:null,points:0};
+    const ranked=bodies
+      .filter(b=>!b.isJack&&(b.team==='player'||b.team==='ai'))
+      .map(b=>({team:b.team,distance:b.mesh.position.distanceTo(jack.mesh.position)}))
+      .sort((a,b)=>a.distance-b.distance);
+    if(!ranked.length)return {team:null,points:0};
+    const leader=ranked[0].team;
+    const closestOpponent=ranked.find(b=>b.team!==leader);
+    if(closestOpponent&&Math.abs(closestOpponent.distance-ranked[0].distance)<=.001)return {team:null,points:0};
+    let points=0;
+    for(const boule of ranked){
+      if(boule.team!==leader)break;
+      points++;
+    }
+    return {team:leader,points};
+  }
+  function updateDistance(){
+    if(!jack){ui.distance_value.textContent='—';return;}
+    const pd=nearest('player'),ad=nearest('ai'),d=Math.min(pd,ad);
+    ui.distance_value.textContent=isFinite(d)?(d<1?(d*100).toFixed(0)+' cm':d.toFixed(2)+' m'):'—';
+  }
+  function getAimSolution(){
+    const targetZ=jack?THREE.MathUtils.clamp(jack.mesh.position.z,-7.35,4.5):-1.5;
+    aimPlane.normal.set(0,0,1);aimPlane.constant=-targetZ;
+    raycaster.setFromCamera(mouse,camera);
+    let targetX;
+    if(raycaster.ray.intersectPlane(aimPlane,aimPoint))targetX=THREE.MathUtils.clamp(aimPoint.x,-1.98,1.98);
+    else targetX=THREE.MathUtils.clamp(mouse.x*1.98,-1.98,1.98);
+    return {x:targetX,z:targetZ,yaw:Math.atan2(targetX,5.48-targetZ)};
+  }
+  function updateAimGuide(){
+    const visible=state==='aiming';aimGuide.visible=visible;aimMarker.visible=visible;if(!visible)return;
+    const aim=getAimSolution();
+    const positions=aimGuide.geometry.attributes.position.array;
+    positions[0]=0;positions[1]=groundHeight(0,5.35)+.035;positions[2]=5.35;
+    positions[3]=aim.x;positions[4]=groundHeight(aim.x,aim.z)+.035;positions[5]=aim.z;
+    aimGuide.geometry.attributes.position.needsUpdate=true;aimGuide.computeLineDistances();
+    aimMarker.position.set(aim.x,groundHeight(aim.x,aim.z)+.038,aim.z);
+  }
+  function updateHUD(){
+    ui.player_score.textContent=mode==='striker'?strikerScore:playerScore;ui.ai_score.textContent=mode==='striker'?strikerShot+'/5':aiScore;
+    ui.player_boules.textContent='●'.repeat(Math.max(0,playerLeft))+'○'.repeat(Math.max(0,boulesPerTeam-playerLeft));
+    ui.ai_boules.textContent='●'.repeat(Math.max(0,aiLeft))+'○'.repeat(Math.max(0,boulesPerTeam-aiLeft));
+    updateDistance();
+  }
+  function showMessage(text,ms=1700){ui.message.textContent=text;ui.message.classList.add('is-visible');clearTimeout(showMessage.t);showMessage.t=setTimeout(()=>ui.message.classList.remove('is-visible'),ms);}
+  function setTurn(text){ui.turn.textContent=text;}
+  function resetWind(){const angle=(Math.random()-.5)*Math.PI*.85, speed=.2+Math.random()*1.6;wind.set(Math.sin(angle)*speed,0,-Math.cos(angle)*speed);ui.wind_value.textContent=speed.toFixed(1)+' m/s';ui.wind_arrow.style.transform=`rotate(${angle*180/Math.PI}deg)`;}
+  function rolesForMode(targetMode=mode){return targetMode==='double'?['pointeur','tireur']:targetMode==='triple'?['pointeur','milieu','tireur']:['solo'];}
+  function rolePattern(role){return role==='pointeur'?'1':role==='milieu'?'2':'3';}
+  function captureRosterNames(){root.querySelectorAll('[data-role-name]').forEach(input=>{const value=input.value.trim();if(value)rosterNames[input.dataset.roleName]=value;});}
+  function applySoloRoster(){
+    const roles=rolesForMode();if(!roles.includes(userRole))userRole=roles[0];
+    roles.forEach(role=>{if(role===userRole)rosterNames[role]='Vous';else if(rosterNames[role]==='Vous')rosterNames[role]=botRosterNames[role];});
+  }
+  function renderRoleSetup(){
+    const roles=rolesForMode();ui.role_fields.replaceChildren();
+    if(!['double','triple'].includes(mode)){ui.role_setup.classList.add('is-hidden');return;}
+    ui.role_setup.classList.remove('is-hidden');if(!roles.includes(userRole))userRole=roles[0];
+    ui.user_role.replaceChildren();roles.forEach(role=>{const option=document.createElement('option');option.value=role;option.textContent=roleLabels[role];ui.user_role.append(option);});
+    ui.team_control.value=teamControl;ui.user_role.value=userRole;ui.user_role.disabled=teamControl!=='solo';if(teamControl==='solo')applySoloRoster();
+    const count=mode==='double'?3:2;
+    roles.forEach((role,index)=>{
+      const row=document.createElement('div');row.className='rp-role-field';
+      const pattern=document.createElement('span');pattern.className='rp-pattern';pattern.dataset.pattern=rolePattern(role);pattern.setAttribute('aria-hidden','true');
+      const label=document.createElement('label');label.textContent=roleLabels[role];label.htmlFor=`rp-name-${role}`;
+      const input=document.createElement('input');input.id=`rp-name-${role}`;input.dataset.roleName=role;input.value=rosterNames[role];input.maxLength=16;input.setAttribute('aria-label',`Nom du ${roleLabels[role]}`);
+      const balls=document.createElement('small');balls.textContent=`${count} boules${teamControl==='solo'&&role!==userRole?' · BOT':''}`;
+      row.append(pattern,label,input,balls);ui.role_fields.append(row);
+    });
+  }
+  function resetRoleInventories(){
+    const roles=rolesForMode(),count=mode==='double'?3:mode==='triple'?2:boulesPerTeam;
+    playerRoleBalls=Object.fromEntries(roles.map(role=>[role,count]));aiRoleBalls=Object.fromEntries(roles.map(role=>[role,count]));
+    currentPlayerRole=roles.includes('pointeur')?'pointeur':'solo';configureRoleTools();
+  }
+  function configureRoleTools(){
+    const otherBalls=(playerRoleBalls.pointeur||0)+(playerRoleBalls.milieu||0);
+    const tireurCanPoint=otherBalls===0||aiLeft===0;
+    root.querySelectorAll('.rp-tool').forEach(button=>{
+      const type=button.dataset.throw;let allowed=true;
+      if(phase==='jack')allowed=type!=='strike';
+      else if(currentPlayerRole==='pointeur')allowed=type!=='strike';
+      else if(currentPlayerRole==='tireur'&&!tireurCanPoint)allowed=type==='strike';
+      if(teamShotPlan&&phase!=='jack')allowed=allowed&&type===teamShotPlan;
+      button.disabled=!allowed;
+    });
+    const selected=root.querySelector(`.rp-tool[data-throw="${throwType}"]`);
+    if(selected?.disabled)setThrowType(currentPlayerRole==='tireur'&&!tireurCanPoint?'strike':'point');
+  }
+  function roleCanPlayPlan(role,kind){
+    const otherBalls=(playerRoleBalls.pointeur||0)+(playerRoleBalls.milieu||0);
+    if(role==='pointeur')return kind==='point';
+    if(role==='tireur')return kind==='strike'||aiLeft===0||otherBalls===0;
+    return true;
+  }
+  function tacticalPlayerRole(plan=teamShotPlan){
+    const pd=nearest('player'),ad=nearest('ai'),needStrike=isFinite(ad)&&ad<pd&&ad<.55;
+    const selectedPlan=plan||(needStrike?'strike':'point');
+    const available=rolesForMode().filter(role=>(playerRoleBalls[role]||0)>0&&roleCanPlayPlan(role,selectedPlan));
+    const order=selectedPlan==='strike'?['tireur','milieu','pointeur']:['pointeur','milieu','tireur'];
+    return {role:order.find(role=>available.includes(role))||available[0]||'solo',needStrike,plan:selectedPlan};
+  }
+  function promptPlayerSelection(){
+    if(!['double','triple'].includes(mode)){currentPlayerRole='solo';state='aiming';configureRoleTools();return;}
+    if(!teamShotPlan){requestTeamShotPlan();return;}
+    const tactical=tacticalPlayerRole(teamShotPlan);
+    if(teamControl==='solo'){
+      ui.player_pick.classList.add('is-hidden');
+      if(tactical.role===userRole){selectRoleForThrow(userRole);return;}
+      currentPlayerRole=tactical.role;pendingTeamBotRole=tactical.role;pendingTeamBotInstruction=teamShotPlan;state='team-ai';
+      setTurn(`${rosterNames[tactical.role].toUpperCase()} · ${teamShotPlan==='strike'?'TIR D’ÉQUIPE':'POINT D’ÉQUIPE'}`);
+      pendingTimer=setTimeout(()=>teamBotThrow(tactical.role,teamShotPlan),520);return;
+    }
+    state='selecting';ui.player_choices.replaceChildren();ui.player_pick.classList.remove('is-hidden');
+    const recommended=tactical.role;
+    ui.pick_guidance.textContent=teamShotPlan==='strike'?'Plan d’équipe : tirer. Choisissez le joueur qui exécute le tir.':'Plan d’équipe : pointer. Choisissez le joueur qui construit le point.';
+    rolesForMode().forEach((role,index)=>{
+      const button=document.createElement('button');button.type='button';button.className='rp-player-choice';button.disabled=(playerRoleBalls[role]||0)<=0||!roleCanPlayPlan(role,teamShotPlan);
+      if(role===recommended)button.classList.add('is-recommended');
+      const pattern=document.createElement('i');pattern.className='rp-pattern';pattern.dataset.pattern=rolePattern(role);pattern.setAttribute('aria-hidden','true');
+      const name=document.createElement('b');name.textContent=rosterNames[role];
+      const roleText=document.createElement('span');roleText.textContent=roleLabels[role];
+      const balls=document.createElement('small');balls.textContent=`${playerRoleBalls[role]||0} boule${(playerRoleBalls[role]||0)>1?'s':''} en main`;
+      button.append(pattern,name,roleText,balls);button.addEventListener('click',()=>selectRoleForThrow(role));ui.player_choices.append(button);
+    });
+  }
+  function selectRoleForThrow(role){
+    if((playerRoleBalls[role]||0)<=0||!roleCanPlayPlan(role,teamShotPlan||'point'))return;currentPlayerRole=role;ui.player_pick.classList.add('is-hidden');state='aiming';
+    configureRoleTools();setThrowType(teamShotPlan||(role==='tireur'?'strike':'point'));setTurn(`${rosterNames[role].toUpperCase()} · ${roleLabels[role].toUpperCase()}`);
+    showMessage(role==='pointeur'?'Placez la boule':role==='milieu'?'Pointez ou tirez selon le jeu':(((playerRoleBalls.pointeur||0)+(playerRoleBalls.milieu||0)>0&&aiLeft>0)?'Cherchez le carreau':'Tirez ou ajoutez le point'));
+  }
+  function botCanUseInstruction(role,kind){
+    if(role==='pointeur')return kind==='point';
+    if(role==='tireur')return kind==='strike'||(aiLeft===0||(playerRoleBalls.pointeur||0)+(playerRoleBalls.milieu||0)===0);
+    return true;
+  }
+  function requestBotInstruction(role){
+    currentPlayerRole=role;pendingTeamBotRole=role;pendingTeamBotInstruction=null;state='team-call';
+    ui.bot_call_title.textContent=`Consigne pour ${rosterNames[role]}`;
+    ui.bot_call_guidance.textContent=role==='pointeur'?'Le pointeur construit le point : choisissez son intention.':role==='tireur'?'Le tireur cherche l’impact : choisissez son intention.':'Décidez si votre partenaire construit le point ou attaque.';
+    ui.bot_point.disabled=!botCanUseInstruction(role,'point');ui.bot_strike.disabled=!botCanUseInstruction(role,'strike');
+    ui.bot_call.classList.remove('is-hidden');setTurn(`${rosterNames[role].toUpperCase()} · À VOTRE CONSIGNE`);
+  }
+  function executeBotInstruction(kind){
+    const role=pendingTeamBotRole;if(!role||state!=='team-call'||!botCanUseInstruction(role,kind))return;
+    ui.bot_call.classList.add('is-hidden');pendingTeamBotInstruction=kind;state='team-ai';
+    setTurn(`${rosterNames[role].toUpperCase()} · ${kind==='strike'?'TIR':'POINT'} À VOTRE DEMANDE`);
+    showMessage(kind==='strike'?'Votre partenaire prépare un tir.':'Votre partenaire construit le point.',700);
+    pendingTimer=setTimeout(()=>teamBotThrow(role,kind),520);
+  }
+  function teamPlanAvailable(kind){
+    return rolesForMode().some(role=>(playerRoleBalls[role]||0)>0&&roleCanPlayPlan(role,kind));
+  }
+  function requestTeamShotPlan(){
+    pendingTeamBotRole=null;pendingTeamBotInstruction=null;state='team-plan';
+    ui.bot_call_title.textContent='Quelle stratégie pour cette boule ?';
+    ui.bot_call_guidance.textContent='Décidez d’abord pour l’équipe : construire le point ou tenter le tir.';
+    ui.bot_point.disabled=!teamPlanAvailable('point');ui.bot_strike.disabled=!teamPlanAvailable('strike');
+    ui.bot_call.classList.remove('is-hidden');setTurn('VOTRE ÉQUIPE · DÉCISION');
+  }
+  function executeTeamShotPlan(kind){
+    if(state!=='team-plan'||!teamPlanAvailable(kind))return;
+    teamShotPlan=kind;ui.bot_call.classList.add('is-hidden');showMessage(kind==='strike'?'Plan d’équipe : tirer.':'Plan d’équipe : pointer.',650);
+    promptPlayerSelection();
+  }
+  function chooseAiRole(kind){
+    const order=kind==='strike'?['tireur','milieu','pointeur','solo']:['pointeur','milieu','tireur','solo'];
+    return order.find(role=>(aiRoleBalls[role]||0)>0)||rolesForMode()[0];
+  }
+  function jackBoundaryClearance(){
+    if(!jack)return Infinity;
+    const p=jack.mesh.position;
+    return Math.min(2.04-Math.abs(p.x),p.z+7.66,7.66-p.z);
+  }
+  function strikeEndangersJack(target){
+    if(!jack)return false;
+    const startX=0,startZ=5.48,dx=target.x-startX,dz=target.z-startZ,d=Math.max(.001,Math.hypot(dx,dz));
+    const ux=dx/d,uz=dz/d,jx=jack.mesh.position.x-startX,jz=jack.mesh.position.z-startZ;
+    const along=jx*ux+jz*uz,side=Math.abs(jx*uz-jz*ux);
+    const directLine=along>0&&along<d&&side<.18;
+    const cannonLine=along>=d&&along-d<.82&&side<.24;
+    return directLine||cannonLine;
+  }
+  function safeStrikeTarget(team){
+    return bodies.filter(b=>b.team===team&&!b.isJack&&!strikeEndangersJack(b.mesh.position))
+      .sort((a,b)=>a.mesh.position.distanceTo(jack.mesh.position)-b.mesh.position.distanceTo(jack.mesh.position))[0]||null;
+  }
+  function shouldTryJackExit(team){
+    if(!jack||jackBoundaryClearance()>.55)return false;
+    const ownLeft=team==='player'?playerLeft:aiLeft,opponentLeft=team==='player'?aiLeft:playerLeft;
+    const opponent=team==='player'?'ai':'player';
+    const tacticalPayoff=ownLeft>0&&opponentLeft===0&&nearest(opponent)<nearest(team);
+    const chance=difficulty==='champion'?.07:difficulty==='club'?.025:.01;
+    return tacticalPayoff&&Math.random()<chance;
+  }
+  function teamBotThrow(role,instruction=pendingTeamBotInstruction||'point'){
+    if(state!=='team-ai'||playerLeft<=0)return;
+    const pd=nearest('player'),ad=nearest('ai');
+    const opponentBest=safeStrikeTarget('ai');
+    let kind=instruction,target=jack.mesh.position.clone();
+    if(kind==='strike'&&opponentBest)target=opponentBest.mesh.position.clone();
+    else if(kind==='strike'){kind='point';showMessage('Aucun tir sûr : votre partenaire pointe.',1000);}
+    if(kind==='point'){target.x+=(Math.random()-.5)*.26;target.z+=(Math.random()-.5)*.26;}
+    pendingTeamBotInstruction=null;botLaunchTo('player',target,kind,false,role);
+  }
+  function teamBotThrowJack(){
+    if(state!=='team-ai')return;
+    const target=new THREE.Vector3((Math.random()-.5)*.55,0,-.8-Math.random()*1.9);botLaunchTo('player',target,'point',true,'pointeur');
+  }
+  function activatePlayerJackTurn(relaunch=false){
+    currentPlayerRole=rolesForMode().includes('pointeur')?'pointeur':'solo';configureRoleTools();
+    if(teamControl==='solo'&&['double','triple'].includes(mode)&&userRole!=='pointeur'){
+      state='team-ai';pendingTeamBotRole='pointeur';setTurn(`${rosterNames.pointeur.toUpperCase()} · BOT AU COCHONNET`);showMessage('Votre pointeur prépare le cochonnet…',850);pendingTimer=setTimeout(teamBotThrowJack,800);
+    }else{
+      state='aiming';setTurn(relaunch?'RELANCER LE COCHONNET':`MÈNE ${endNumber} · ${rosterNames[currentPlayerRole].toUpperCase()} AU COCHONNET`);showMessage(relaunch?'Relancez le cochonnet':'Placez le but entre 6 et 10 mètres');
+    }
+  }
+
+  function startGame(newMatch=true){
+    clearTimeout(pendingTimer);clearBalls();ui.bot_call.classList.add('is-hidden');teamShotPlan=null;phase=mode==='striker'?'striker':'jack';activeTeam='player';state='aiming';endNumber=1;
+    playerScore=0;aiScore=0;
+    if(mode==='striker'){strikerScore=0;strikerShot=0;}
+    if(newMatch&&mode==='league'){leagueRound=0;leagueWins=0;ui.ai_name.textContent=opponents[0];}
+    boulesPerTeam=mode==='single'?3:mode==='striker'?5:6;playerLeft=boulesPerTeam;aiLeft=mode==='striker'?0:boulesPerTeam;resetRoleInventories();
+    ui.start.classList.add('is-hidden');ui.pause.classList.add('is-hidden');ui.end.classList.add('is-hidden');ui.rules.classList.add('is-hidden');ui.player_pick.classList.add('is-hidden');
+    resetWind();
+    if(mode==='striker')setupStriker();else activatePlayerJackTurn();
+    updateHUD();
+  }
+  function beginNextEnd(){
+    clearBalls();endNumber++;phase='jack';activeTeam=lastEndWinner||'player';playerLeft=boulesPerTeam;aiLeft=boulesPerTeam;resetRoleInventories();resetWind();updateHUD();
+    if(activeTeam==='player')activatePlayerJackTurn();
+    else{state='ai';setTurn(`MÈNE ${endNumber} · MARCEL`);showMessage('Marcel lance le cochonnet');pendingTimer=setTimeout(aiThrowJack,900);}
+  }
+  let lastEndWinner='player';
+  function setupStriker(){
+    clearBalls();phase='striker';state='aiming';playerLeft=5-strikerShot;aiLeft=0;
+    const target=createBall('ai',new THREE.Vector3((Math.random()-.5)*.9,.065,-1.5-Math.random()*2),false);target.moving=false;
+    if(strikerShot>=2){createBall('player',new THREE.Vector3(target.mesh.position.x-.28,.065,target.mesh.position.z+.08),false);}
+    if(strikerShot>=3){createBall('ai',new THREE.Vector3(target.mesh.position.x+.3,.065,target.mesh.position.z-.05),false);}
+    setThrowType('strike');setTurn(`ATELIER DE TIR ${strikerShot+1}/5`);showMessage('Frappez la boule bleue');updateHUD();
+  }
+  function resolveEarlyWin(){
+    const s=scoreEnd();
+    const playerWins=s.team==='player'&&aiLeft===0&&playerLeft>0&&playerScore+s.points>=13;
+    const aiWins=s.team==='ai'&&playerLeft===0&&aiLeft>0&&aiScore+s.points>=13;
+    if(!playerWins&&!aiWins)return false;
+    const winner=playerWins?'player':'ai';lastEndWinner=winner;
+    if(playerWins)playerScore=13;else aiScore=13;
+    updateHUD();setTurn('PARTIE TERMINÉE');
+    showMessage(`${winner==='player'?'13 points acquis · victoire !':'Marcel atteint 13 points'} · boules restantes non jouées`,2200);
+    pendingTimer=setTimeout(()=>finishMatch(playerWins),2300);return true;
+  }
+  function onAllStopped(){
+    if(state!=='rolling')return;state='resolving';updateDistance();
+    if(mode==='striker'){
+      const target=bodies.find(b=>b.team==='ai');const shot=bodies.filter(b=>b.team==='player').at(-1);const startTarget=target?.startPos;let points=0;
+      if(target&&startTarget){const moved=target.mesh.position.distanceTo(startTarget);if(moved>.8)points=5;else if(moved>.28)points=3;else if(moved>.08)points=1;}
+      strikerScore+=points;strikerShot++;showMessage(points?`Touché · ${points} point${points>1?'s':''}`:'Manqué',1900);updateHUD();
+      pendingTimer=setTimeout(()=>{if(strikerShot>=5)finishMatch(strikerScore>=15);else setupStriker();},2100);return;
+    }
+    if(phase==='jack'){
+      const z=jack.mesh.position.z,dist=5.7-z;
+      if(dist<5.7||dist>10.3||Math.abs(jack.mesh.position.x)>1.8){showMessage('But hors limites · relancez');court.remove(jack.mesh);bodies=bodies.filter(b=>b!==jack);jack=null;if(activeTeam==='player')activatePlayerJackTurn(true);else{state='ai';pendingTimer=setTimeout(aiThrowJack,900);}return;}
+      phase='boules';activeTeam=lastThrowTeam;showMessage('Le cochonnet est en jeu');
+      if(activeTeam==='player'){setTurn('CHOISISSEZ LE JOUEUR');promptPlayerSelection();}else{state='ai';setTurn('MARCEL JOUE');pendingTimer=setTimeout(aiThrow,900);}return;
+    }
+    if(resolveEarlyWin())return;
+    if(playerLeft===0&&aiLeft===0){
+      const s=scoreEnd();if(!s.team){showMessage('Mène nulle · aucun point',1700);pendingTimer=setTimeout(beginNextEnd,1700);return;}lastEndWinner=s.team;if(s.team==='player')playerScore=Math.min(13,playerScore+s.points);else aiScore=Math.min(13,aiScore+s.points);updateHUD();showMessage(`${s.team==='player'?'Vous marquez':'Marcel marque'} ${s.points} point${s.points>1?'s':''}`,2300);
+      if(playerScore>=13||aiScore>=13){pendingTimer=setTimeout(()=>finishMatch(playerScore>aiScore),2500);}else pendingTimer=setTimeout(beginNextEnd,2500);return;
+    }
+    chooseNextTeam();
+  }
+  function chooseNextTeam(){
+    const pd=nearest('player'),ad=nearest('ai');let next;
+    if(playerLeft===0)next='ai';else if(aiLeft===0)next='player';
+    else if(!isFinite(pd)&&!isFinite(ad))next=validBeforeLastThrow>0?lastThrowTeam:(lastThrowTeam==='player'?'ai':'player');
+    else if(!isFinite(pd))next='player';else if(!isFinite(ad))next='ai';else next=pd>ad?'player':'ai';
+    activeTeam=next;
+    if(next==='player'){setTurn(pd<ad?'VOUS MENEZ · À MARCEL':'CHOISISSEZ LE JOUEUR');promptPlayerSelection();}
+    else{state='ai';setTurn(ad<pd?'MARCEL MÈNE':'MARCEL DOIT REPRENDRE');pendingTimer=setTimeout(aiThrow,850+Math.random()*600);}
+  }
+  function finishMatch(won){
+    state='finished';ui.end.classList.remove('is-hidden');
+    if(careerActive){const result=completeCareerStage(won);ui.end_kicker.textContent='CARRIÈRE';ui.end_title.textContent=won?'Étape remportée !':'Une leçon pour la suite';ui.end_copy.textContent=`${won?'Votre réputation progresse.':'Le club vous encourage à repartir.'} +${result.reward} crédits.`;ui.end_score.textContent=`${playerScore} — ${aiScore}`;ui.next.textContent='RETOUR À LA CARRIÈRE';return;}
+    if(mode==='striker'){ui.end_kicker.textContent='MEILLEUR TIREUR';ui.end_title.textContent=strikerScore>=15?'Fine gâchette !':'Encore un carreau ?';ui.end_copy.textContent=`Votre total sur cinq ateliers : ${strikerScore} points.`;ui.end_score.textContent=`${strikerScore} PTS`;ui.next.textContent='RECOMMENCER';return;}
+    if(mode==='league'){
+      if(won)leagueWins++; if(leagueRound<2){leagueRound++;ui.end_kicker.textContent=`LIGUE · MATCH ${leagueRound}/3`;ui.end_title.textContent=won?'Match gagné !':'Match perdu';ui.end_copy.textContent=`Prochain adversaire : ${opponents[leagueRound]}. Bilan : ${leagueWins} victoire${leagueWins>1?'s':''}.`;ui.end_score.textContent=`${playerScore} — ${aiScore}`;ui.next.textContent='MATCH SUIVANT';return;}
+      leagueRound=3;ui.end_kicker.textContent='CLASSEMENT FINAL';ui.end_title.textContent=leagueWins>=2?'Champion de la Ligue Ricard !':'Saison terminée';ui.end_copy.textContent=`${leagueWins} victoire${leagueWins>1?'s':''} en 3 rencontres.`;ui.end_score.textContent=`${leagueWins} / 3`;ui.next.textContent='NOUVELLE SAISON';return;
+    }
+    ui.end_kicker.textContent='FIN DE PARTIE';ui.end_title.textContent=won?'Victoire, bien joué !':'Marcel l’emporte';ui.end_copy.textContent=won?'Précision, patience et un joli dernier point.':'La revanche se joue quand vous voulez.';ui.end_score.textContent=`${playerScore} — ${aiScore}`;ui.next.textContent='REJOUER';
+  }
+
+  function launch(team,power,yaw,elevation,kind,isJack=false,role='solo'){
+    const pos=new THREE.Vector3(0,1.16,5.48);if(team==='ai')pos.x=(Math.random()-.5)*.08;
+    validBeforeLastThrow=bodies.filter(b=>!b.isJack&&!b.dead).length;
+    const b=createBall(team,pos,isJack,role);b.kind=kind;b.moving=true;b.grounded=false;
+    const c=Math.cos(elevation);b.vel.set(Math.sin(yaw)*c*power,Math.sin(elevation)*power,-Math.cos(yaw)*c*power);
+    b.vel.x+=wind.x*.025;b.vel.z+=wind.z*.025;
+    if(!isJack){
+      if(team==='player'){playerLeft--;if(playerRoleBalls[role]>0)playerRoleBalls[role]--;}
+      else{aiLeft--;if(aiRoleBalls[role]>0)aiRoleBalls[role]--;}
+      if(team==='player')teamShotPlan=null;
+    }
+    lastThrowTeam=team;state='rolling';setTurn(team==='player'?'BOULE EN JEU':'MARCEL JOUE');updateHUD();
+    if(mode==='striker'){const target=bodies.find(x=>x.team==='ai');if(target)target.startPos=target.mesh.position.clone();}
+  }
+  function playerThrow(){
+    const y=THREE.MathUtils.clamp(mouse.y,-1,1);
+    let yaw=getAimSolution().yaw;
+    let elevation=THREE.MathUtils.degToRad(17+(y+1)*15);
+    if(throwType==='lob')elevation+=THREE.MathUtils.degToRad(18);
+    if(throwType==='strike')elevation=Math.max(THREE.MathUtils.degToRad(9),elevation-THREE.MathUtils.degToRad(10));
+    let power=phase==='jack'?6.9+chargePower*1.45:4.2+chargePower*5.2;
+    if(throwType==='lob')power*=.94;if(throwType==='strike')power=6.7+chargePower*4.4;
+    if(careerActive){const item=careerItem(),precision=Math.min(95,career.stats.precision+(item.precision||0)),strength=Math.min(95,career.stats.power+(item.power||0));yaw+=(Math.random()-.5)*THREE.MathUtils.degToRad(8-(precision*.065));power*=.88+strength*.0022;}
+    launch('player',power,yaw,elevation,throwType,phase==='jack',currentPlayerRole);
+  }
+  function aiThrowJack(){const targetZ=-.7-Math.random()*2.1,targetX=(Math.random()-.5)*.6;aiLaunchTo(new THREE.Vector3(targetX,0,targetZ),'point',true);}
+  function aiThrow(){
+    if(aiLeft<=0){chooseNextTeam();return;}
+    const pd=nearest('player'),ad=nearest('ai');let kind='point',target=jack.mesh.position.clone();
+    const playerBest=safeStrikeTarget('player');
+    if(shouldTryJackExit('ai')){kind='strike';target=jack.mesh.position.clone();}
+    else if(playerBest&&pd<.65&&pd<ad&&Math.random()<(difficulty==='champion'?.82:difficulty==='club'?.66:.4)){kind='strike';target=playerBest.mesh.position.clone();}
+    else{const spread=difficulty==='champion'?.075:difficulty==='club'?.15:.25;target.x+=(Math.random()-.5)*spread*2;target.z+=(Math.random()-.5)*spread*2;}
+    if(kind==='strike'&&['double','triple'].includes(mode)&&chooseAiRole('strike')==='pointeur'){kind='point';target=jack.mesh.position.clone();}
+    aiLaunchTo(target,kind,false);
+  }
+  function strikeTargetWithDispersion(target,start){
+    const mixes={
+      champion:[['perfect',.30],['almost',.30],['glance',.17],['near',.15],['miss',.08]],
+      club:[['perfect',.18],['almost',.28],['glance',.22],['near',.20],['miss',.12]],
+      friendly:[['perfect',.08],['almost',.18],['glance',.22],['near',.27],['miss',.25]]
+    };
+    let roll=Math.random(),result='miss';
+    for(const [name,weight] of mixes[difficulty]){roll-=weight;if(roll<=0){result=name;break;}}
+    const ranges={perfect:[0,.012],almost:[.025,.065],glance:[.087,.116],near:[.14,.23],miss:[.32,.64]};
+    const [low,high]=ranges[result],offset=(low+Math.random()*(high-low))*(Math.random()<.5?-1:1);
+    const aimed=target.clone(),dx=target.x-start.x,dz=target.z-start.z,d=Math.max(.001,Math.hypot(dx,dz));
+    aimed.x+=(-dz/d)*offset;aimed.z+=(dx/d)*offset;
+    return aimed;
+  }
+  function botLaunchTo(team,target,kind,isJack,role){
+    const start=new THREE.Vector3(0,1.16,5.48),aimed=kind==='strike'?strikeTargetWithDispersion(target,start):target.clone();
+    const dx=aimed.x-start.x,dz=aimed.z-start.z,horizontal=Math.hypot(dx,dz);
+    const angle=THREE.MathUtils.degToRad(kind==='strike'?8:38+(Math.random()-.5)*6),g=9.81;
+    let speed;
+    if(kind==='strike'){
+      const dy=aimed.y-start.y,cos=Math.cos(angle),denominator=2*cos*cos*(horizontal*Math.tan(angle)-dy);
+      speed=Math.sqrt(Math.max(.1,g*horizontal*horizontal/Math.max(.1,denominator)));
+    }else{
+      const flightDistance=horizontal*.72;
+      speed=Math.sqrt(Math.max(.1,g*flightDistance/Math.sin(2*angle)));
+    }
+    if(kind==='point')speed*=.94;if(isJack)speed*=.96;const yaw=Math.atan2(dx,-dz);
+    launch(team,speed,yaw,angle,kind,isJack,role);
+  }
+  function aiLaunchTo(target,kind,isJack){
+    const role=isJack?(rolesForMode().includes('pointeur')?'pointeur':'solo'):chooseAiRole(kind);
+    botLaunchTo('ai',target,kind,isJack,role);
+  }
+
+  function setThrowType(type){
+    const target=root.querySelector(`.rp-tool[data-throw="${type}"]`);if(target?.disabled)return;
+    throwType=type;root.querySelectorAll('.rp-tool').forEach(b=>b.classList.toggle('is-active',b.dataset.throw===type));
+  }
+  root.querySelectorAll('[data-throw]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();setThrowType(b.dataset.throw);}));
+  root.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{captureRosterNames();root.querySelectorAll('[data-mode]').forEach(x=>x.classList.remove('is-selected'));b.classList.add('is-selected');mode=b.dataset.mode;renderRoleSetup();}));
+  ui.career_entry.addEventListener('click',openCareer);
+  ui.career_close.addEventListener('click',()=>{ui.career.classList.add('is-hidden');ui.start.classList.remove('is-hidden');state='menu';});
+  ui.create_career.addEventListener('click',createCareer);
+  ui.career_play.addEventListener('click',playCareerStage);
+  ui.career_shop.addEventListener('click',renderShop);
+  ui.career_contract.addEventListener('click',renderOffers);
+  ui.career_avatar.addEventListener('click',()=>{career.created=false;openCareer();});
+  root.querySelectorAll('#rp-avatar-creator input, #rp-avatar-creator select').forEach(input=>input.addEventListener('input',refreshAvatarDraft));
+  ui.team_control.addEventListener('change',()=>{captureRosterNames();teamControl=ui.team_control.value;if(teamControl==='solo')applySoloRoster();renderRoleSetup();});
+  ui.user_role.addEventListener('change',()=>{captureRosterNames();userRole=ui.user_role.value;if(teamControl==='solo')applySoloRoster();renderRoleSetup();});
+  ui.play.addEventListener('click',()=>{captureRosterNames();teamControl=ui.team_control.value||teamControl;userRole=ui.user_role.value||userRole;if(teamControl==='solo')applySoloRoster();surfaceType=ui.surface.value;difficulty=ui.difficulty.value;groundMat.color.setHex(surfaceProfiles[surfaceType].color);ui.ai_name.textContent=mode==='league'?opponents[0]:'MARCEL';startGame(true);clearTimeout(pendingTimer);ui.rules.classList.remove('is-hidden');state='rules';});
+  function closeRules(){ui.rules.classList.add('is-hidden');if(mode==='striker'){state='aiming';configureRoleTools();}else activatePlayerJackTurn();}
+  ui.got_it.addEventListener('click',closeRules);
+  ui.close_rules.addEventListener('click',closeRules);
+  ui.bot_point.addEventListener('click',()=>executeTeamShotPlan('point'));
+  ui.bot_strike.addEventListener('click',()=>executeTeamShotPlan('strike'));
+  ui.fullscreen.addEventListener('click',()=>{const game=root.querySelector('.rp-game');if(document.fullscreenElement)document.exitFullscreen?.();else game.requestFullscreen?.();});
+  ui.menu_button.addEventListener('click',()=>{if(state==='menu')return;stateBeforePause=state;clearTimeout(pendingTimer);ui.pause.classList.remove('is-hidden');state='paused';});
+  ui.resume.addEventListener('click',()=>{ui.pause.classList.add('is-hidden');state=stateBeforePause;if(state==='ai')pendingTimer=setTimeout(phase==='jack'?aiThrowJack:aiThrow,500);else if(state==='team-ai')pendingTimer=setTimeout(phase==='jack'?teamBotThrowJack:()=>teamBotThrow(pendingTeamBotRole,pendingTeamBotInstruction),500);});
+  ui.restart.addEventListener('click',()=>startGame(true));
+  function goHome(){clearTimeout(pendingTimer);ui.pause.classList.add('is-hidden');ui.end.classList.add('is-hidden');ui.player_pick.classList.add('is-hidden');ui.bot_call.classList.add('is-hidden');ui.start.classList.remove('is-hidden');state='menu';}
+  ui.home.addEventListener('click',goHome);ui.end_home.addEventListener('click',goHome);
+  ui.next.addEventListener('click',()=>{if(careerReturnPending){careerReturnPending=false;ui.end.classList.add('is-hidden');openCareer();return;}if(mode==='league'&&leagueRound>0&&leagueRound<3){ui.ai_name.textContent=opponents[leagueRound];startGame(false);}else startGame(true);});
+  renderRoleSetup();
+
+  function pointerMove(e){
+    const r=stage.getBoundingClientRect();mouse.x=((e.clientX-r.left)/r.width)*2-1;mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+    ui.reticle.style.left=`${THREE.MathUtils.clamp(e.clientX-r.left,25,r.width-25)}px`;ui.reticle.style.top=`${THREE.MathUtils.clamp(e.clientY-r.top,125,r.height-95)}px`;
+    updateAimGuide();
+  }
+  stage.addEventListener('pointermove',pointerMove);
+  stage.addEventListener('pointerdown',e=>{if(e.button!==0||state!=='aiming')return;charging=true;chargeStarted=performance.now();stage.setPointerCapture?.(e.pointerId);pointerMove(e);});
+  stage.addEventListener('pointerup',e=>{if(!charging)return;charging=false;ui.charge.querySelector('span').style.height='0';if(state==='aiming')playerThrow();});
+  stage.addEventListener('pointercancel',()=>{charging=false;ui.charge.querySelector('span').style.height='0';});
+  addEventListener('keydown',e=>{if(e.key==='1')setThrowType('point');if(e.key==='2')setThrowType('lob');if(e.key==='3')setThrowType('strike');if(e.key==='Escape'&&state!=='menu'&&!['paused','finished'].includes(state)){stateBeforePause=state;clearTimeout(pendingTimer);ui.pause.classList.remove('is-hidden');state='paused';}});
+
+  function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+  new ResizeObserver(resize).observe(stage);resize();
+  function animate(){
+    requestAnimationFrame(animate);const dt=Math.min(.033,clock.getDelta());
+    if(charging){const t=(performance.now()-chargeStarted)/1000;chargePower=(Math.sin(t*2.25-Math.PI/2)+1)/2;ui.charge.querySelector('span').style.height=`${8+chargePower*92}%`;}
+    if(state==='rolling'){
+      const steps=Math.max(1,Math.ceil(dt/.005)),step=dt/steps;
+      for(let i=0;i<steps&&state==='rolling';i++)updatePhysics(step);
+    }
+    const sway=Math.sin(performance.now()*.00045)*.006;camera.position.x=sway;camera.lookAt(sway*.3,.12,-2.5);camera.updateMatrixWorld();updateAimGuide();
+    renderer.render(scene,camera);
+  }
+  animate();
+</script>
+</body></html>

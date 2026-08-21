@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ff4f24">
+  <meta name="description" content="Gramicci California Field Guide — an interactive campaign archive spanning six California icons.">
+  <title>Gramicci — California Field Guide</title>
+  <script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embed-mode')</script>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="embed.css?v=1.17">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the field guide</a>
+
+  <div class="boot" aria-hidden="true">
+    <div class="boot__stamp">G</div>
+    <p>CALIFORNIA FIELD SIGNAL</p>
+    <div class="boot__bar"><span></span></div>
+    <small>6 COORDINATES / 18 OBJECTS / ONE STATE OF MIND</small>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Gramicci California home">
+      <span class="brand__word">GRAMICCI</span>
+      <span class="brand__runner" aria-hidden="true">人</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#origin">Origin</a>
+      <a href="#field-guide">Field guide <sup>06</sup></a>
+      <a href="#archive">Objects <sup>18</sup></a>
+    </nav>
+    <a class="nav-cta" href="#field-guide"><span>ENTER CA</span><i aria-hidden="true">↘</i></a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero__sun" aria-hidden="true"></div>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <p class="hero__eyebrow">CALIFORNIA CLIMBING EQUIPMENT · EST. 1982</p>
+      <h1>
+        <span class="hero__title hero__title--top">CALIFORNIA</span>
+        <span class="hero__title hero__title--bottom"><small>IS A</small> STATE<br><em>OF MIND.</em></span>
+      </h1>
+
+      <div class="hero-object" data-tilt>
+        <div class="hero-object__orbit" aria-hidden="true"><span>FIELD TESTED · WEST COAST BORN ·</span></div>
+        <div class="hero-card hero-card--back"><img src="assets/palm-springs-pool-float.jpg" alt=""></div>
+        <div class="hero-card hero-card--mid"><img src="assets/yosemite-carabiner.jpg" alt=""></div>
+        <figure class="hero-card hero-card--front">
+          <img src="assets/los-angeles-camera.jpg" alt="Gramicci blue film camera, Los Angeles campaign object">
+          <figcaption><span>OBJ. 13 / 18</span><span>LOS ANGELES / 90015</span></figcaption>
+        </figure>
+        <div class="hero-object__shine" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero__note note-card">
+        <span class="note-card__number">001</span>
+        <p>From granite walls to city curbs, the uniform keeps moving.</p>
+        <span class="note-card__coords">37.8651° N<br>119.5383° W</span>
+      </div>
+
+      <a class="scroll-cue" href="#origin">
+        <span>TAKE THE SCENIC ROUTE</span>
+        <i aria-hidden="true">↓</i>
+      </a>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>YOSEMITE</span><b>✦</b><span>SAN FRANCISCO</span><b>✦</b><span>LAKE TAHOE</span><b>✦</b><span>LOS ANGELES</span><b>✦</b><span>JOSHUA TREE</span><b>✦</b><span>PALM SPRINGS</span><b>✦</b>
+        <span>YOSEMITE</span><b>✦</b><span>SAN FRANCISCO</span><b>✦</b><span>LAKE TAHOE</span><b>✦</b><span>LOS ANGELES</span><b>✦</b><span>JOSHUA TREE</span><b>✦</b><span>PALM SPRINGS</span><b>✦</b>
+      </div>
+    </div>
+
+    <section class="origin section-pad" id="origin">
+      <div class="section-kicker reveal"><span>01</span> THE ORIGIN STORY</div>
+      <div class="origin__headline reveal">
+        <p class="scribble">Yosemite, CA</p>
+        <h2>BUILT TO<br><span class="holo-text">MOVE</span> DIFFERENT.</h2>
+      </div>
+      <div class="origin__copy reveal">
+        <p class="origin__lead">The story starts on Yosemite stone: climbers rethinking how clothes should move when the route gets vertical.</p>
+        <p>What began as a functional answer became a California language—relaxed, rebellious, made for the wall, the street, the long way home.</p>
+      </div>
+      <figure class="origin__photo photo-sticker reveal" data-tilt>
+        <img src="assets/yosemite-camp-chair.jpg" alt="Orange Gramicci camp chair at Yosemite">
+        <figcaption>BASE CAMP / 37.8651° N</figcaption>
+      </figure>
+      <div class="origin__badge reveal" aria-label="Freedom of movement since 1982">
+        <span>FREEDOM</span><strong>∞</strong><span>OF MOVEMENT</span>
+      </div>
+    </section>
+
+    <section class="field-guide" id="field-guide">
+      <div class="field-guide__top section-pad">
+        <div class="section-kicker section-kicker--light reveal"><span>02</span> CALIFORNIA FIELD GUIDE</div>
+        <h2 class="reveal">SIX STOPS.<br><i>ZERO</i> WRONG TURNS.</h2>
+        <p class="field-guide__intro reveal">Pick a coordinate. Each stop unlocks three campaign objects built for its own California frequency.</p>
+      </div>
+
+      <div class="map-experience section-pad">
+        <div class="map-wrap reveal">
+          <div class="map-wrap__label"><span>SELECT A SIGNAL</span><strong id="route-status">01 / 06 FOUND</strong></div>
+          <div class="map-scan" aria-hidden="true"></div>
+          <svg class="california-map" viewBox="0 0 390 540" role="img" aria-labelledby="map-title map-desc">
+            <title id="map-title">Interactive map of California campaign locations</title>
+            <desc id="map-desc">Choose Yosemite, Joshua Tree, San Francisco, Palm Springs, Los Angeles, or Lake Tahoe.</desc>
+            <defs>
+              <linearGradient id="caHolo" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#baff00"/>
+                <stop offset=".45" stop-color="#55e6ff"/>
+                <stop offset=".72" stop-color="#ff4eb8"/>
+                <stop offset="1" stop-color="#ff5a1f"/>
+              </linearGradient>
+              <filter id="mapGlow"><feGaussianBlur stdDeviation="7" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              <clipPath id="caClip"><path d="M90 19 L255 19 L251 184 L337 356 L307 426 L267 476 L235 493 L216 462 L184 456 L176 421 L151 406 L145 370 L119 348 L117 315 L98 291 L96 249 L79 219 L82 183 L66 147 L75 110 L62 74 L75 45 L69 26 Z"/></clipPath>
+            </defs>
+            <path class="ca-shadow" d="M90 19 L255 19 L251 184 L337 356 L307 426 L267 476 L235 493 L216 462 L184 456 L176 421 L151 406 L145 370 L119 348 L117 315 L98 291 L96 249 L79 219 L82 183 L66 147 L75 110 L62 74 L75 45 L69 26 Z"/>
+            <path class="ca-shape" d="M90 19 L255 19 L251 184 L337 356 L307 426 L267 476 L235 493 L216 462 L184 456 L176 421 L151 406 L145 370 L119 348 L117 315 L98 291 L96 249 L79 219 L82 183 L66 147 L75 110 L62 74 L75 45 L69 26 Z"/>
+            <g class="topo" clip-path="url(#caClip)" aria-hidden="true">
+              <path d="M20 82 Q130 10 330 76 T410 158"/><path d="M0 145 Q170 56 375 145 T400 252"/><path d="M-20 216 Q145 120 380 210 T430 310"/><path d="M-20 296 Q160 203 390 285 T420 390"/><path d="M-30 372 Q140 285 400 374 T440 470"/><path d="M-20 452 Q180 360 430 462"/>
+            </g>
+            <polyline id="field-route" class="field-route" points="184,219" aria-hidden="true"/>
+            <circle id="route-head" class="route-head" cx="184" cy="219" r="4" aria-hidden="true"/>
+
+            <g class="map-pin is-active is-visited" data-location="yosemite" role="button" tabindex="0" aria-label="Explore Yosemite">
+              <circle class="map-pin__pulse" cx="184" cy="219" r="15"/><circle cx="184" cy="219" r="7"/><text x="197" y="215">YOSEMITE</text><text class="map-pin__code" x="197" y="230">YOS / 95389</text>
+            </g>
+            <g class="map-pin" data-location="tahoe" role="button" tabindex="0" aria-label="Explore Lake Tahoe">
+              <circle class="map-pin__pulse" cx="238" cy="132" r="15"/><circle cx="238" cy="132" r="7"/><text x="251" y="127">LAKE TAHOE</text><text class="map-pin__code" x="251" y="142">TKO / 96189</text>
+            </g>
+            <g class="map-pin map-pin--left" data-location="sanfrancisco" role="button" tabindex="0" aria-label="Explore San Francisco">
+              <circle class="map-pin__pulse" cx="101" cy="245" r="15"/><circle cx="101" cy="245" r="7"/><text x="88" y="238">SAN FRANCISCO</text><text class="map-pin__code" x="88" y="253">SFO / 415</text>
+            </g>
+            <g class="map-pin map-pin--left" data-location="losangeles" role="button" tabindex="0" aria-label="Explore Los Angeles">
+              <circle class="map-pin__pulse" cx="213" cy="407" r="15"/><circle cx="213" cy="407" r="7"/><text x="198" y="400">LOS ANGELES</text><text class="map-pin__code" x="198" y="415">L.A. / 90015</text>
+            </g>
+            <g class="map-pin" data-location="joshuatree" role="button" tabindex="0" aria-label="Explore Joshua Tree">
+              <circle class="map-pin__pulse" cx="276" cy="395" r="15"/><circle cx="276" cy="395" r="7"/><text x="289" y="389">JOSHUA TREE</text><text class="map-pin__code" x="289" y="404">JOS / 92252</text>
+            </g>
+            <g class="map-pin" data-location="palmsprings" role="button" tabindex="0" aria-label="Explore Palm Springs">
+              <circle class="map-pin__pulse" cx="267" cy="432" r="15"/><circle cx="267" cy="432" r="7"/><text x="280" y="434">PALM SPRINGS</text><text class="map-pin__code" x="280" y="449">PSP / 92264</text>
+            </g>
+          </svg>
+          <div class="map-wrap__legend"><span><i></i> ACTIVE COORDINATE</span><span>CLICK PINS TO BUILD YOUR ROUTE</span></div>
+        </div>
+
+        <article class="location-card reveal" aria-live="polite">
+          <div class="location-card__meta">
+            <span id="location-index">01 / 06</span>
+            <span id="location-code">YOS · 95389</span>
+          </div>
+          <div class="pointcloud-stage" id="pointcloud-stage">
+            <canvas id="location-pointcloud" aria-label="Rotating holographic point-cloud representation of Yosemite"></canvas>
+            <div class="pointcloud-stage__hud" aria-hidden="true">
+              <span>GENERATIVE TERRAIN MODEL</span>
+              <span id="pointcloud-count">0000 PTS</span>
+            </div>
+            <div class="pointcloud-stage__axis" aria-hidden="true"><i>X</i><i>Y</i><i>Z</i></div>
+            <div class="pointcloud-stage__drag" aria-hidden="true">DRAG TO ROTATE ↔</div>
+          </div>
+          <div class="location-card__info">
+            <div>
+              <p id="location-region">SIERRA NEVADA / GRANITE SIGNAL</p>
+              <h3 id="location-name">YOSEMITE</h3>
+              <p id="location-description">Where the first line was drawn: a granite mass shaped by altitude, exposure and generations of movement.</p>
+            </div>
+            <div class="pointcloud-key" aria-hidden="true"><span><i></i> LIVE POINTS</span><span>R / O / Y SPECTRUM</span></div>
+          </div>
+          <div class="location-card__controls">
+            <button id="prev-location" type="button" aria-label="Previous location">← PREV</button>
+            <p><span id="pointcloud-form">HALF DOME / GRANITE MASS</span><small>GENERATIVE PLACE SIGNAL</small></p>
+            <button id="next-location" type="button" aria-label="Next location">NEXT →</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="archive section-pad" id="archive">
+      <div class="archive__header">
+        <div class="section-kicker reveal"><span>03</span> THE CAMPAIGN OBJECTS</div>
+        <h2 class="reveal">18 PIECES OF<br><em>CALIFORNIA.</em></h2>
+        <p class="reveal">A souvenir shop from an alternate 1996, transmitted from six coordinates and tuned for right now.</p>
+      </div>
+      <div class="archive__filters reveal" role="group" aria-label="Filter campaign objects">
+        <button class="filter is-active" data-filter="all" type="button">ALL 18</button>
+        <button class="filter" data-filter="north" type="button">NORTH</button>
+        <button class="filter" data-filter="south" type="button">SOUTH</button>
+        <button class="filter" data-filter="city" type="button">CITY</button>
+        <button class="filter" data-filter="wild" type="button">WILD</button>
+      </div>
+      <div class="object-grid" id="object-grid"></div>
+    </section>
+
+    <dialog class="item-dossier" id="item-dossier" aria-labelledby="dossier-title">
+      <div class="dossier-shell">
+        <header class="dossier-header">
+          <div class="dossier-header__brand"><span>GRAMICCI</span><small>CALIFORNIA FIELD LAB</small></div>
+          <div class="dossier-header__status"><i></i> OBJECT SIGNAL LOCKED</div>
+          <button class="dossier-close" id="dossier-close" type="button" aria-label="Close item dossier">CLOSE <span>×</span></button>
+        </header>
+
+        <div class="dossier-body">
+          <section class="dossier-hero">
+            <figure class="dossier-visual">
+              <img id="dossier-image" src="assets/yosemite-carabiner.jpg" alt="">
+              <span class="dossier-visual__scan" aria-hidden="true"></span>
+              <span class="dossier-marker dossier-marker--a" aria-hidden="true">01</span>
+              <span class="dossier-marker dossier-marker--b" aria-hidden="true">02</span>
+              <span class="dossier-marker dossier-marker--c" aria-hidden="true">03</span>
+            </figure>
+            <div class="dossier-intro">
+              <div class="dossier-intro__meta"><span id="dossier-index">OBJ. 01 / 18</span><span id="dossier-code">YOS · 95389</span></div>
+              <p id="dossier-type">CLIMBING HARDWARE / FIELD OBJECT</p>
+              <h2 id="dossier-title">YOSEMITE<br>CARABINER</h2>
+              <p class="dossier-summary" id="dossier-summary">A compact connection point translated through the Yosemite field signal.</p>
+              <div class="dossier-tags"><span>CAMPAIGN OBJECT</span><span id="dossier-location">YOSEMITE</span><span>CALIFORNIA / 001</span></div>
+            </div>
+          </section>
+
+          <section class="dossier-lab">
+            <article class="exploded-view">
+              <div class="dossier-section-title"><span>01</span><h3>EXPLODED SIGNAL VIEW</h3><small>DRAG-LAYER ANALYSIS / VISUAL SYSTEM</small></div>
+              <div class="exploded-stage">
+                <div class="exploded-layer exploded-layer--one"><img id="exploded-image-one" src="assets/yosemite-carabiner.jpg" alt=""><span id="component-one">LOAD BODY</span></div>
+                <div class="exploded-layer exploded-layer--two"><img id="exploded-image-two" src="assets/yosemite-carabiner.jpg" alt=""><span id="component-two">GATE SYSTEM</span></div>
+                <div class="exploded-layer exploded-layer--three"><img id="exploded-image-three" src="assets/yosemite-carabiner.jpg" alt=""><span id="component-three">LOCK CHANNEL</span></div>
+                <div class="exploded-axis" aria-hidden="true">X—RAY / LAYER SEPARATION / 03</div>
+              </div>
+            </article>
+
+            <article class="data-log">
+              <div class="dossier-section-title"><span>02</span><h3>FIELD DATA LOG</h3><small>CAMPAIGN TELEMETRY</small></div>
+              <dl>
+                <div><dt>COORDINATE</dt><dd id="dossier-coordinates">37.8651° N / 119.5383° W</dd></div>
+                <div><dt>ENVIRONMENT</dt><dd id="dossier-environment">GRANITE / HIGH WALL / CAMP</dd></div>
+                <div><dt>FIELD MODE</dt><dd id="dossier-use">CONNECT / CARRY / SECURE</dd></div>
+                <div><dt>SIGNAL ID</dt><dd id="dossier-signal">YOS-95389-01</dd></div>
+              </dl>
+              <div class="data-log__note"><span>FIELD NOTE</span><p id="dossier-note">Built around a simple idea: essential equipment should disappear into movement.</p></div>
+            </article>
+
+            <article class="analytics-panel">
+              <div class="dossier-section-title"><span>03</span><h3>OBJECT ANALYTICS</h3><small>RELATIVE CAMPAIGN INDEX</small></div>
+              <div class="analytics-chart" id="analytics-chart"></div>
+              <p class="analytics-panel__disclaimer">Conceptual campaign telemetry. Values express the object’s role inside the collection, not technical product certification.</p>
+            </article>
+          </section>
+        </div>
+
+        <footer class="dossier-footer">
+          <span id="dossier-footer-id">CALIFORNIA OBJECT ARCHIVE / 01</span>
+          <p>THE WALL · THE STREET · THE SPACE BETWEEN</p>
+          <button id="dossier-close-bottom" type="button">RETURN TO OBJECTS ↑</button>
+        </footer>
+      </div>
+    </dialog>
+
+    <section class="manifesto">
+      <div class="manifesto__tape" aria-hidden="true">
+        <div class="manifesto__tape-track">
+          <span>DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT /</span>
+          <span>DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT / DON'T FOLLOW THE TRAIL / MAKE IT /</span>
+        </div>
+      </div>
+      <div class="manifesto__content section-pad">
+        <p class="scribble reveal">Freedom of movement</p>
+        <h2 class="reveal">THE WALL.<br>THE STREET.<br><span>THE SPACE</span><br>BETWEEN.</h2>
+        <div class="manifesto__image reveal" data-tilt>
+          <img src="assets/san-francisco-poncho.jpg" alt="Gramicci poncho, San Francisco campaign object">
+          <div class="manifesto__sticker">WEATHER<br>OPTIONAL</div>
+        </div>
+        <p class="manifesto__copy reveal">Designed without a finish line. Built for whoever you become when the map runs out.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer__big" aria-hidden="true">GRAMICCI</div>
+    <div class="footer__row">
+      <div><strong>CALIFORNIA FIELD GUIDE</strong><span>ISSUE 001 / ALWAYS MOVING</span></div>
+      <a href="#top">BACK TO THE TOP ↑</a>
+      <p>YOSEMITE → THE WORLD<br>EST. 1982 / ∞</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

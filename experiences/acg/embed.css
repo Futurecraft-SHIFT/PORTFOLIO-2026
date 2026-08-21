@@ -1,0 +1,50 @@
+html.embed-mode,
+html.embed-mode body {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #090d0a;
+}
+
+.embed-mode body > :not(main):not(.grain) { display: none !important; }
+.embed-mode main > :not(#shelters) { display: none !important; }
+.embed-mode #shelters {
+  width: 100%;
+  height: 100vh;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.embed-mode .map-heading,
+.embed-mode .map-toolbar,
+.embed-mode .shelter-card,
+.embed-mode .map-source { display: none !important; }
+.embed-mode .map-shell {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+}
+.embed-mode .map-viewport {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+.embed-mode .map-viewport:active { cursor: grabbing; }
+.embed-mode .map-instructions {
+  display: block !important;
+  left: 18px;
+  bottom: 18px;
+  padding: 8px 10px;
+  color: #f1ede1;
+  background: rgba(8,10,8,.78);
+  border-left: 3px solid #f04b16;
+  opacity: 1;
+}
+.embed-mode .map-zoom { position:absolute; z-index:12; right:18px; top:70px; display:grid; gap:5px; }
+.embed-mode .map-zoom button { width:36px; height:36px; border:1px solid rgba(241,237,225,.55); color:#f1ede1; background:rgba(8,10,8,.82); font:900 19px/1 Arial; cursor:pointer; }
+.embed-mode .map-zoom button:hover,
+.embed-mode .map-zoom button:focus-visible { color:#11110e; background:#f04b16; outline:0; }
+.embed-mode .boot { display: none !important; }
+.embed-mode body.locked { overflow: hidden; }
