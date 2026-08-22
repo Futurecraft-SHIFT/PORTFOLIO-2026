@@ -9,6 +9,11 @@
   const audioToggle = document.getElementById('salaOndaAudioToggle');
   const player = document.getElementById('salaOndaPlayer');
   const track = document.getElementById('salaOndaTrack');
+  const ntsStream = 'https://audio-edge-5bkfj.fra.h.radiomast.io/nts1/hls.m3u8';
+  const hlsScript = 'https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js';
+  let hls;
+  let streamReady = false;
+  let streamLoading;
   let activeScene = -1;
   let raf = 0;
   const sceneOrder = [0, 2, 1, 3];
@@ -53,10 +58,66 @@
     if (track) track.textContent = playing ? 'NTS CHANNEL 1 / LIVE NOW' : 'CLICK TO LISTEN';
   };
 
+  const loadHls = () => new Promise((resolve, reject) => {
+    if (window.Hls) return resolve();
+    const existing = document.querySelector('script[data-hls-player]');
+    if (existing) {
+      existing.addEventListener('load', resolve, { once: true });
+      existing.addEventListener('error', reject, { once: true });
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = hlsScript;
+    script.async = true;
+    script.dataset.hlsPlayer = 'true';
+    script.addEventListener('load', resolve, { once: true });
+    script.addEventListener('error', reject, { once: true });
+    document.head.appendChild(script);
+  });
+
+  const prepareStream = () => {
+    if (streamReady) return Promise.resolve();
+    if (streamLoading) return streamLoading;
+    streamLoading = new Promise(async (resolve, reject) => {
+      try {
+        if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+          audio.src = ntsStream;
+          audio.load();
+          streamReady = true;
+          resolve();
+          return;
+        }
+        await loadHls();
+        if (!window.Hls?.isSupported()) throw new Error('HLS is not supported');
+        hls?.destroy();
+        hls = new window.Hls();
+        hls.loadSource(ntsStream);
+        hls.attachMedia(audio);
+        hls.once(window.Hls.Events.MANIFEST_PARSED, () => {
+          streamReady = true;
+          resolve();
+        });
+        hls.once(window.Hls.Events.ERROR, (_event, data) => {
+          if (data.fatal) reject(new Error(data.details || 'Unable to load NTS'));
+        });
+      } catch (error) {
+        reject(error);
+      }
+    }).catch(error => {
+      streamLoading = undefined;
+      throw error;
+    });
+    return streamLoading;
+  };
+
   audioToggle?.addEventListener('click', async () => {
     if (!audio) return;
     try {
-      if (audio.paused) await audio.play();
+      if (audio.paused) {
+        if (track) track.textContent = 'CONNECTING TO NTS…';
+        await prepareStream();
+        await audio.play();
+      }
       else audio.pause();
     } catch (error) {
       if (track) track.textContent = 'OPEN NTS CHANNEL 1';
