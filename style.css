@@ -2003,7 +2003,7 @@ body.is-loaded .reveal-on-load { opacity: 1; transform: translate3d(0,0,0); tran
 
 /* TWOJEYS — a compact three-frame campaign drop. */
 .twojeys-summer { position: relative; z-index: 10; height: 310vh; min-height: 2080px; margin-top: -100svh; background: transparent; color: #073ca0; }
-.twojeys-summer__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: transparent; }
+.twojeys-summer__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: #f4efe7; }
 .twojeys-summer__wash { position: absolute; inset: 0; z-index: 0; background: linear-gradient(120deg, #e5ded2 0 56%, #df7f70 56% 100%); opacity: calc(.95 * var(--twojeys-content-opacity, 1)); transition: opacity .2s linear; }
 .twojeys-summer__sun { position: absolute; z-index: 1; width: 54vw; height: 54vw; right: -19vw; top: -25vw; border-radius: 50%; background: rgba(255,255,255,.36); filter: blur(2px); transform: translate3d(0, var(--twojeys-sun-shift, 0px), 0); }
 .twojeys-summer__header { position: absolute; z-index: 6; top: clamp(24px,4vh,50px); left: var(--page-x); right: var(--page-x); display: flex; justify-content: space-between; color: #073ca0; opacity: var(--twojeys-content-opacity, 1); transition: opacity .2s linear; }
