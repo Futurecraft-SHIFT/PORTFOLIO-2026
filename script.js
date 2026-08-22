@@ -49,6 +49,35 @@
     scheduleTwojeysSummer();
   }
 
+  const twojeysTransition = $('#twojeys-transition');
+  let twojeysTransitionTicking = false;
+  const renderTwojeysTransition = () => {
+    twojeysTransitionTicking = false;
+    if (!twojeysTransition) return;
+    const rect = twojeysTransition.getBoundingClientRect();
+    const travel = Math.max(1, twojeysTransition.offsetHeight - innerHeight);
+    const progress = clamp(-rect.top / travel);
+    const exit = smooth(map(progress, .58, 1));
+    twojeysTransition.style.setProperty('--twojeys-blue-x', `${lerp(0, -220, exit)}px`);
+    twojeysTransition.style.setProperty('--twojeys-blue-y', `${lerp(0, -86, exit)}px`);
+    twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-17, -52, exit)}deg`);
+    twojeysTransition.style.setProperty('--twojeys-pink-x', `${lerp(0, 230, exit)}px`);
+    twojeysTransition.style.setProperty('--twojeys-pink-y', `${lerp(0, 94, exit)}px`);
+    twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(19, 54, exit)}deg`);
+    twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -52, exit)}px`);
+    twojeysTransition.style.setProperty('--twojeys-transition-shift', `${lerp(0, 54, progress)}px`);
+  };
+  const scheduleTwojeysTransition = () => {
+    if (twojeysTransitionTicking) return;
+    twojeysTransitionTicking = true;
+    requestAnimationFrame(renderTwojeysTransition);
+  };
+  if (twojeysTransition) {
+    window.addEventListener('scroll', scheduleTwojeysTransition, { passive: true });
+    window.addEventListener('resize', scheduleTwojeysTransition);
+    scheduleTwojeysTransition();
+  }
+
   // Loader
   const loader = $('#loader');
   const loaderBar = $('#loaderBar');
