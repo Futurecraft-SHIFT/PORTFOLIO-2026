@@ -30,7 +30,10 @@
     const rect = twojeysSummer.getBoundingClientRect();
     const travel = Math.max(1, twojeysSummer.offsetHeight - innerHeight);
     const progress = clamp(-rect.top / travel);
-    const index = progress < .335 ? 0 : progress < .67 ? 1 : 2;
+    // The star reveal occupies the opening scroll beat, so the first resolved
+    // campaign frame must remain the portrait rather than advancing to product.
+    const campaignProgress = clamp((progress - .38) / .62);
+    const index = campaignProgress < .45 ? 0 : campaignProgress < .76 ? 1 : 2;
     twojeysSummer.style.setProperty('--twojeys-progress', progress.toFixed(3));
     twojeysSummer.style.setProperty('--twojeys-image-shift', `${lerp(16, -16, progress)}px`);
     twojeysSummer.style.setProperty('--twojeys-sun-shift', `${lerp(-26, 34, progress)}px`);
@@ -52,7 +55,7 @@
       twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(11, 72, burst)}deg`);
       twojeysTransition.style.setProperty('--twojeys-pink-scale', String(lerp(.08, 1.95, burst)));
       twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -78, burst)}px`);
-      twojeysTransition.style.setProperty('--twojeys-copy-opacity', String(1 - smooth(map(progress, .04, .2))));
+      twojeysTransition.style.setProperty('--twojeys-copy-opacity', String(1 - smooth(map(progress, .18, .38))));
       twojeysTransition.style.setProperty('--twojeys-transition-shift', `${lerp(0, 62, burst)}px`);
     }
     twojeysFrames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === index));
