@@ -18,6 +18,37 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
+  // TWOJEYS SUMMER: a slow three-frame campaign reveal with restrained parallax.
+  const twojeysSummer = $('#twojeys-summer');
+  const twojeysFrames = twojeysSummer ? $$('[data-twojeys-frame]', twojeysSummer) : [];
+  const twojeysSummerCount = $('#twojeysSummerCount');
+  let twojeysTicking = false;
+  const renderTwojeysSummer = () => {
+    twojeysTicking = false;
+    if (!twojeysSummer || !twojeysFrames.length) return;
+    const rect = twojeysSummer.getBoundingClientRect();
+    const travel = Math.max(1, twojeysSummer.offsetHeight - innerHeight);
+    const progress = clamp(-rect.top / travel);
+    const index = progress < .335 ? 0 : progress < .67 ? 1 : 2;
+    twojeysSummer.style.setProperty('--twojeys-progress', progress.toFixed(3));
+    twojeysSummer.style.setProperty('--twojeys-image-shift', `${lerp(16, -16, progress)}px`);
+    twojeysSummer.style.setProperty('--twojeys-sun-shift', `${lerp(-26, 34, progress)}px`);
+    twojeysSummer.style.setProperty('--twojeys-depth-a', `${lerp(34, -42, progress)}px`);
+    twojeysSummer.style.setProperty('--twojeys-depth-b', `${lerp(-22, 31, progress)}px`);
+    twojeysFrames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === index));
+    if (twojeysSummerCount) twojeysSummerCount.textContent = `${String(index + 1).padStart(2, '0')} / 03`;
+  };
+  const scheduleTwojeysSummer = () => {
+    if (twojeysTicking) return;
+    twojeysTicking = true;
+    requestAnimationFrame(renderTwojeysSummer);
+  };
+  if (twojeysSummer) {
+    window.addEventListener('scroll', scheduleTwojeysSummer, { passive: true });
+    window.addEventListener('resize', scheduleTwojeysSummer);
+    scheduleTwojeysSummer();
+  }
+
   // Loader
   const loader = $('#loader');
   const loaderBar = $('#loaderBar');

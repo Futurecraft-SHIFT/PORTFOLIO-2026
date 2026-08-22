@@ -2000,3 +2000,37 @@ body.is-loaded .reveal-on-load { opacity: 1; transform: translate3d(0,0,0); tran
     grid-template-columns: 62px 1fr;
   }
 }
+
+/* TWOJEYS — a compact three-frame campaign drop. */
+.twojeys-summer { position: relative; height: 310vh; min-height: 2080px; background: #e7dfd1; color: #073ca0; }
+.twojeys-summer__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; isolation: isolate; background: #ede6da; }
+.twojeys-summer__wash { position: absolute; inset: 0; z-index: 0; background: linear-gradient(120deg, #e5ded2 0 56%, #df7f70 56% 100%); opacity: .95; }
+.twojeys-summer__sun { position: absolute; z-index: 1; width: 54vw; height: 54vw; right: -19vw; top: -25vw; border-radius: 50%; background: rgba(255,255,255,.36); filter: blur(2px); transform: translate3d(0, var(--twojeys-sun-shift, 0px), 0); }
+.twojeys-summer__header { position: absolute; z-index: 6; top: clamp(24px,4vh,50px); left: var(--page-x); right: var(--page-x); display: flex; justify-content: space-between; color: #073ca0; }
+.twojeys-summer__frames { position: absolute; inset: clamp(80px,12vh,136px) var(--page-x) clamp(62px,9vh,102px); z-index: 3; perspective: 1200px; }
+.twojeys-summer__frame { position: absolute; inset: 0; margin: 0; overflow: hidden; opacity: 0; pointer-events: none; transform: translate3d(0, 28px, 0) scale(.965); transform-origin: 50% 50%; transition: opacity .65s ease, transform 1.1s cubic-bezier(.18,.78,.2,1); box-shadow: 0 28px 70px rgba(72,36,22,.2); background: #ece4d7; }
+.twojeys-summer__frame.is-active { z-index: 2; opacity: 1; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
+.twojeys-summer__frame img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; transform: scale(1.055) translate3d(0, var(--twojeys-image-shift, 0px), 0); transition: transform 1.1s cubic-bezier(.18,.78,.2,1); }
+.twojeys-summer__frame--portrait img { object-position: 52% center; }
+.twojeys-summer__frame figcaption { position: absolute; left: clamp(20px,3vw,48px); bottom: clamp(20px,3vw,46px); color: #fff8ed; text-shadow: 0 2px 18px rgba(0,0,0,.28); }
+.twojeys-summer__frame figcaption span { display: block; margin-bottom: 10px; }
+.twojeys-summer__frame figcaption b { display: block; font: 700 clamp(22px,3vw,48px)/.9 var(--font-display); letter-spacing: -.05em; }
+.twojeys-summer__frame--campaign figcaption { color: #073ca0; text-shadow: none; }
+.twojeys-summer__depth { position: absolute; z-index: 4; width: clamp(80px,12vw,190px); aspect-ratio: 1; border: 1px solid rgba(7,60,160,.52); pointer-events: none; mix-blend-mode: multiply; transition: transform .9s cubic-bezier(.18,.78,.2,1); }
+.twojeys-summer__depth--one { right: 7vw; bottom: 10vh; transform: rotate(18deg) translate3d(0, var(--twojeys-depth-a, 0px), 0); }
+.twojeys-summer__depth--two { left: 7vw; bottom: 16vh; width: clamp(46px,6vw,92px); border-color: rgba(255,255,255,.82); transform: rotate(-21deg) translate3d(0, var(--twojeys-depth-b, 0px), 0); }
+.twojeys-summer__progress { position: absolute; z-index: 6; left: var(--page-x); right: var(--page-x); bottom: 25px; display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; color: #073ca0; font: 700 9px/1 var(--font-mono); letter-spacing: .12em; }
+.twojeys-summer__progress::before { content: ''; height: 1px; background: rgba(7,60,160,.3); }
+.twojeys-summer__progress i { position: absolute; left: 0; width: calc((100% - 44px) * var(--twojeys-progress, 0)); height: 2px; background: #073ca0; }
+.twojeys-summer__note { position: absolute; z-index: 6; right: var(--page-x); bottom: 52px; margin: 0; color: rgba(7,60,160,.78); }
+
+@media (max-width: 900px) {
+  .twojeys-summer { height: 275vh; min-height: 1640px; }
+  .twojeys-summer__header { top: 20px; }
+  .twojeys-summer__frames { inset: 76px 14px 82px; }
+  .twojeys-summer__frame figcaption { left: 18px; bottom: 20px; }
+  .twojeys-summer__frame figcaption b { font-size: clamp(24px,8vw,42px); }
+  .twojeys-summer__depth--one { right: 6vw; bottom: 13vh; }
+  .twojeys-summer__depth--two { left: 6vw; bottom: 22vh; }
+  .twojeys-summer__note { display: none; }
+}
