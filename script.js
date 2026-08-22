@@ -37,17 +37,20 @@
     twojeysSummer.style.setProperty('--twojeys-depth-a', `${lerp(34, -42, progress)}px`);
     twojeysSummer.style.setProperty('--twojeys-depth-b', `${lerp(-22, 31, progress)}px`);
     if (twojeysTransition) {
-      const burst = smooth(map(progress, .02, .31));
-      const dissolve = smooth(map(progress, .10, .35));
-      twojeysTransition.style.setProperty('--twojeys-transition-opacity', String(1 - dissolve));
+      const whiteIn = smooth(map(progress, 0, .12));
+      const burst = smooth(map(progress, .12, .42));
+      const dissolve = smooth(map(progress, .25, .46));
+      const contentReveal = smooth(map(progress, .31, .48));
+      twojeysTransition.style.setProperty('--twojeys-transition-opacity', String(whiteIn * (1 - dissolve)));
+      twojeysSummer.style.setProperty('--twojeys-content-opacity', String(contentReveal));
       twojeysTransition.style.setProperty('--twojeys-blue-x', `${lerp(48, -980, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-blue-y', `${lerp(42, -170, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-8, -68, burst)}deg`);
-      twojeysTransition.style.setProperty('--twojeys-blue-scale', String(lerp(.42, 1.95, burst)));
+      twojeysTransition.style.setProperty('--twojeys-blue-scale', String(lerp(.08, 1.95, burst)));
       twojeysTransition.style.setProperty('--twojeys-pink-x', `${lerp(-42, 1010, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-pink-y', `${lerp(-36, 188, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(11, 72, burst)}deg`);
-      twojeysTransition.style.setProperty('--twojeys-pink-scale', String(lerp(.42, 1.95, burst)));
+      twojeysTransition.style.setProperty('--twojeys-pink-scale', String(lerp(.08, 1.95, burst)));
       twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -78, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-copy-opacity', String(1 - smooth(map(progress, .04, .2))));
       twojeysTransition.style.setProperty('--twojeys-transition-shift', `${lerp(0, 62, burst)}px`);
