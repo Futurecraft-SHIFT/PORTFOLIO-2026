@@ -20,6 +20,7 @@
 
   // TWOJEYS SUMMER: a slow three-frame campaign reveal with restrained parallax.
   const twojeysSummer = $('#twojeys-summer');
+  const twojeysTransition = $('#twojeys-transition');
   const twojeysFrames = twojeysSummer ? $$('[data-twojeys-frame]', twojeysSummer) : [];
   const twojeysSummerCount = $('#twojeysSummerCount');
   let twojeysTicking = false;
@@ -35,6 +36,22 @@
     twojeysSummer.style.setProperty('--twojeys-sun-shift', `${lerp(-26, 34, progress)}px`);
     twojeysSummer.style.setProperty('--twojeys-depth-a', `${lerp(34, -42, progress)}px`);
     twojeysSummer.style.setProperty('--twojeys-depth-b', `${lerp(-22, 31, progress)}px`);
+    if (twojeysTransition) {
+      const burst = smooth(map(progress, .02, .31));
+      const dissolve = smooth(map(progress, .10, .35));
+      twojeysTransition.style.setProperty('--twojeys-transition-opacity', String(1 - dissolve));
+      twojeysTransition.style.setProperty('--twojeys-blue-x', `${lerp(48, -980, burst)}px`);
+      twojeysTransition.style.setProperty('--twojeys-blue-y', `${lerp(42, -170, burst)}px`);
+      twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-8, -68, burst)}deg`);
+      twojeysTransition.style.setProperty('--twojeys-blue-scale', String(lerp(.42, 1.95, burst)));
+      twojeysTransition.style.setProperty('--twojeys-pink-x', `${lerp(-42, 1010, burst)}px`);
+      twojeysTransition.style.setProperty('--twojeys-pink-y', `${lerp(-36, 188, burst)}px`);
+      twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(11, 72, burst)}deg`);
+      twojeysTransition.style.setProperty('--twojeys-pink-scale', String(lerp(.42, 1.95, burst)));
+      twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -78, burst)}px`);
+      twojeysTransition.style.setProperty('--twojeys-copy-opacity', String(1 - smooth(map(progress, .04, .2))));
+      twojeysTransition.style.setProperty('--twojeys-transition-shift', `${lerp(0, 62, burst)}px`);
+    }
     twojeysFrames.forEach((frame, frameIndex) => frame.classList.toggle('is-active', frameIndex === index));
     if (twojeysSummerCount) twojeysSummerCount.textContent = `${String(index + 1).padStart(2, '0')} / 03`;
   };
@@ -47,35 +64,6 @@
     window.addEventListener('scroll', scheduleTwojeysSummer, { passive: true });
     window.addEventListener('resize', scheduleTwojeysSummer);
     scheduleTwojeysSummer();
-  }
-
-  const twojeysTransition = $('#twojeys-transition');
-  let twojeysTransitionTicking = false;
-  const renderTwojeysTransition = () => {
-    twojeysTransitionTicking = false;
-    if (!twojeysTransition) return;
-    const rect = twojeysTransition.getBoundingClientRect();
-    const travel = Math.max(1, twojeysTransition.offsetHeight - innerHeight);
-    const progress = clamp(-rect.top / travel);
-    const exit = smooth(map(progress, .58, 1));
-    twojeysTransition.style.setProperty('--twojeys-blue-x', `${lerp(0, -220, exit)}px`);
-    twojeysTransition.style.setProperty('--twojeys-blue-y', `${lerp(0, -86, exit)}px`);
-    twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-17, -52, exit)}deg`);
-    twojeysTransition.style.setProperty('--twojeys-pink-x', `${lerp(0, 230, exit)}px`);
-    twojeysTransition.style.setProperty('--twojeys-pink-y', `${lerp(0, 94, exit)}px`);
-    twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(19, 54, exit)}deg`);
-    twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -52, exit)}px`);
-    twojeysTransition.style.setProperty('--twojeys-transition-shift', `${lerp(0, 54, progress)}px`);
-  };
-  const scheduleTwojeysTransition = () => {
-    if (twojeysTransitionTicking) return;
-    twojeysTransitionTicking = true;
-    requestAnimationFrame(renderTwojeysTransition);
-  };
-  if (twojeysTransition) {
-    window.addEventListener('scroll', scheduleTwojeysTransition, { passive: true });
-    window.addEventListener('resize', scheduleTwojeysTransition);
-    scheduleTwojeysTransition();
   }
 
   // Loader
