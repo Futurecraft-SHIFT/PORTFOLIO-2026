@@ -9,8 +9,7 @@
   const audioToggle = document.getElementById('salaOndaAudioToggle');
   const player = document.getElementById('salaOndaPlayer');
   const track = document.getElementById('salaOndaTrack');
-  const ntsStream = 'https://audio-edge-5bkfj.fra.h.radiomast.io/nts1/hls.m3u8';
-  let hls;
+  const rinseStream = 'https://admin.stream.rinse.fm/proxy/rinse_uk/stream';
   let streamReady = false;
   let activeScene = -1;
   let raf = 0;
@@ -52,22 +51,14 @@
   const syncPlayer = playing => {
     player?.classList.toggle('is-playing', playing);
     audioToggle?.setAttribute('aria-pressed', String(playing));
-    audioToggle?.setAttribute('aria-label', playing ? 'Pause NTS Channel 1 live' : 'Play NTS Channel 1 live');
-    if (track) track.textContent = playing ? 'NTS CHANNEL 1 / LIVE NOW' : 'CLICK TO LISTEN';
+    audioToggle?.setAttribute('aria-label', playing ? 'Pause Rinse FM UK live' : 'Play Rinse FM UK live');
+    if (track) track.textContent = playing ? 'RINSE FM UK / LIVE NOW' : 'CLICK TO LISTEN';
   };
 
   const prepareStream = () => {
     if (streamReady) return;
-    if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-      audio.src = ntsStream;
-      audio.load();
-    } else {
-      if (!window.Hls?.isSupported()) throw new Error('HLS is not supported');
-      hls?.destroy();
-      hls = new window.Hls();
-      hls.loadSource(ntsStream);
-      hls.attachMedia(audio);
-    }
+    audio.src = rinseStream;
+    audio.load();
     streamReady = true;
   };
 
@@ -75,20 +66,20 @@
     if (!audio) return;
     try {
       if (audio.paused) {
-        if (track) track.textContent = 'CONNECTING TO NTS…';
+        if (track) track.textContent = 'CONNECTING TO RINSE…';
         prepareStream();
         await audio.play();
       }
       else audio.pause();
     } catch (error) {
-      if (track) track.textContent = 'OPEN NTS CHANNEL 1';
+      if (track) track.textContent = 'OPEN RINSE FM UK';
     }
   });
   audio?.addEventListener('play', () => syncPlayer(true));
   audio?.addEventListener('pause', () => syncPlayer(false));
   audio?.addEventListener('error', () => {
     syncPlayer(false);
-    if (track) track.textContent = 'OPEN NTS CHANNEL 1';
+    if (track) track.textContent = 'OPEN RINSE FM UK';
   });
 
   addEventListener('scroll', schedule, { passive: true });
