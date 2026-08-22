@@ -30,6 +30,7 @@
     const rect = twojeysSummer.getBoundingClientRect();
     const travel = Math.max(1, twojeysSummer.offsetHeight - innerHeight);
     const progress = clamp(-rect.top / travel);
+    twojeysSummer.classList.toggle('is-ready', rect.top <= 0 && rect.bottom > 0);
     // The star reveal occupies the opening scroll beat, so the first resolved
     // campaign frame must remain the portrait rather than advancing to product.
     const campaignProgress = clamp((progress - .38) / .62);
