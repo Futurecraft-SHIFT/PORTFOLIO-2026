@@ -31,6 +31,9 @@
     const progress = Math.min(1, Math.max(0, -rect.top / travel));
     const sceneIndex = Math.min(3, Math.floor(progress * 4.0001));
     section.style.setProperty('--so-p', progress.toFixed(4));
+    const twojeysLeadIn = Math.max(0, Math.min(1, (progress - .87) / .13));
+    section.style.setProperty('--so-twojeys-outro', twojeysLeadIn.toFixed(4));
+    section.style.setProperty('--so-stars-scale', (0.06 + (0.36 * twojeysLeadIn)).toFixed(3));
     if (progressBar) progressBar.style.width = `${progress * 100}%`;
     setScene(sceneIndex);
   };
