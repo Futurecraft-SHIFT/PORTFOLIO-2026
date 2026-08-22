@@ -10,7 +10,6 @@
   const player = document.getElementById('salaOndaPlayer');
   const track = document.getElementById('salaOndaTrack');
   const ntsStream = 'https://audio-edge-5bkfj.fra.h.radiomast.io/nts1/hls.m3u8';
-  const hlsScript = 'https://cdn.jsdelivr.net/npm/hls.js@1.6.15/dist/hls.min.js';
   let hls;
   let streamReady = false;
   let streamLoading;
@@ -58,23 +57,6 @@
     if (track) track.textContent = playing ? 'NTS CHANNEL 1 / LIVE NOW' : 'CLICK TO LISTEN';
   };
 
-  const loadHls = () => new Promise((resolve, reject) => {
-    if (window.Hls) return resolve();
-    const existing = document.querySelector('script[data-hls-player]');
-    if (existing) {
-      existing.addEventListener('load', resolve, { once: true });
-      existing.addEventListener('error', reject, { once: true });
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = hlsScript;
-    script.async = true;
-    script.dataset.hlsPlayer = 'true';
-    script.addEventListener('load', resolve, { once: true });
-    script.addEventListener('error', reject, { once: true });
-    document.head.appendChild(script);
-  });
-
   const prepareStream = () => {
     if (streamReady) return Promise.resolve();
     if (streamLoading) return streamLoading;
@@ -87,7 +69,6 @@
           resolve();
           return;
         }
-        await loadHls();
         if (!window.Hls?.isSupported()) throw new Error('HLS is not supported');
         hls?.destroy();
         hls = new window.Hls();
