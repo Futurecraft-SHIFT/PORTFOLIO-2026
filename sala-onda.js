@@ -12,7 +12,6 @@
   const ntsStream = 'https://audio-edge-5bkfj.fra.h.radiomast.io/nts1/hls.m3u8';
   let hls;
   let streamReady = false;
-  let streamLoading;
   let activeScene = -1;
   let raf = 0;
   const sceneOrder = [0, 2, 1, 3];
@@ -58,37 +57,18 @@
   };
 
   const prepareStream = () => {
-    if (streamReady) return Promise.resolve();
-    if (streamLoading) return streamLoading;
-    streamLoading = new Promise(async (resolve, reject) => {
-      try {
-        if (audio.canPlayType('application/vnd.apple.mpegurl')) {
-          audio.src = ntsStream;
-          audio.load();
-          streamReady = true;
-          resolve();
-          return;
-        }
-        if (!window.Hls?.isSupported()) throw new Error('HLS is not supported');
-        hls?.destroy();
-        hls = new window.Hls();
-        hls.loadSource(ntsStream);
-        hls.attachMedia(audio);
-        hls.once(window.Hls.Events.MANIFEST_PARSED, () => {
-          streamReady = true;
-          resolve();
-        });
-        hls.once(window.Hls.Events.ERROR, (_event, data) => {
-          if (data.fatal) reject(new Error(data.details || 'Unable to load NTS'));
-        });
-      } catch (error) {
-        reject(error);
-      }
-    }).catch(error => {
-      streamLoading = undefined;
-      throw error;
-    });
-    return streamLoading;
+    if (streamReady) return;
+    if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+      audio.src = ntsStream;
+      audio.load();
+    } else {
+      if (!window.Hls?.isSupported()) throw new Error('HLS is not supported');
+      hls?.destroy();
+      hls = new window.Hls();
+      hls.loadSource(ntsStream);
+      hls.attachMedia(audio);
+    }
+    streamReady = true;
   };
 
   audioToggle?.addEventListener('click', async () => {
@@ -96,7 +76,7 @@
     try {
       if (audio.paused) {
         if (track) track.textContent = 'CONNECTING TO NTS…';
-        await prepareStream();
+        prepareStream();
         await audio.play();
       }
       else audio.pause();
