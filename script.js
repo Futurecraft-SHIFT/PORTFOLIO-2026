@@ -49,11 +49,12 @@
       twojeysSummer.style.setProperty('--twojeys-content-opacity', String(contentReveal));
       twojeysTransition.style.setProperty('--twojeys-blue-x', `${lerp(48, -980, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-blue-y', `${lerp(42, -170, burst)}px`);
-      twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-8, -68, burst)}deg`);
+      // Five-plus Z-axis rotations give the stars a proper turntable exit.
+      twojeysTransition.style.setProperty('--twojeys-blue-rotate', `${lerp(-8, -1880, burst)}deg`);
       twojeysTransition.style.setProperty('--twojeys-blue-scale', String(lerp(.08, 1.95, burst)));
       twojeysTransition.style.setProperty('--twojeys-pink-x', `${lerp(-42, 1010, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-pink-y', `${lerp(-36, 188, burst)}px`);
-      twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(11, 72, burst)}deg`);
+      twojeysTransition.style.setProperty('--twojeys-pink-rotate', `${lerp(11, 1900, burst)}deg`);
       twojeysTransition.style.setProperty('--twojeys-pink-scale', String(lerp(.08, 1.95, burst)));
       twojeysTransition.style.setProperty('--twojeys-copy-y', `${lerp(0, -78, burst)}px`);
       twojeysTransition.style.setProperty('--twojeys-copy-opacity', String(1 - smooth(map(progress, .18, .38))));
