@@ -244,6 +244,16 @@ body.game-open { overflow: hidden; }
   .game-modal__bar > div span { display:none; }
 }
 
+/* Gramicci becomes a direct stage → detail sequence on narrow screens. */
+@media (max-width: 760px) {
+  .world-scroll { height: auto !important; }
+  .world-scroll .world-scroll__sticky { position: relative; top: auto; height: auto; min-height: 0; display: block; overflow: visible; }
+  .world-scroll .world-feature__copy { min-height: 0; padding-top: 86px; padding-bottom: 46px; }
+  .world-scroll .world-feature__visual { height: auto; min-height: 0; display: flex; flex-direction: column; overflow: visible; }
+  .world-scroll .embedded-experience--gramicci { position: relative; inset: auto; z-index: 4; width: 100%; height: min(104vw, 610px); box-shadow: none; }
+  .world-scroll .gramicci-object-strip { position: relative; z-index: 1; left: auto; right: auto; bottom: auto; height: auto; min-height: 34vw; flex: none; }
+}
+
 @media (max-width: 650px) {
   .stories__signal { min-height:82svh; }
   .stories__signal .massive,
