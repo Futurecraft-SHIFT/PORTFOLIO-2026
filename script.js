@@ -1742,19 +1742,32 @@
     // Designing the Journey extends Gramicci into five distinct campaign destinations.
     if (journeySection && sectionIsNearViewport(journeySection)) {
       const jp = easedSectionProgress(journeySection, deltaSeconds, 7);
-      const introOpacity = holdFade(jp, 0, .02, .10, .125);
+      // Keep the opening card on screen until the first destination has properly arrived.
+      // On phones the shorter scroll needs denser, continuous intervals—otherwise a
+      // sticky empty canvas is exposed between Gramicci and the first journey image.
+      const compactJourney = window.matchMedia('(max-width: 900px)').matches;
+      const activeJourneyRanges = compactJourney ? [
+        [.025, .045, .205, .225],
+        [.215, .235, .405, .425],
+        [.415, .435, .605, .625],
+        [.615, .635, .805, .825],
+        [.815, .835, .985, 1]
+      ] : journeyRanges;
+      const introOpacity = compactJourney
+        ? holdFade(jp, 0, .012, .055, .078)
+        : holdFade(jp, 0, .02, .10, .125);
       journeyIntro.style.opacity = introOpacity;
       journeyIntro.style.transform = `translate3d(0,${lerp(0,-38,smooth(map(jp,.03,.15)))}px,0) scale(${lerp(1,.97,smooth(map(jp,.03,.15)))})`;
 
       let activeJourney = -1;
-      if (jp >= .095) {
+      if (jp >= (compactJourney ? .022 : .095)) {
         activeJourney = 0;
-        journeyRanges.forEach((range, index) => {
+        activeJourneyRanges.forEach((range, index) => {
           if (jp >= range[0]) activeJourney = index;
         });
       }
       journeyStops.forEach((stop, index) => {
-        const range = journeyRanges[index];
+        const range = activeJourneyRanges[index];
         const opacity = holdFade(jp, ...range);
         const arrival = smooth(map(jp, range[0], range[1]));
         const departure = smooth(map(jp, range[2], range[3]));
@@ -1772,7 +1785,7 @@
       const visibleJourney = Math.max(0, activeJourney);
       journeySection.dataset.active = String(visibleJourney);
       journeyButtons.forEach((button, index) => button.classList.toggle('is-active', index === activeJourney));
-      journeyProgress.style.width = `${smooth(map(jp,.10,.995)) * 100}%`;
+      journeyProgress.style.width = `${smooth(map(jp, compactJourney ? .025 : .10, .995)) * 100}%`;
       journeyCount.textContent = activeJourney < 0 ? '00' : String(activeJourney + 1).padStart(2,'0');
     }
 

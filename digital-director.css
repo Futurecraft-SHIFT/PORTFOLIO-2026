@@ -2715,7 +2715,8 @@ body.game-open { overflow: hidden; }
 @media (max-width: 900px) {
   .narrative-threshold { height: 175vh; min-height: 920px; }
   .world-scroll { height: 475vh; }
-  .journey { height: 900vh; }
+  /* Five destinations with no blank sticky tail after Gramicci. */
+  .journey { height: 520vh; }
   .merc-experience { height: 690vh; }
   .cupra { height: 620vh; }
   .acg-immersive { height: 455vh; }
