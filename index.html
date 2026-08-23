@@ -13,8 +13,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%2305070a'/><text x='8' y='46' font-size='38' font-family='Arial' font-weight='900' fill='white'>AB</text></svg>" />
   <link rel="preload" as="image" href="assets/outdoor-portrait.webp" />
   <link rel="preload" as="image" href="assets/about-portrait.webp" />
-  <link rel="stylesheet" href="style.css?v=meta-2.9" />
-  <link rel="stylesheet" href="digital-director.css?v=1.92" />
+  <link rel="stylesheet" href="style.css?v=meta-2.10" />
+  <link rel="stylesheet" href="digital-director.css?v=1.93" />
 </head>
 <body>
   <div class="loader" id="loader" aria-hidden="true">
@@ -692,7 +692,10 @@
             <figcaption><span class="micro">02 / MERCURY FIVE</span><b>AGED SILVER.<br />COLOUR HELD CLOSE.</b></figcaption>
           </figure>
           <figure class="twojeys-summer__frame twojeys-summer__frame--campaign" data-twojeys-frame="2">
-            <img src="assets/twojeys-summer-campaign-wide.png?v=c79870c" alt="A TwoJeys Summer campaign graphic" loading="lazy" />
+            <picture>
+              <source media="(max-width: 900px)" srcset="assets/twojeys-summer-campaign-portrait.png" />
+              <img src="assets/twojeys-summer-campaign-wide.png?v=c79870c" alt="A TwoJeys Summer campaign graphic" loading="lazy" />
+            </picture>
           </figure>
         </div>
         <div class="twojeys-summer__depth twojeys-summer__depth--one" aria-hidden="true"></div>
@@ -792,7 +795,7 @@
 
     <section class="meta-cinelli meta-cinelli--compact" id="meta-cinelli" data-journey-chapter="believe" aria-labelledby="metaCinelliTitle">
       <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--lineage" data-hero-pause>
-        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-heritage-to-tech-hero-v2.png" alt="Historical Cinelli aero-helmet inspiration leading to the connected Aero Visor concept" loading="lazy" />
+        <picture class="meta-cinelli__compact-picture"><source media="(max-width: 900px)" srcset="assets/meta-cinelli-lineage-mobile.png" /><img class="meta-cinelli__compact-image" src="assets/meta-cinelli-heritage-to-tech-hero-v2.png" alt="Historical Cinelli aero-helmet inspiration leading to the connected Aero Visor concept" loading="lazy" /></picture>
         <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
         <div class="meta-cinelli__compact-top reveal">
           <div class="meta-cinelli__compact-lockup" aria-label="Meta by Cinelli">
@@ -815,7 +818,7 @@
       </article>
 
       <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--product" data-hero-pause>
-        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-product-studio-v2.png" alt="Close-up studio hero of the white Cinelli Aero Visor concept with a central Meta camera" loading="lazy" />
+        <picture class="meta-cinelli__compact-picture"><source media="(max-width: 900px)" srcset="assets/meta-cinelli-product-mobile.png" /><img class="meta-cinelli__compact-image" src="assets/meta-cinelli-product-studio-v2.png" alt="Close-up studio hero of the white Cinelli Aero Visor concept with a central Meta camera" loading="lazy" /></picture>
         <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
         <div class="meta-cinelli__compact-product-copy reveal">
           <span class="micro">PRODUCT FILM / CONNECTED VISION</span>
@@ -828,7 +831,7 @@
       </article>
 
       <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--athlete" data-hero-pause>
-        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-athlete-hero-no-header.png" alt="Female track athlete wearing the connected Cinelli Aero Visor while riding a Cinelli bike" loading="lazy" />
+        <picture class="meta-cinelli__compact-picture"><source media="(max-width: 900px)" srcset="assets/meta-cinelli-athlete-mobile.png" /><img class="meta-cinelli__compact-image" src="assets/meta-cinelli-athlete-hero-no-header.png" alt="Female track athlete wearing the connected Cinelli Aero Visor while riding a Cinelli bike" loading="lazy" /></picture>
         <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
         <div class="meta-cinelli__compact-brand-morph" aria-label="Meta by Cinelli">
           <span class="meta-cinelli__compact-brand-text" aria-hidden="true"><b>META</b><i>×</i><b>CINELLI</b></span>
@@ -848,7 +851,7 @@
       </article>
 
       <article class="meta-cinelli__compact-hero meta-cinelli__compact-hero--community" data-hero-pause>
-        <img class="meta-cinelli__compact-image" src="assets/meta-cinelli-connected-peloton-female-cinelli.png" alt="Three female athletes riding Cinelli track bikes through a bright futuristic velodrome" loading="lazy" />
+        <picture class="meta-cinelli__compact-picture"><source media="(max-width: 900px)" srcset="assets/meta-cinelli-community-mobile.png" /><img class="meta-cinelli__compact-image" src="assets/meta-cinelli-connected-peloton-female-cinelli.png" alt="Three female athletes riding Cinelli track bikes through a bright futuristic velodrome" loading="lazy" /></picture>
         <div class="meta-cinelli__compact-shade" aria-hidden="true"></div>
         <div class="meta-cinelli__compact-statement meta-cinelli__compact-statement--community reveal">
           <span class="micro">COMMUNITY FILM / SHARED MOVEMENT</span>
@@ -1152,7 +1155,7 @@
     <iframe id="gameFrame" title="Ricard Pétanque Career game" loading="lazy" allow="fullscreen; autoplay"></iframe>
   </dialog>
 
-  <script src="script.js?v=meta-3.2"></script>
+  <script src="script.js?v=meta-3.3"></script>
   <script src="sala-onda.js?v=1.5"></script>
 <script>
 /* Places + Faces — complete 57-frame photographic loop */

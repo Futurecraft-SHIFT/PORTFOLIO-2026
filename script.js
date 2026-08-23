@@ -1866,15 +1866,15 @@
     // Systems sequence
     if (sectionIsNearViewport(systemsSection)) {
       const sp = easedSectionProgress(systemsSection, deltaSeconds, 7);
-      const statementP = 1 - smooth(map(sp, .22, .30));
+      const statementP = 1 - smooth(map(sp, .16, .24));
       systemsStatement.style.opacity = String(statementP);
-      systemsStatement.style.transform = `translate3d(0,${-map(sp,.0,.30,0,80)}px,0)`;
-      systemsAlt.style.opacity = String(holdFade(sp, .10, .15, .22, .30));
-      const engineP = holdFade(sp, .34, .42, .74, .82);
-      const engineArrival = smooth(map(sp, .34, .42));
+      systemsStatement.style.transform = `translate3d(0,${-map(sp,.0,.24,0,80)}px,0)`;
+      systemsAlt.style.opacity = String(holdFade(sp, .07, .12, .16, .24));
+      const engineP = holdFade(sp, .25, .33, .88, .96);
+      const engineArrival = smooth(map(sp, .25, .33));
       systemEngine.style.opacity = engineP;
       systemEngine.style.transform = `translateZ(0) scale(${lerp(.82,1,engineArrival)})`;
-      const footP = smooth(map(sp, .84, .90));
+      const footP = smooth(map(sp, .70, .78));
       systemsFoot.style.opacity = footP;
       systemsFoot.style.transform = `translate3d(0,${lerp(22,0,footP)}px,0)`;
     }

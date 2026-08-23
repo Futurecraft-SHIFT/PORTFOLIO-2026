@@ -183,7 +183,7 @@ body.game-open { overflow: hidden; }
 .acg-card:hover img { transform:scale(1.025); }
 .acg-card span { position:absolute; left:11px; bottom:10px; padding:6px 8px; background:rgba(0,0,0,.72); color:#fff; font:9px var(--font-mono); letter-spacing:.08em; }
 
-.systems { height: 700vh; }
+.systems { height: 320vh; }
 .systems__statement-alt { max-width: 900px; }
 
 .future-deck { max-width: 960px; margin: 7vw 0 0; }
@@ -856,7 +856,7 @@ body.game-open { overflow: hidden; }
 }
 .gramicci-object-strip {
   position: absolute;
-  z-index: 8;
+  z-index: 3;
   left: 0;
   right: 0;
   bottom: 0;
@@ -3725,6 +3725,18 @@ body.game-open { overflow: hidden; }
   object-position: center;
   transform: scale(1.002);
 }
+.meta-cinelli__compact-picture { position: absolute; z-index: -3; inset: 0; display: block; }
+.meta-cinelli__compact-picture .meta-cinelli__compact-image { z-index: 0; width: 100%; height: 100%; }
+
+/* Responsive art direction: keep the mobile masters whole and remove dead scroll. */
+@media (max-width: 900px) {
+  .world-scroll { height: 420vh !important; }
+  .meta-cinelli__compact-hero { height: min(100svh, 150vw); min-height: 0; aspect-ratio: 4 / 5; }
+  .meta-cinelli__compact-picture .meta-cinelli__compact-image { object-fit: cover; object-position: center; transform: none; }
+  .acg-immersive .acg-feature__media { min-height: 66svh; }
+  .meta-thinking { height: 400vh !important; }
+  .meta-thinking__copy { width: calc(100% - (var(--page-x) * 2)); }
+}
 
 .meta-cinelli__compact-hero--lineage .meta-cinelli__compact-image { object-position: center 48%; }
 .meta-cinelli__compact-hero--product .meta-cinelli__compact-image { object-position: center; }
@@ -5516,4 +5528,14 @@ body.game-open { overflow: hidden; }
   .sala-onda__weekly{left:37vw;right:3vw}
   .sala-onda__weekly article{grid-template-columns:6.2rem minmax(10rem,1.15fr) minmax(10.5rem,1fr)}
   .sala-onda__weekly span{display:none}
+}
+
+/* Final mobile/tablet integrity overrides. */
+@media (max-width: 900px) {
+  .world-scroll { height: 420vh !important; }
+  .meta-cinelli__compact-hero { height: min(100svh, 150vw); min-height: 0; aspect-ratio: 4 / 5; }
+  .meta-cinelli__compact-picture .meta-cinelli__compact-image { object-fit: cover; object-position: center; transform: none; }
+  .acg-immersive .acg-feature__media { min-height: 66svh; }
+  .meta-thinking { height: 400vh !important; }
+  .meta-thinking__copy { width: calc(100% - (var(--page-x) * 2)); }
 }
